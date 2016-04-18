@@ -39,3 +39,5 @@ var resolver = new DependencyResolver();
 var foo = resolver.GetInstance<IFoo>();
 foo.DoSomething();
 ```
+## License
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
