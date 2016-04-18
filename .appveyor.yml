@@ -1,0 +1,10 @@
+skip_commits:
+  message: /((Create.*\.md)|(Update.*\.md))/
+
+version: 1.0.{build}
+
+configuration: Release
+
+build:
+  project: src\main.sln
+  verbosity: normal
