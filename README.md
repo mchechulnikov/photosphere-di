@@ -29,7 +29,7 @@ internal class CompositionRoot : ICompositionRoot
     {
         registrator
             .Register<IFoo>()
-            .Register<IBar, Bar>();
+            .Register<IBar>();
     }
 }
 ```
