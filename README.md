@@ -39,7 +39,7 @@ internal class CompositionRoot : ICompositionRoot
 }
 ```
 And resolve:
-```
+``` C#
 var resolver = new DependencyResolver();
 var foo = resolver.GetInstance<IFoo>();
 foo.DoSomething();
