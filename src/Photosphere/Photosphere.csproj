@@ -49,6 +49,7 @@
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="IDependencyResolver.cs" />
     <Compile Include="Lifetimes\Lifetime.cs" />
+    <Compile Include="Registration\Exceptions\TypeNotImplementsServiceTypeException.cs" />
     <Compile Include="Registration\Services\CompositionRootFinder.cs" />
     <Compile Include="Registration\Services\IRegistryInitializer.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="ICompositionRoot.cs" />
     <Compile Include="IRegistrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registration\Services\IValidator.cs" />
     <Compile Include="Registration\Services\RegistryInitializer.cs" />
     <Compile Include="Registration\Services\Registrator.cs" />
     <Compile Include="Registration\ValueObjects\IRegistry.cs" />

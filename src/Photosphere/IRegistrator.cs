@@ -2,6 +2,8 @@
 {
     public interface IRegistrator
     {
-        IRegistrator Register<TService, TImpl>();
+        IRegistrator Register<TService, TImplementation>();
+
+        IRegistrator Register<TService>();
     }
 }

@@ -15,7 +15,6 @@ namespace Photosphere.CilEmitting.Services
 
         public Func<TTarget> Generate<TTarget>()
         {
-            var targetType = typeof(TTarget);
             var dynamicMethod = CreateDynamicMethod<TTarget>();
             GenerateContent<TTarget>(dynamicMethod);
             return (Func<TTarget>)dynamicMethod.CreateDelegate(typeof(Func<TTarget>));
