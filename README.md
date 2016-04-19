@@ -9,9 +9,14 @@ Simplest dependency injection framework based on System.Reflection.Emit.
 ## Example
 Register:
 ``` C#
-public interface IFoo {}
 public interface IBar {}
-public class Foo : IFoo
+
+public interface IFoo
+{
+    void DoSomething()
+}
+
+internal class Foo : IFoo
 {
     private readonly IBar _bar;
     
