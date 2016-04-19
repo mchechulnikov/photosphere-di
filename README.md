@@ -11,7 +11,7 @@ Register:
 ``` C#
 public interface IFoo {}
 public interface IBar {}
-public class Foo
+public class Foo : IFoo
 {
     private readonly IBar _bar;
     
