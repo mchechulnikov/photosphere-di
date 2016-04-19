@@ -1,13 +1,15 @@
-﻿using Photosphere.Registration;
-using Photosphere.Registration.Services;
+﻿using Photosphere.Registration.Services;
+using Photosphere.ServiceLocation;
 
 namespace Photosphere
 {
     public class DependencyResolver : IDependencyResolver
     {
+        private static readonly IInnerServiceLocator ServiceLocator = new InnerServiceLocator();
+
         public DependencyResolver()
         {
-            new RegistryInitializer().Initialize();
+            ServiceLocator.GetInstance<IRegistryInitializer>().Initialize();
         }
 
         public T GetInstance<T>()

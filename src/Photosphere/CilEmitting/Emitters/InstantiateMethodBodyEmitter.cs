@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace Photosphere.CilEmitting.Services
+namespace Photosphere.CilEmitting.Emitters
 {
-    internal class InstantiateMethodBodyEmitter : IInstantiateMethodBodyEmitter
+    internal class InstantiateMethodBodyEmitter : IMethodBodyEmitter
     {
         private readonly ILGenerator _generator;
         private readonly Type _targetType;

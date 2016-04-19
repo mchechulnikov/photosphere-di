@@ -40,12 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CilEmitting\Services\IInstantiateMethodBodyEmitter.cs" />
+    <Compile Include="CilEmitting\Emitters\IMethodBodyEmitter.cs" />
+    <Compile Include="CilEmitting\Factories\IMethodBodyEmitterFactory.cs" />
+    <Compile Include="CilEmitting\Factories\MethodBodyEmitterFactory.cs" />
     <Compile Include="CilEmitting\Services\IInstantiateMethodGenerator.cs" />
     <Compile Include="CilEmitting\Services\InstantiateMethodGenerator.cs" />
-    <Compile Include="CilEmitting\Services\InstantiateMethodBodyEmitter.cs" />
+    <Compile Include="CilEmitting\Emitters\InstantiateMethodBodyEmitter.cs" />
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="IDependencyResolver.cs" />
+    <Compile Include="Lifetimes\Lifetime.cs" />
     <Compile Include="Registration\Services\CompositionRootFinder.cs" />
     <Compile Include="Registration\Services\IRegistryInitializer.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
@@ -56,6 +59,8 @@
     <Compile Include="Registration\Services\RegistryInitializer.cs" />
     <Compile Include="Registration\Services\Registrator.cs" />
     <Compile Include="Registration\ValueObjects\IRegistry.cs" />
+    <Compile Include="ServiceLocation\IInnerServiceLocator.cs" />
+    <Compile Include="ServiceLocation\InnerServiceLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resolving\" />

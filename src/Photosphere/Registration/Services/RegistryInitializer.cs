@@ -5,16 +5,17 @@ namespace Photosphere.Registration.Services
         private readonly ICompositionRootFinder _compositionRootFinder;
         private readonly IRegistrator _registrator;
 
-        public RegistryInitializer()
+        public RegistryInitializer(
+            ICompositionRootFinder compositionRootFinder,
+            IRegistrator registrator)
         {
-            _compositionRootFinder = new CompositionRootFinder();
-            _registrator = new Registrator();
+            _compositionRootFinder = compositionRootFinder;
+            _registrator = registrator;
         }
 
         public void Initialize()
         {
-            var compositionRoots = _compositionRootFinder.Find();
-            foreach (var compositionRoot in compositionRoots)
+            foreach (var compositionRoot in _compositionRootFinder.Find())
             {
                 compositionRoot.Compose(_registrator);
             }
