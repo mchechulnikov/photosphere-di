@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CilEmitting\Services\IInstantiateMethodBodyEmitter.cs" />
+    <Compile Include="CilEmitting\Services\IInstantiateMethodGenerator.cs" />
+    <Compile Include="CilEmitting\Services\InstantiateMethodGenerator.cs" />
+    <Compile Include="CilEmitting\Services\InstantiateMethodBodyEmitter.cs" />
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="IDependencyResolver.cs" />
     <Compile Include="Registration\Services\CompositionRootFinder.cs" />
@@ -54,7 +58,6 @@
     <Compile Include="Registration\ValueObjects\IRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CilEmitting\" />
     <Folder Include="Resolving\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
