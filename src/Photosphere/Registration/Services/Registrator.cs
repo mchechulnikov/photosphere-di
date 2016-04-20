@@ -16,16 +16,11 @@ namespace Photosphere.Registration.Services
             _validator = validator;
         }
 
-        public IRegistrator Register<TService, TImplementation>()
-        {
-            _validator.Validate<TService, TImplementation>();
-            _registry.Add(typeof(TService), InstantiateMethodGenerator.Generate<TImplementation>());
-            return this;
-        }
-
         public IRegistrator Register<TService>()
         {
-            throw new System.NotImplementedException();
+            _validator.Validate<TService, TService>();
+            _registry.Add(typeof(TService), InstantiateMethodGenerator.Generate<TService>());
+            return this;
         }
     }
 }

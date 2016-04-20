@@ -57,11 +57,10 @@
     <Compile Include="Registration\Services\IValidator.cs" />
     <Compile Include="Registration\Services\RegistryInitializer.cs" />
     <Compile Include="Registration\Services\Registrator.cs" />
+    <Compile Include="Registration\Services\Validator.cs" />
     <Compile Include="Registration\ValueObjects\IRegistration.cs" />
     <Compile Include="Registration\ValueObjects\IRegistry.cs" />
     <Compile Include="Registration\ValueObjects\Registry.cs" />
-    <Compile Include="ServiceLocation\IInnerServiceLocator.cs" />
-    <Compile Include="ServiceLocation\InnerServiceLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resolving\" />

@@ -1,15 +1,20 @@
-﻿using Photosphere.Registration.Services;
-using Photosphere.ServiceLocation;
+﻿using Photosphere.CilEmitting;
+using Photosphere.Registration.Services;
 
 namespace Photosphere
 {
     public class DependencyResolver : IDependencyResolver
     {
-        private static readonly IInnerServiceLocator ServiceLocator = new InnerServiceLocator();
+        private readonly IRegistryInitializer _registryInitializer;
 
         public DependencyResolver()
         {
-            ServiceLocator.GetInstance<IRegistryInitializer>().Initialize();
+            _registryInitializer = InstantiateMethodGenerator.Generate<IRegistryInitializer>().Invoke();
+        }
+
+        public void Initialize()
+        {
+            _registryInitializer.Initialize();
         }
 
         public T GetInstance<T>()

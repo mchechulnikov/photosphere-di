@@ -7,8 +7,8 @@ namespace Photosphere.Tests
         public void Compose(IRegistrator registrator)
         {
             registrator
-                .Register<IFoo, Foo>()
-                .Register<IBar, Bar>();
+                .Register<IFoo>()
+                .Register<IBar>();
         }
     }
 }
