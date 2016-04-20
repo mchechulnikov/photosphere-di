@@ -6,5 +6,5 @@ version: 1.0.{build}
 configuration: Release
 
 build:
-  project: src\main.sln
+  project: src\photosphere-di.sln
   verbosity: minimal
