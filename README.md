@@ -9,25 +9,6 @@ Simplest dependency injection framework based on System.Reflection.Emit.
 ## Example
 Register:
 ``` C#
-public interface IBar {}
-
-public interface IFoo
-{
-    void DoSomething()
-}
-
-internal class Foo : IFoo
-{
-    private readonly IBar _bar;
-    
-    public Foo(IBar bar)
-    {
-        _bar = bar;
-    }
-    
-    public void DoSomething() { /*...*/ }
-}
-
 internal class CompositionRoot : ICompositionRoot
 {
     public void Compose(IRegistrator registrator)
@@ -41,6 +22,7 @@ internal class CompositionRoot : ICompositionRoot
 And resolve:
 ``` C#
 var resolver = new DependencyResolver();
+resolver.Initialize();
 var foo = resolver.GetInstance<IFoo>();
 foo.DoSomething();
 ```
