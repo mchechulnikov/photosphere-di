@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Photosphere.Extensions
 {
@@ -11,7 +12,7 @@ namespace Photosphere.Extensions
             return type.IsImplements(interfaceType);
         }
 
-        private static bool IsImplements(this Type type, Type interfaceType)
+        public static bool IsImplements(this Type type, Type interfaceType)
         {
             return type.GetInterfaces().Any(it => it == interfaceType);
         }
@@ -19,6 +20,21 @@ namespace Photosphere.Extensions
         public static object GetNewInstance(this Type type)
         {
             return Activator.CreateInstance(type);
+        }
+
+        public static Type GetFirstImplementationType(this Type type)
+        {
+            if (!type.IsAbstract && !type.IsInterface)
+            {
+                return type;
+            }
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            return assemblies.Select(a => a.GetFirstImplementationTypeOf(type)).First();
+        }
+
+        public static ConstructorInfo GetFirstConstructor(this Type type)
+        {
+            return type.GetConstructors(BindingFlags.Instance | BindingFlags.Public).First();
         }
     }
 }

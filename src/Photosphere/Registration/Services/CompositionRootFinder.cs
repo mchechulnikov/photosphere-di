@@ -16,7 +16,7 @@ namespace Photosphere.Registration.Services
 
         private static ICompositionRoot GetCompositionRoot(Assembly a)
         {
-            return (ICompositionRoot) a.GetTypes().Single(t => t.IsImplements<ICompositionRoot>()).GetNewInstance();
+            return (ICompositionRoot) a.GetSingleImplementationTypeOf<ICompositionRoot>().GetNewInstance();
         }
     }
 }

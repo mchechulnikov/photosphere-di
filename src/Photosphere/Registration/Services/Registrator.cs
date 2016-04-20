@@ -1,4 +1,4 @@
-﻿using Photosphere.CilEmitting.Services;
+﻿using Photosphere.CilEmitting;
 using Photosphere.Registration.ValueObjects;
 
 namespace Photosphere.Registration.Services
@@ -7,22 +7,19 @@ namespace Photosphere.Registration.Services
     {
         private readonly IRegistry _registry;
         private readonly IValidator _validator;
-        private readonly IInstantiateMethodGenerator _methodGenerator;
 
         public Registrator(
             IRegistry registry,
-            IValidator validator,
-            IInstantiateMethodGenerator methodGenerator)
+            IValidator validator)
         {
             _registry = registry;
             _validator = validator;
-            _methodGenerator = methodGenerator;
         }
 
         public IRegistrator Register<TService, TImplementation>()
         {
             _validator.Validate<TService, TImplementation>();
-            _registry.Add(typeof(TService), _methodGenerator.Generate<TImplementation>());
+            _registry.Add(typeof(TService), InstantiateMethodGenerator.Generate<TImplementation>());
             return this;
         }
 

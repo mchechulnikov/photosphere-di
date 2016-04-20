@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Reflection.Emit;
-using Photosphere.CilEmitting.Factories;
 
-namespace Photosphere.CilEmitting.Services
+namespace Photosphere.CilEmitting
 {
-    internal class InstantiateMethodGenerator : IInstantiateMethodGenerator
+    internal static class InstantiateMethodGenerator
     {
-        private readonly IMethodBodyEmitterFactory _methodBodyEmitterFactory;
-
-        public InstantiateMethodGenerator(IMethodBodyEmitterFactory methodBodyEmitterFactory)
-        {
-            _methodBodyEmitterFactory = methodBodyEmitterFactory;
-        }
-
-        public Func<TTarget> Generate<TTarget>()
+        public static Func<TTarget> Generate<TTarget>()
         {
             var dynamicMethod = CreateDynamicMethod<TTarget>();
             GenerateContent<TTarget>(dynamicMethod);
@@ -27,16 +19,11 @@ namespace Photosphere.CilEmitting.Services
             return new DynamicMethod(methodName, targetType, null);
         }
 
-        private void GenerateContent<TTarget>(DynamicMethod dynamicMethod)
+        private static void GenerateContent<TTarget>(DynamicMethod dynamicMethod)
         {
             var generator = dynamicMethod.GetILGenerator();
-            var methodResult = GetMethodResult<TTarget>(generator);
+            var methodResult = new InstantiateMethodBodyEmitter(generator, typeof(TTarget)).Emit();
             GenerateReturnStatement(generator, methodResult);
-        }
-
-        private LocalBuilder GetMethodResult<TTarget>(ILGenerator generator)
-        {
-            return _methodBodyEmitterFactory.Get<TTarget>(generator).Emit();
         }
 
         private static void GenerateReturnStatement(ILGenerator generator, LocalBuilder methodResult)
