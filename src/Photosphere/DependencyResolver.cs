@@ -1,15 +1,19 @@
-﻿using Photosphere.CilEmitting;
+﻿using System;
+using Photosphere.CilEmitting;
 using Photosphere.Registration.Services;
+using Photosphere.Registration.ValueObjects;
 
 namespace Photosphere
 {
     public class DependencyResolver : IDependencyResolver
     {
         private readonly IRegistryInitializer _registryInitializer;
+        private readonly IRegistry _registry;
 
         public DependencyResolver()
         {
             _registryInitializer = InstantiateMethodGenerator.Generate<IRegistryInitializer>().Invoke();
+            _registry = InstantiateMethodGenerator.Generate<IRegistry>().Invoke();
         }
 
         public void Initialize()
@@ -17,9 +21,10 @@ namespace Photosphere
             _registryInitializer.Initialize();
         }
 
-        public T GetInstance<T>()
+        public TService GetInstance<TService>()
         {
-            throw new System.NotImplementedException();
+            var instantiateMethod = (Func<TService>) _registry[typeof(TService)];
+            return instantiateMethod.Invoke();
         }
     }
 }
