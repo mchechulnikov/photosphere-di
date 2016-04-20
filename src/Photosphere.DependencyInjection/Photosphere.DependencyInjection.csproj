@@ -7,8 +7,8 @@
     <ProjectGuid>{452E8E26-5885-4E8D-9E56-8F08BF1198DD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Photosphere</RootNamespace>
-    <AssemblyName>Photosphere</AssemblyName>
+    <RootNamespace>Photosphere.DependencyInjection</RootNamespace>
+    <AssemblyName>Photosphere.DependencyInjection</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

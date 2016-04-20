@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere", "Photosphere\Photosphere.csproj", "{452E8E26-5885-4E8D-9E56-8F08BF1198DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection", "Photosphere.DependencyInjection\Photosphere.DependencyInjection.csproj", "{452E8E26-5885-4E8D-9E56-8F08BF1198DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.Tests", "Photosphere.DependencyInjection.Tests\Photosphere.DependencyInjection.Tests.csproj", "{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{452E8E26-5885-4E8D-9E56-8F08BF1198DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{452E8E26-5885-4E8D-9E56-8F08BF1198DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{452E8E26-5885-4E8D-9E56-8F08BF1198DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

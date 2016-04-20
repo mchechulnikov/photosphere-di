@@ -7,8 +7,8 @@
     <ProjectGuid>{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Photosphere.Tests</RootNamespace>
-    <AssemblyName>Photosphere.Tests</AssemblyName>
+    <RootNamespace>Photosphere.DependencyInjection.Tests</RootNamespace>
+    <AssemblyName>Photosphere.DependencyInjection.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -68,9 +68,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Photosphere\Photosphere.csproj">
+    <ProjectReference Include="..\Photosphere.DependencyInjection\Photosphere.DependencyInjection.csproj">
       <Project>{452e8e26-5885-4e8d-9e56-8f08bf1198dd}</Project>
-      <Name>Photosphere</Name>
+      <Name>Photosphere.DependencyInjection</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
