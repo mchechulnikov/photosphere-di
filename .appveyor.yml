@@ -7,4 +7,4 @@ configuration: Release
 
 build:
   project: src\main.sln
-  verbosity: normal
+  verbosity: minimal
