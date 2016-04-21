@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Photosphere.DependencyInjection.Tests")]
+[assembly: AssemblyTitle("Photosphere.DependencyInjection.IntegrationTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Photosphere.Tests")]
+[assembly: AssemblyProduct("Photosphere.DependencyInjection.IntegrationTests")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1dca2c80-93ee-4550-acf1-befc95dda60c")]
+[assembly: Guid("15f04ca5-4c9f-4da0-93d9-ca8798d62fc6")]
 
 // Version information for an assembly consists of the following four values:
 //

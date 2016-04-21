@@ -14,7 +14,8 @@ namespace Photosphere.DependencyInjection.CilEmitting
         private readonly LocalBuilder _methodResult;
         private readonly IList<LocalBuilder> _localVariables;
 
-        private ConstructorInfo ImplementationTypeConstructor => _implementationType.GetFirstConstructor();
+        private ConstructorInfo ImplementationTypeConstructor => _implementationType.GetFirstPublicConstructor();
+
         private IEnumerable<Type> ConstructorParametersImplementationTypes
         {
             get
@@ -24,7 +25,7 @@ namespace Photosphere.DependencyInjection.CilEmitting
             }
         }
 
-        public InstantiateMethodBodyEmitter(ILGenerator generator, Type implementationType)
+        private InstantiateMethodBodyEmitter(ILGenerator generator, Type implementationType)
         {
             _generator = generator;
             _implementationType = implementationType;
@@ -32,7 +33,14 @@ namespace Photosphere.DependencyInjection.CilEmitting
             _localVariables = new List<LocalBuilder>();
         }
 
-        public LocalBuilder Emit()
+        public static void GenerateFor<TTarget>(DynamicMethod dynamicMethod)
+        {
+            var generator = dynamicMethod.GetILGenerator();
+            var methodResult = new InstantiateMethodBodyEmitter(generator, typeof(TTarget).GetFirstImplementationType()).Emit();
+            GenerateReturnStatement(generator, methodResult);
+        }
+
+        private LocalBuilder Emit()
         {
             EmitParameters();
             GenerateInstantiating();
@@ -61,6 +69,12 @@ namespace Photosphere.DependencyInjection.CilEmitting
             {
                 _generator.Emit(OpCodes.Ldloc, localVariable);
             }
+        }
+
+        private static void GenerateReturnStatement(ILGenerator generator, LocalBuilder methodResult)
+        {
+            generator.Emit(OpCodes.Ldloc, methodResult);
+            generator.Emit(OpCodes.Ret);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Photosphere.DependencyInjection.Extensions
             return assemblies.Select(a => a.GetFirstImplementationTypeOf(type)).First();
         }
 
-        public static ConstructorInfo GetFirstConstructor(this Type type)
+        public static ConstructorInfo GetFirstPublicConstructor(this Type type)
         {
             return type.GetConstructors(BindingFlags.Instance | BindingFlags.Public).First();
         }
