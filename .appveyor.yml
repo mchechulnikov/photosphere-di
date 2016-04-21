@@ -5,6 +5,11 @@ version: 1.0.{build}
 
 configuration: Release
 
+before_build:
+  - cd src
+  - nuget restore
+  - cd ..
+
 build:
   project: src\photosphere-di.sln
   verbosity: minimal
