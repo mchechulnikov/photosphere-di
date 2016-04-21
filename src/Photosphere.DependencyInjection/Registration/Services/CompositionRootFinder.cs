@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Photosphere.Extensions;
+using Photosphere.DependencyInjection.Extensions;
 
-namespace Photosphere.Registration.Services
+namespace Photosphere.DependencyInjection.Registration.Services
 {
     internal class CompositionRootFinder : ICompositionRootFinder
     {

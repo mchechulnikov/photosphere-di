@@ -1,7 +1,7 @@
 ﻿using System;
-using Photosphere.Lifetimes;
+using Photosphere.DependencyInjection.Lifetimes;
 
-namespace Photosphere.Registration.ValueObjects
+namespace Photosphere.DependencyInjection.Registration.ValueObjects
 {
     internal interface IRegistration
     {

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Photosphere.Extensions
+namespace Photosphere.DependencyInjection.Extensions
 {
     internal static class TypeExtensions
     {

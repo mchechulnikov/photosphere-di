@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using Photosphere.Extensions;
+using Photosphere.DependencyInjection.Extensions;
 
-namespace Photosphere.CilEmitting
+namespace Photosphere.DependencyInjection.CilEmitting
 {
     internal class InstantiateMethodBodyEmitter
     {

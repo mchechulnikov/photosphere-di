@@ -1,4 +1,4 @@
-﻿namespace Photosphere
+﻿namespace Photosphere.DependencyInjection
 {
     public interface IRegistrator
     {

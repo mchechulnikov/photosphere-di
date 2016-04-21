@@ -1,9 +1,9 @@
 ﻿using System;
-using Photosphere.CilEmitting;
-using Photosphere.Registration.Services;
-using Photosphere.Registration.ValueObjects;
+using Photosphere.DependencyInjection.CilEmitting;
+using Photosphere.DependencyInjection.Registration.Services;
+using Photosphere.DependencyInjection.Registration.ValueObjects;
 
-namespace Photosphere
+namespace Photosphere.DependencyInjection
 {
     public class DependencyResolver : IDependencyResolver
     {

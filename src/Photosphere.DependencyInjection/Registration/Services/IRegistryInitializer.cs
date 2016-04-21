@@ -1,4 +1,4 @@
-﻿namespace Photosphere.Registration.Services
+﻿namespace Photosphere.DependencyInjection.Registration.Services
 {
     internal interface IRegistryInitializer
     {

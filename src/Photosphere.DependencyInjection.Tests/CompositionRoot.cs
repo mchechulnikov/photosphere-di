@@ -1,4 +1,5 @@
-﻿using Photosphere.Tests.TestServices;
+﻿using Photosphere.DependencyInjection;
+using Photosphere.Tests.TestServices;
 
 namespace Photosphere.Tests
 {

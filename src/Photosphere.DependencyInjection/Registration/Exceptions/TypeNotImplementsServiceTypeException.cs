@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Photosphere.Registration.Exceptions
+namespace Photosphere.DependencyInjection.Registration.Exceptions
 {
     internal class NotImplementsException<TService, TImplementation> : Exception
     {

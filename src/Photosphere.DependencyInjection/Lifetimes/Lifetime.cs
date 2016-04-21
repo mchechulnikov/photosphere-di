@@ -1,4 +1,4 @@
-﻿namespace Photosphere.Lifetimes
+﻿namespace Photosphere.DependencyInjection.Lifetimes
 {
     public enum Lifetime
     {

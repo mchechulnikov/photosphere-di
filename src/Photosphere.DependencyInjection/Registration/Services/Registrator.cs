@@ -1,7 +1,7 @@
-﻿using Photosphere.CilEmitting;
-using Photosphere.Registration.ValueObjects;
+﻿using Photosphere.DependencyInjection.CilEmitting;
+using Photosphere.DependencyInjection.Registration.ValueObjects;
 
-namespace Photosphere.Registration.Services
+namespace Photosphere.DependencyInjection.Registration.Services
 {
     internal class Registrator : IRegistrator
     {
