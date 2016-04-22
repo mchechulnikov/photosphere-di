@@ -1,6 +1,6 @@
 ﻿using System;
 using Photosphere.DependencyInjection.Extensions;
-using Photosphere.DependencyInjection.UnitTests.Utils;
+using Photosphere.DependencyInjection.TestUtils;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.UnitTests.Extensions

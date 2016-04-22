@@ -1,4 +1,5 @@
 ﻿using Photosphere.DependencyInjection.CilEmitting;
+using Photosphere.DependencyInjection.TestUtils;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.IntegrationTests.CilEmitting
@@ -6,28 +7,31 @@ namespace Photosphere.DependencyInjection.IntegrationTests.CilEmitting
     public class InstantiateMethodGeneratorTests
     {
         [Fact]
-        public void GenerateFor_Class_InstantiateMethodNotNull()
+        internal void GenerateFor_Class_MethodNotNull()
         {
             var result = InstantiateMethodGenerator.Generate<Foo>();
             Assert.NotNull(result);
         }
 
         [Fact]
-        public void GenerateFor_Interface_InstantiateMethodNotNull()
+        internal void GenerateFor_Interface_MethodNotNull()
         {
             var result = InstantiateMethodGenerator.Generate<IFoo>();
             Assert.NotNull(result);
         }
 
         [Fact]
-        public void GenerateFor_Class_ResultNotNull()
+        internal void GenerateFor_Class_ResultNotNull()
         {
-            var method = InstantiateMethodGenerator.Generate<Foo>();
-            var result = method();
+            var result = InstantiateMethodGenerator.Generate<Foo>()();
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        internal void GenerateFor_Interface_ResultNotNull()
+        {
+            var result = InstantiateMethodGenerator.Generate<IFoo>()();
             Assert.NotNull(result);
         }
     }
-
-    public interface IFoo {}
-    public class Foo : IFoo {}
 }
