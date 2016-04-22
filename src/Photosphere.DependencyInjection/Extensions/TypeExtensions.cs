@@ -14,6 +14,10 @@ namespace Photosphere.DependencyInjection.Extensions
 
         public static bool IsImplements(this Type type, Type interfaceType)
         {
+            if (!interfaceType.IsInterface)
+            {
+                throw new ArgumentException($"Type `{interfaceType.Name}` must be interface");
+            }
             return type.GetInterfaces().Any(it => it == interfaceType);
         }
 
@@ -29,7 +33,7 @@ namespace Photosphere.DependencyInjection.Extensions
                 return type;
             }
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            return assemblies.Select(a => a.GetFirstImplementationTypeOf(type)).First();
+            return assemblies.Select(a => a.GetFirstOrDefaultImplementationTypeOf(type)).First(t => t != null);
         }
 
         public static ConstructorInfo GetFirstPublicConstructor(this Type type)

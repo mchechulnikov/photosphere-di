@@ -12,7 +12,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.CilEmitting
             Assert.NotNull(result);
         }
 
-        // TODO [Fact]
+        [Fact]
         public void GenerateFor_Interface_InstantiateMethodNotNull()
         {
             var result = InstantiateMethodGenerator.Generate<IFoo>();

@@ -1,5 +1,6 @@
 ﻿using System;
 using Photosphere.DependencyInjection.Extensions;
+using Photosphere.DependencyInjection.UnitTests.Utils;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.UnitTests.Extensions
@@ -14,20 +15,6 @@ namespace Photosphere.DependencyInjection.UnitTests.Extensions
         {
             var result = type.GetFirstPublicConstructor();
             Assert.NotNull(result);
-        }
-    }
-
-    internal class Foo {}
-
-    internal class Bar { public Bar() {} }
-
-    internal class Qiz
-    {
-        private readonly Bar _bar;
-
-        public Qiz(Bar bar)
-        {
-            _bar = bar;
         }
     }
 }
