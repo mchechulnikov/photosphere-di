@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>DependencyInjection</id>
-    <version>0.0.0</version>
+    <version>0.0.0.0</version>
     <authors>Maxim Chechulnikov</authors>
     <description>Simple dependency injection framework based on emitting CIL code.</description>
     <language>en-US</language>
