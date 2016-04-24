@@ -1,15 +1,37 @@
 skip_commits:
   message: /((Create.*\.md)|(Update.*\.md))/
 
-version: 1.0.{build}
+version: 0.0.{build}
 
 configuration: Release
 
+environment:
+  sourcesFolder: src
+  solutionName: photosphere-di.sln
+  projectName: Photosphere.DependencyInjection
+
+assembly_info:
+  patch: true
+  file: AssemblyInfo.*
+  assembly_version: "{version}"
+  assembly_file_version: "{version}"
+  assembly_informational_version: "{version}"
+
 before_build:
-  - cd src
+  - cd %sourcesFolder%
   - nuget restore
   - cd ..
+  - ps: $nuspecPath = "$env:APPVEYOR_BUILD_FOLDER\$env:sourcesFolder\$env:projectName\$env:projectName.nuspec"
+  - ps: $nuspec = [xml](Get-Content $nuspecPath)
+  - ps: $nuspec.package.metadata.version = $env:APPVEYOR_BUILD_VERSION
+  - ps: $nuspec.Save($nuspecPath)
 
 build:
-  project: src\photosphere-di.sln
-  verbosity: minimal
+  verbosity: minimal  
+  project: $(sourcesFolder)\$(solutionName)
+  publish_nuget: true
+  publish_nuget_symbols: true
+  
+artifacts:
+  - path: $(sourcesFolder)\$(projectName)\bin\$(configuration)\
+    name: $(projectName)-v$(APPVEYOR_BUILD_VERSION)
