@@ -28,3 +28,7 @@ foo.DoSomething();
 
 ## License
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
+
+## Other Photosphere projects
+* [Photosphere.Mapping](https://github.com/sunloving/photosphere-mapping)
+* [Photosphere.Contracts](https://github.com/sunloving/photosphere-contracts)
