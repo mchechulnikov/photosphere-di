@@ -31,4 +31,3 @@ foo.DoSomething();
 
 ## Other Photosphere projects
 * [Photosphere.Mapping](https://github.com/sunloving/photosphere-mapping)
-* [Photosphere.Contracts](https://github.com/sunloving/photosphere-contracts)
