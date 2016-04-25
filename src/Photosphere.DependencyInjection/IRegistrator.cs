@@ -1,7 +1,9 @@
-﻿namespace Photosphere.DependencyInjection
+﻿using Photosphere.DependencyInjection.Lifetimes;
+
+namespace Photosphere.DependencyInjection
 {
     public interface IRegistrator
     {
-        IRegistrator Register<TService>();
+        IRegistrator Register<TService>(Lifetime lifetime = Lifetime.PerRequest);
     }
 }

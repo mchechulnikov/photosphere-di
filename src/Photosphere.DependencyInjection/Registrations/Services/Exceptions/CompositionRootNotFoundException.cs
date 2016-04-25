@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Photosphere.DependencyInjection.Registration.Services.Exceptions
+namespace Photosphere.DependencyInjection.Registrations.Services.Exceptions
 {
     internal class CompositionRootNotFoundException : Exception
     {

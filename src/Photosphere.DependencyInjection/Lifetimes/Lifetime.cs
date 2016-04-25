@@ -2,8 +2,9 @@
 {
     public enum Lifetime
     {
+        AlwaysNew,
         PerRequest,
         PerContainer,
-        PerScope
+        PerScope // TODO
     }
 }

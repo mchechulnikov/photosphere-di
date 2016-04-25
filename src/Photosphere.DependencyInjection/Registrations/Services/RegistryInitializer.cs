@@ -1,6 +1,6 @@
-using Photosphere.DependencyInjection.Registration.Services.CompositionRoots;
+using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots;
 
-namespace Photosphere.DependencyInjection.Registration.Services
+namespace Photosphere.DependencyInjection.Registrations.Services
 {
     internal class RegistryInitializer : IRegistryInitializer
     {

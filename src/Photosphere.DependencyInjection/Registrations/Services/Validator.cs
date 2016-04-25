@@ -1,6 +1,6 @@
-﻿using Photosphere.DependencyInjection.Registration.Services.Exceptions;
+﻿using Photosphere.DependencyInjection.Registrations.Services.Exceptions;
 
-namespace Photosphere.DependencyInjection.Registration.Services
+namespace Photosphere.DependencyInjection.Registrations.Services
 {
     internal class Validator : IValidator
     {

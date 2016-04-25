@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Photosphere.DependencyInjection.Registration.Services.CompositionRoots
+namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoots
 {
     internal interface ICompositionRootFinder
     {

@@ -1,19 +1,18 @@
-﻿using System;
-using Photosphere.DependencyInjection.CilEmitting;
-using Photosphere.DependencyInjection.Registration.Services;
-using Photosphere.DependencyInjection.Registration.ValueObjects;
+﻿using Photosphere.DependencyInjection.CilEmitting;
+using Photosphere.DependencyInjection.Registrations.Services;
+using Photosphere.DependencyInjection.Resolving;
 
 namespace Photosphere.DependencyInjection
 {
     public class DependencyContainer : IDependencyContainer
     {
         private readonly IRegistryInitializer _registryInitializer;
-        private readonly IRegistry _registry;
+        private readonly IResolver _resolver;
 
         public DependencyContainer()
         {
             _registryInitializer = InstantiateMethodGenerator.Generate<IRegistryInitializer>().Invoke();
-            _registry = InstantiateMethodGenerator.Generate<IRegistry>().Invoke();
+            _resolver = InstantiateMethodGenerator.Generate<IResolver>().Invoke();
         }
 
         public void Initialize()
@@ -23,8 +22,7 @@ namespace Photosphere.DependencyInjection
 
         public TService GetInstance<TService>()
         {
-            var instantiateMethod = (Func<TService>) _registry[typeof(TService)];
-            return instantiateMethod.Invoke();
+            return _resolver.GetInstance<TService>();
         }
     }
 }
