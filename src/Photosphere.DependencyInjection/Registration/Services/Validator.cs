@@ -1,4 +1,4 @@
-﻿using Photosphere.DependencyInjection.Registration.Exceptions;
+﻿using Photosphere.DependencyInjection.Registration.Services.Exceptions;
 
 namespace Photosphere.DependencyInjection.Registration.Services
 {
