@@ -58,15 +58,17 @@
   <ItemGroup>
     <Compile Include="CilEmitting\InstantiateMethodGeneratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestUtils\Bar.cs" />
+    <Compile Include="TestUtils\Foo.cs" />
+    <Compile Include="TestUtils\IBar.cs" />
+    <Compile Include="TestUtils\IFoo.cs" />
+    <Compile Include="TestUtils\IQiz.cs" />
+    <Compile Include="TestUtils\Qiz.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Photosphere.DependencyInjection.TestUtils\Photosphere.DependencyInjection.TestUtils.csproj">
-      <Project>{8A7E0669-28E1-40F1-B352-0A67F6B6D0FF}</Project>
-      <Name>Photosphere.DependencyInjection.TestUtils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Photosphere.DependencyInjection\Photosphere.DependencyInjection.csproj">
       <Project>{452E8E26-5885-4E8D-9E56-8F08BF1198DD}</Project>
       <Name>Photosphere.DependencyInjection</Name>

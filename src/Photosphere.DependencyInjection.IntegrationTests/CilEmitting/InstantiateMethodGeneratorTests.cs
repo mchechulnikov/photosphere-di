@@ -1,5 +1,5 @@
 ﻿using Photosphere.DependencyInjection.CilEmitting;
-using Photosphere.DependencyInjection.TestUtils;
+using Photosphere.DependencyInjection.IntegrationTests.TestUtils;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.IntegrationTests.CilEmitting

@@ -17,7 +17,7 @@ namespace Photosphere.DependencyInjection.CilEmitting
         {
             var targetType = typeof(TTarget);
             var methodName = $"CreateInstanceOf{targetType.Name}";
-            return new DynamicMethod(methodName, targetType, null);
+            return new DynamicMethod(methodName, targetType, null, true);
         }
 
         private static Func<TTarget> CreateDelegate<TTarget>(MethodInfo dynamicMethod)
