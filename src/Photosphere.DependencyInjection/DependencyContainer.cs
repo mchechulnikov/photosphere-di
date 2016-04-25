@@ -5,12 +5,12 @@ using Photosphere.DependencyInjection.Registration.ValueObjects;
 
 namespace Photosphere.DependencyInjection
 {
-    public class DependencyResolver : IDependencyResolver
+    public class DependencyContainer : IDependencyContainer
     {
         private readonly IRegistryInitializer _registryInitializer;
         private readonly IRegistry _registry;
 
-        public DependencyResolver()
+        public DependencyContainer()
         {
             _registryInitializer = InstantiateMethodGenerator.Generate<IRegistryInitializer>().Invoke();
             _registry = InstantiateMethodGenerator.Generate<IRegistry>().Invoke();

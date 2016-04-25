@@ -1,6 +1,6 @@
 ﻿namespace Photosphere.DependencyInjection
 {
-    public interface IDependencyResolver
+    public interface IDependencyContainer
     {
         void Initialize();
 

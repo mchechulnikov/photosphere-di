@@ -35,6 +35,13 @@ namespace Photosphere.DependencyInjection.IntegrationTests.CilEmitting
         }
 
         [Fact]
+        internal void GenerateFor_WithParameterlessNonDefaultConstructor_ResultNotNull()
+        {
+            var result = InstantiateMethodGenerator.Generate<IBar>()();
+            Assert.NotNull(result);
+        }
+
+        [Fact]
         internal void GenerateFor_WithDependencies_ResultNotNull()
         {
             var result = InstantiateMethodGenerator.Generate<IQiz>()();
