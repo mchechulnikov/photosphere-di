@@ -1,10 +1,12 @@
-﻿namespace Photosphere.DependencyInjection.UnitTests.TestObjects.CompositionRoots
+﻿using Photosphere.DependencyInjection.UnitTests.TestObjects.Objects;
+
+namespace Photosphere.DependencyInjection.UnitTests.TestObjects.CompositionRoots
 {
     internal class FirstCompositionRoot : ICompositionRoot
     {
         public void Compose(IRegistrator registrator)
         {
-            throw new System.NotImplementedException();
+            registrator.Register<IFoo>();
         }
     }
 }
