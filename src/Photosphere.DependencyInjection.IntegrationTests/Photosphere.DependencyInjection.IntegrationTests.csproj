@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CilEmitting\InstantiateMethodGeneratorTests.cs" />
+    <Compile Include="DependencyContainerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestObjects\Bar.cs" />
     <Compile Include="TestObjects\Foo.cs" />
