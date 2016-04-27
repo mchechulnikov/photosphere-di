@@ -58,12 +58,12 @@
   <ItemGroup>
     <Compile Include="CilEmitting\InstantiateMethodGeneratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestUtils\Bar.cs" />
-    <Compile Include="TestUtils\Foo.cs" />
-    <Compile Include="TestUtils\IBar.cs" />
-    <Compile Include="TestUtils\IFoo.cs" />
-    <Compile Include="TestUtils\IQiz.cs" />
-    <Compile Include="TestUtils\Qiz.cs" />
+    <Compile Include="TestObjects\Bar.cs" />
+    <Compile Include="TestObjects\Foo.cs" />
+    <Compile Include="TestObjects\IBar.cs" />
+    <Compile Include="TestObjects\IFoo.cs" />
+    <Compile Include="TestObjects\IQiz.cs" />
+    <Compile Include="TestObjects\Qiz.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

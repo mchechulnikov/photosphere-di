@@ -1,4 +1,4 @@
-﻿namespace Photosphere.DependencyInjection.UnitTests.TestObjects
+﻿namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects
 {
     internal class Qiz : IQiz
     {

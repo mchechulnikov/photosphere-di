@@ -1,6 +1,7 @@
 ﻿using Photosphere.DependencyInjection.Registrations.Services;
 using Photosphere.DependencyInjection.Registrations.Services.Exceptions;
 using Photosphere.DependencyInjection.UnitTests.TestObjects;
+using Photosphere.DependencyInjection.UnitTests.TestObjects.Objects;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.UnitTests.Registrations
