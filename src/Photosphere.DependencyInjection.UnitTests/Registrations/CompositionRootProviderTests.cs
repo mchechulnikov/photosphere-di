@@ -1,6 +1,5 @@
-﻿using System;
-using System.Linq;
-using Moq; 
+﻿using System.Linq;
+using Moq;
 using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots;
 using Photosphere.DependencyInjection.Registrations.Services.Exceptions;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
@@ -9,7 +8,7 @@ using Photosphere.DependencyInjection.UnitTests.TestObjects.CompositionRoots;
 using Photosphere.DependencyInjection.UnitTests.TestUtils.Extensions;
 using Xunit;
 
-namespace Photosphere.DependencyInjection.UnitTests.Registrations.Services
+namespace Photosphere.DependencyInjection.UnitTests.Registrations
 {
     public class CompositionRootProviderTests
     {
