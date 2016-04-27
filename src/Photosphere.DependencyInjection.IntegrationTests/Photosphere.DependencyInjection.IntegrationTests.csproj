@@ -59,6 +59,7 @@
     <Compile Include="CilEmitting\InstantiateMethodGeneratorTests.cs" />
     <Compile Include="DependencyContainerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelfResolvingTests.cs" />
     <Compile Include="TestObjects\Bar.cs" />
     <Compile Include="TestObjects\Foo.cs" />
     <Compile Include="TestObjects\IBar.cs" />
