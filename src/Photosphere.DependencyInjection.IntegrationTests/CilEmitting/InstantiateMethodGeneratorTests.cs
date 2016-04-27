@@ -35,6 +35,13 @@ namespace Photosphere.DependencyInjection.IntegrationTests.CilEmitting
         }
 
         [Fact]
+        internal void GenerateFor_Interface_ResultCorrectType()
+        {
+            var result = InstantiateMethodGenerator.Generate<IFoo>()();
+            Assert.Equal(typeof(Foo), result.GetType());
+        }
+
+        [Fact]
         internal void GenerateFor_WithParameterlessNonDefaultConstructor_ResultNotNull()
         {
             var result = InstantiateMethodGenerator.Generate<IBar>()();
@@ -46,6 +53,13 @@ namespace Photosphere.DependencyInjection.IntegrationTests.CilEmitting
         {
             var result = InstantiateMethodGenerator.Generate<IQiz>()();
             Assert.NotNull(result);
+        }
+
+        [Fact]
+        internal void GenerateFor_WithDependencies_ResultCorrectType()
+        {
+            var result = InstantiateMethodGenerator.Generate<IQiz>()();
+            Assert.Equal(typeof(Qiz), result.GetType());
         }
     }
 }
