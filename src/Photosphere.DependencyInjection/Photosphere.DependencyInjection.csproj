@@ -29,6 +29,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,11 +58,11 @@
     <Compile Include="Registrations\Services\Exceptions\CompositionRootNotFoundException.cs" />
     <Compile Include="Registrations\Services\Exceptions\SeveralCompositionRootsWasFoundException.cs" />
     <Compile Include="Registrations\Services\Exceptions\TypeNotImplementsServiceTypeException.cs" />
-    <Compile Include="Registrations\Services\CompositionRoots\CompositionRootFinder.cs" />
+    <Compile Include="Registrations\Services\CompositionRoots\CompositionRootProvider.cs" />
     <Compile Include="Registrations\Services\IRegistrationFactory.cs" />
     <Compile Include="Registrations\Services\IRegistryInitializer.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="Registrations\Services\CompositionRoots\ICompositionRootFinder.cs" />
+    <Compile Include="Registrations\Services\CompositionRoots\ICompositionRootProvider.cs" />
     <Compile Include="ICompositionRoot.cs" />
     <Compile Include="IRegistrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,6 +71,8 @@
     <Compile Include="Registrations\Services\RegistryInitializer.cs" />
     <Compile Include="Registrations\Services\Registrator.cs" />
     <Compile Include="Registrations\Services\Validator.cs" />
+    <Compile Include="Registrations\ValueObjects\AssemblyWrapper.cs" />
+    <Compile Include="Registrations\ValueObjects\IAssemblyWrapper.cs" />
     <Compile Include="Registrations\ValueObjects\IRegistration.cs" />
     <Compile Include="Registrations\ValueObjects\IRegistry.cs" />
     <Compile Include="Registrations\ValueObjects\Registration.cs" />

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
+using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoots
 {
     internal interface IAssembliesProvider
     {
-        IEnumerable<Assembly> Provide();
+        IEnumerable<IAssemblyWrapper> Provide();
     }
 }

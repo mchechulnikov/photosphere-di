@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Reflection;
+using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Registrations.Services.Exceptions
 {
@@ -7,7 +7,7 @@ namespace Photosphere.DependencyInjection.Registrations.Services.Exceptions
     {
         private readonly string _assemblyName;
 
-        public CompositionRootNotFoundException(Assembly assembly)
+        public CompositionRootNotFoundException(IAssemblyWrapper assembly)
         {
             _assemblyName = assembly.FullName;
         }

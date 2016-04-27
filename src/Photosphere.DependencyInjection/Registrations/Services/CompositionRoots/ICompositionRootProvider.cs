@@ -2,8 +2,8 @@
 
 namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoots
 {
-    internal interface ICompositionRootFinder
+    internal interface ICompositionRootProvider
     {
-        IEnumerable<ICompositionRoot> Find();
+        IEnumerable<ICompositionRoot> Provide();
     }
 }

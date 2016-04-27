@@ -1,4 +1,4 @@
-﻿namespace Photosphere.DependencyInjection.UnitTests.TestUtils
+﻿namespace Photosphere.DependencyInjection.UnitTests.TestObjects
 {
     internal class Bar : IBar
     {

@@ -4,20 +4,20 @@ namespace Photosphere.DependencyInjection.Registrations.Services
 {
     internal class RegistryInitializer : IRegistryInitializer
     {
-        private readonly ICompositionRootFinder _compositionRootFinder;
+        private readonly ICompositionRootProvider _compositionRootProvider;
         private readonly IRegistrator _registrator;
 
         public RegistryInitializer(
-            ICompositionRootFinder compositionRootFinder,
+            ICompositionRootProvider compositionRootProvider,
             IRegistrator registrator)
         {
-            _compositionRootFinder = compositionRootFinder;
+            _compositionRootProvider = compositionRootProvider;
             _registrator = registrator;
         }
 
         public void Initialize()
         {
-            foreach (var compositionRoot in _compositionRootFinder.Find())
+            foreach (var compositionRoot in _compositionRootProvider.Provide())
             {
                 compositionRoot.Compose(_registrator);
             }
