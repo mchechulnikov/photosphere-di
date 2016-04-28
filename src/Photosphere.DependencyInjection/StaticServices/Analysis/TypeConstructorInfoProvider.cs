@@ -14,6 +14,7 @@ namespace Photosphere.DependencyInjection.StaticServices.Analysis
             var constructor = type.GetFirstPublicConstructor();
             return new TypeConstructorInfo
             {
+                Type = type,
                 Constructor = constructor,
                 ParametersTypes = GetParametersTypes(constructor)
             };

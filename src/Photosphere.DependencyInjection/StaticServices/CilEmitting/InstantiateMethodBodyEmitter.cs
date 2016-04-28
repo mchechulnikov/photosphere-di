@@ -14,19 +14,20 @@ namespace Photosphere.DependencyInjection.StaticServices.CilEmitting
         private readonly IList<LocalBuilder> _localVariables;
         private readonly TypeConstructorInfo _typeConstructorInfo;
 
+        public static void GenerateFor<TTarget>(DynamicMethod dynamicMethod)
+        {
+            var generator = dynamicMethod.GetILGenerator();
+            var implementationType = typeof(TTarget).GetFirstImplementationType();
+            var methodResult = new InstantiateMethodBodyEmitter(generator, implementationType).Emit();
+            GenerateReturnStatement(generator, methodResult);
+        }
+
         private InstantiateMethodBodyEmitter(ILGenerator generator, Type implementationType)
         {
             _generator = generator;
             _typeConstructorInfo = TypeConstructorInfoProvider.Provide(implementationType);
             _methodResult = _generator.DeclareLocal(implementationType);
             _localVariables = new List<LocalBuilder>();
-        }
-
-        public static void GenerateFor<TTarget>(DynamicMethod dynamicMethod)
-        {
-            var generator = dynamicMethod.GetILGenerator();
-            var methodResult = new InstantiateMethodBodyEmitter(generator, typeof(TTarget).GetFirstImplementationType()).Emit();
-            GenerateReturnStatement(generator, methodResult);
         }
 
         private LocalBuilder Emit()
