@@ -1,6 +1,6 @@
-﻿using Photosphere.DependencyInjection.CilEmitting;
-using Photosphere.DependencyInjection.Registrations.Services;
+﻿using Photosphere.DependencyInjection.Registrations.Services;
 using Photosphere.DependencyInjection.Resolving;
+using Photosphere.DependencyInjection.StaticServices.CilEmitting;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.IntegrationTests

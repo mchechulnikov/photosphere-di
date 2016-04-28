@@ -47,8 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\AssemblyExtensions.cs" />
-    <Compile Include="CilEmitting\InstantiateMethodGenerator.cs" />
-    <Compile Include="CilEmitting\InstantiateMethodBodyEmitter.cs" />
+    <Compile Include="StaticServices\Analysis\TypeConstructorInfoProvider.cs" />
+    <Compile Include="StaticServices\DataTransferObjects\TypeConstructorInfo.cs" />
+    <Compile Include="StaticServices\CilEmitting\InstantiateMethodGenerator.cs" />
+    <Compile Include="StaticServices\CilEmitting\InstantiateMethodBodyEmitter.cs" />
     <Compile Include="DependencyContainer.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="IDependencyContainer.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Registrations\ValueObjects\Registry.cs" />
     <Compile Include="Resolving\IResolver.cs" />
     <Compile Include="Resolving\Resolver.cs" />
+    <Compile Include="StaticServices\Analysis\ObjectGraphAnalyser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Photosphere.DependencyInjection.nuspec" />
