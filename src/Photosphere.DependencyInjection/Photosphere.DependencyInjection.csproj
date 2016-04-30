@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\AssemblyExtensions.cs" />
-    <Compile Include="Generators\ObjectGraphs\Exceptions\FoundCircleDependencyException.cs" />
+    <Compile Include="Generators\ObjectGraphs\Exceptions\DetectCircleDependencyException.cs" />
     <Compile Include="Generators\ObjectGraphs\ObjectGraphProvider.cs" />
     <Compile Include="Generators\ObjectGraphs\DataTransferObjects\ObjectGraph.cs" />
     <Compile Include="Generators\InstantiateMethodGenerator.cs" />
