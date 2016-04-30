@@ -1,7 +1,7 @@
 ﻿using Photosphere.DependencyInjection.Extensions;
+using Photosphere.DependencyInjection.Generators;
 using Photosphere.DependencyInjection.Lifetimes;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
-using Photosphere.DependencyInjection.StaticServices.CilEmitting;
 
 namespace Photosphere.DependencyInjection.Registrations.Services
 {

@@ -2,31 +2,32 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using Photosphere.DependencyInjection.Extensions;
-using Photosphere.DependencyInjection.StaticServices.Analysis;
-using Photosphere.DependencyInjection.StaticServices.DataTransferObjects;
+using Photosphere.DependencyInjection.Generators.ObjectGraphs;
+using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
 
-namespace Photosphere.DependencyInjection.StaticServices.CilEmitting
+namespace Photosphere.DependencyInjection.Generators.CilEmitting
 {
     internal class InstantiateMethodBodyEmitter
     {
         private readonly ILGenerator _generator;
         private readonly LocalBuilder _methodResult;
         private readonly IList<LocalBuilder> _localVariables;
-        private readonly TypeConstructorInfo _typeConstructorInfo;
+        private readonly ObjectGraph _objectGraph;
 
         public static void GenerateFor<TTarget>(DynamicMethod dynamicMethod)
         {
             var generator = dynamicMethod.GetILGenerator();
             var implementationType = typeof(TTarget).GetFirstImplementationType();
-            var methodResult = new InstantiateMethodBodyEmitter(generator, implementationType).Emit();
+            var objectGraph = ObjectGraphProvider.Provide(implementationType);
+            var methodResult = new InstantiateMethodBodyEmitter(generator, objectGraph).Emit();
             GenerateReturnStatement(generator, methodResult);
         }
 
-        private InstantiateMethodBodyEmitter(ILGenerator generator, Type implementationType)
+        private InstantiateMethodBodyEmitter(ILGenerator generator, ObjectGraph objectGraph)
         {
             _generator = generator;
-            _typeConstructorInfo = TypeConstructorInfoProvider.Provide(implementationType);
-            _methodResult = _generator.DeclareLocal(implementationType);
+            _objectGraph = objectGraph;
+            _methodResult = _generator.DeclareLocal(_objectGraph.Type);
             _localVariables = new List<LocalBuilder>();
         }
 
@@ -39,9 +40,9 @@ namespace Photosphere.DependencyInjection.StaticServices.CilEmitting
 
         private void EmitParameters()
         {
-            foreach (var parameterType in _typeConstructorInfo.ParametersTypes)
+            foreach (var childObjectGraph in _objectGraph.Children)
             {
-                var localBuilder = new InstantiateMethodBodyEmitter(_generator, parameterType).Emit();
+                var localBuilder = new InstantiateMethodBodyEmitter(_generator, childObjectGraph).Emit();
                 _localVariables.Add(localBuilder);
             }
         }
@@ -49,7 +50,7 @@ namespace Photosphere.DependencyInjection.StaticServices.CilEmitting
         private void GenerateInstantiating()
         {
             GenerateParametersLoading();
-            _generator.Emit(OpCodes.Newobj, _typeConstructorInfo.Constructor);
+            _generator.Emit(OpCodes.Newobj, _objectGraph.Constructor);
             _generator.Emit(OpCodes.Stloc, _methodResult);
         }
 

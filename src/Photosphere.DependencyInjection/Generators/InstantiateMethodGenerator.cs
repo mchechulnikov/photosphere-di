@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
+using Photosphere.DependencyInjection.Generators.CilEmitting;
 
-namespace Photosphere.DependencyInjection.StaticServices.CilEmitting
+namespace Photosphere.DependencyInjection.Generators
 {
     internal static class InstantiateMethodGenerator
     {

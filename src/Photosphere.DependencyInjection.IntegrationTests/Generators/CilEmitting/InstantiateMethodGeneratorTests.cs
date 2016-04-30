@@ -1,8 +1,8 @@
-﻿using Photosphere.DependencyInjection.IntegrationTests.TestObjects;
-using Photosphere.DependencyInjection.StaticServices.CilEmitting;
+﻿using Photosphere.DependencyInjection.Generators;
+using Photosphere.DependencyInjection.IntegrationTests.TestObjects;
 using Xunit;
 
-namespace Photosphere.DependencyInjection.IntegrationTests.CilEmitting
+namespace Photosphere.DependencyInjection.IntegrationTests.Generators.CilEmitting
 {
     public class InstantiateMethodGeneratorTests
     {
