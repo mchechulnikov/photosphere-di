@@ -1,4 +1,5 @@
 ﻿using Photosphere.DependencyInjection.Generators;
+using Photosphere.DependencyInjection.Generators.ObjectGraphs.Exceptions;
 using Photosphere.DependencyInjection.IntegrationTests.TestObjects;
 using Xunit;
 
@@ -60,6 +61,12 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Generators.CilEmittin
         {
             var result = InstantiateMethodGenerator.Generate<IQiz>()();
             Assert.Equal(typeof(Qiz), result.GetType());
+        }
+
+        [Fact]
+        internal void GenerateFor_WithCircleDependencies_Exception()
+        {
+            Assert.Throws<DetectedCircleDependencyException>(() => InstantiateMethodGenerator.Generate<ICircleFoo>());
         }
     }
 }

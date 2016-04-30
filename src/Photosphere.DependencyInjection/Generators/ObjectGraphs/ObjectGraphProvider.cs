@@ -49,7 +49,7 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             var alreadyProvidedType = parametersTypes.FirstOrDefault(alreadyProvidedTypes.Contains);
             if (alreadyProvidedType != null)
             {
-                throw new DetectCircleDependencyException(alreadyProvidedType);
+                throw new DetectedCircleDependencyException(alreadyProvidedType);
             }
         }
     }

@@ -2,11 +2,11 @@
 
 namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.Exceptions
 {
-    internal class DetectCircleDependencyException : Exception
+    internal class DetectedCircleDependencyException : Exception
     {
         private readonly Type _type;
 
-        public DetectCircleDependencyException(Type type)
+        public DetectedCircleDependencyException(Type type)
         {
             _type = type;
         }
