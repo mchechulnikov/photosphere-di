@@ -20,9 +20,9 @@ internal class CompositionRoot : ICompositionRoot
 ```
 And resolve:
 ``` C#
-var resolver = new DependencyResolver();
-resolver.Initialize();
-var foo = resolver.GetInstance<IFoo>();
+var container = new DependencyContainer();
+container.Initialize();
+var foo = container.GetInstance<IFoo>();
 foo.DoSomething();
 ```
 
