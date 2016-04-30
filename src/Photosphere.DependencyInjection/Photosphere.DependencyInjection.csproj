@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Generators\ObjectGraphs\DataTransferObjects\IObjectGraph.cs" />
     <Compile Include="Generators\ObjectGraphs\Exceptions\DetectedCircleDependencyException.cs" />
+    <Compile Include="Generators\ObjectGraphs\Exceptions\TypeNotRefisteredException.cs" />
     <Compile Include="Generators\ObjectGraphs\ObjectGraphProvider.cs" />
     <Compile Include="Generators\ObjectGraphs\DataTransferObjects\ObjectGraph.cs" />
     <Compile Include="Generators\InstantiateMethodGenerator.cs" />

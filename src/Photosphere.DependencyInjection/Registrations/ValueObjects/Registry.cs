@@ -18,6 +18,11 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
             _dictionary.Add(registration.ServiceType, registration);
         }
 
+        public bool Contains(Type type)
+        {
+            return _dictionary.ContainsKey(type);
+        }
+
         public IRegistration this[Type type] => _dictionary[type];
     }
 }

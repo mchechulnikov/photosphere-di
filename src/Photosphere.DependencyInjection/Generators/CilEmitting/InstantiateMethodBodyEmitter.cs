@@ -1,29 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection.Emit;
 using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
+using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Generators.CilEmitting
 {
+    // TODO Rewrite without static
     internal class InstantiateMethodBodyEmitter
     {
         private readonly ILGenerator _generator;
         private readonly LocalBuilder _methodResult;
         private readonly IList<LocalBuilder> _localVariables;
-        private readonly ObjectGraph _objectGraph;
+        private readonly IObjectGraph _objectGraph;
 
-        public static void GenerateFor<TTarget>(DynamicMethod dynamicMethod)
+        public static void GenerateFor<TTarget>(DynamicMethod dynamicMethod, IRegistry registry)
         {
             var generator = dynamicMethod.GetILGenerator();
             var implementationType = typeof(TTarget).GetFirstImplementationType();
-            var objectGraph = ObjectGraphProvider.Provide(implementationType);
+            var objectGraph = ObjectGraphProvider.Provide(implementationType, registry);
             var methodResult = new InstantiateMethodBodyEmitter(generator, objectGraph).Emit();
             GenerateReturnStatement(generator, methodResult);
         }
 
-        private InstantiateMethodBodyEmitter(ILGenerator generator, ObjectGraph objectGraph)
+        private InstantiateMethodBodyEmitter(ILGenerator generator, IObjectGraph objectGraph)
         {
             _generator = generator;
             _objectGraph = objectGraph;
@@ -50,7 +51,10 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
         private void GenerateInstantiating()
         {
             GenerateParametersLoading();
-            _generator.Emit(OpCodes.Newobj, _objectGraph.Constructor);
+            if (_objectGraph.RegisteredInstance == null)
+            {
+                _generator.Emit(OpCodes.Newobj, _objectGraph.Constructor);
+            }
             _generator.Emit(OpCodes.Stloc, _methodResult);
         }
 

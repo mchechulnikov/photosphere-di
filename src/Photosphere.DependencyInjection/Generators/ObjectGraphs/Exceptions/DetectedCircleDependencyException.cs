@@ -11,6 +11,6 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.Exceptions
             _type = type;
         }
 
-        public override string Message => $"Founded circle dependency in: `{_type}`";
+        public override string Message => $"Founded circle dependency in `{_type}`";
     }
 }

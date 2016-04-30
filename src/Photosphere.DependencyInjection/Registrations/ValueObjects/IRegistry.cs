@@ -6,6 +6,8 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
     {
         void Add(IRegistration registration);
 
+        bool Contains(Type type);
+
         IRegistration this[Type type] { get; }
     }
 }

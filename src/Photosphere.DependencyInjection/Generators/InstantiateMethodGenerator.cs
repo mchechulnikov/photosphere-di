@@ -2,15 +2,17 @@
 using System.Reflection;
 using System.Reflection.Emit;
 using Photosphere.DependencyInjection.Generators.CilEmitting;
+using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Generators
 {
+    // TODO Rewrite without static
     internal static class InstantiateMethodGenerator
     {
-        public static Func<TTarget> Generate<TTarget>()
+        public static Func<TTarget> Generate<TTarget>(IRegistry registry = null)
         {
             var dynamicMethod = CreateDynamicMethod<TTarget>();
-            InstantiateMethodBodyEmitter.GenerateFor<TTarget>(dynamicMethod);
+            InstantiateMethodBodyEmitter.GenerateFor<TTarget>(dynamicMethod, registry);
             return CreateDelegate<TTarget>(dynamicMethod);
         }
 
