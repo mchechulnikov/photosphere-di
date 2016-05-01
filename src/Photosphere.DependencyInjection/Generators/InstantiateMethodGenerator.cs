@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Reflection.Emit;
 using Photosphere.DependencyInjection.Generators.CilEmitting;
+using Photosphere.DependencyInjection.InnerRegistry;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Generators
@@ -12,6 +13,7 @@ namespace Photosphere.DependencyInjection.Generators
         public static Func<TTarget> Generate<TTarget>(IRegistry registry = null)
         {
             var dynamicMethod = CreateDynamicMethod<TTarget>();
+            registry = registry ?? InnerRegistryProvider.InnerRegistry;
             InstantiateMethodBodyEmitter.GenerateFor<TTarget>(dynamicMethod, registry);
             return CreateDelegate<TTarget>(dynamicMethod);
         }

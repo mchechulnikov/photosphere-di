@@ -57,6 +57,7 @@
     <Compile Include="DependencyContainer.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="IDependencyContainer.cs" />
+    <Compile Include="InnerRegistry\InnerRegistryProvider.cs" />
     <Compile Include="Lifetimes\Lifetime.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\AssembliesProvider.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\IAssembliesProvider.cs" />

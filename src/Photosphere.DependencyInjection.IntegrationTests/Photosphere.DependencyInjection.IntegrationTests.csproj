@@ -62,6 +62,7 @@
     <Compile Include="SelfResolvingTests.cs" />
     <Compile Include="TestObjects\Bar.cs" />
     <Compile Include="TestObjects\CircleBar.cs" />
+    <Compile Include="TestObjects\FirstCompositionRoot.cs" />
     <Compile Include="TestObjects\Foo.cs" />
     <Compile Include="TestObjects\IBar.cs" />
     <Compile Include="TestObjects\ICircleBar.cs" />

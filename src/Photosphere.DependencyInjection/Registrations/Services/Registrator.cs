@@ -24,6 +24,7 @@ namespace Photosphere.DependencyInjection.Registrations.Services
             _validator.Validate<TService, TService>();
             var registration = _registrationFactory.Get<TService>(lifetime);
             _registry.Add(registration);
+            // TODO register implementation types as registrations
             return this;
         }
     }

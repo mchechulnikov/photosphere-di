@@ -10,7 +10,8 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Generators.CilEmittin
         [Fact]
         internal void GenerateFor_Class_MethodNotNull()
         {
-            var result = InstantiateMethodGenerator.Generate<Foo>();
+            var container = new DependencyContainer();
+            var result = container.GetInstance<Foo>();
             Assert.NotNull(result);
         }
 

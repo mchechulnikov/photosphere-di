@@ -25,4 +25,17 @@ namespace Photosphere.DependencyInjection.Registrations.Services
             };
         }
     }
+
+    internal class InnerRegistrationFactory : IRegistrationFactory
+    {
+        public IRegistration Get<TService>(Lifetime lifetime)
+        {
+            return new Registration
+            {
+                ServiceType = typeof(TService),
+                ImplementationType = typeof(TService).GetFirstImplementationType(),
+                Lifetime = lifetime
+            };
+        }
+    }
 }

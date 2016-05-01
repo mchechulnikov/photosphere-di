@@ -46,7 +46,8 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             throw new TypeNotRefisteredException(type);
         }
 
-        private static IReadOnlyList<ObjectGraph> GetChildren(ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor, IRegistry registry)
+        private static IReadOnlyList<ObjectGraph> GetChildren(
+            ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor, IRegistry registry)
         {
             var parametersTypes = GetParametersTypes(constructor);
             if (parametersTypes.IsEmpty())
