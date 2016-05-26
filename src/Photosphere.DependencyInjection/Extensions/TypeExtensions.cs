@@ -38,7 +38,9 @@ namespace Photosphere.DependencyInjection.Extensions
 
         public static ConstructorInfo GetFirstPublicConstructor(this Type type)
         {
-            return type.GetConstructors(BindingFlags.Instance | BindingFlags.Public).First();
+            return
+                type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.Default).FirstOrDefault()
+                ?? type.GetConstructor(Type.EmptyTypes);
         }
     }
 }

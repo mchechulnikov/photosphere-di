@@ -12,11 +12,11 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
     // TODO Rewrite without static
     internal static class ObjectGraphProvider
     {
-        public static ObjectGraph Provide(Type type, IRegistry registry, ISet<Type> alreadyProvidedTypes = null)
+        public static IObjectGraph Provide(Type implType, IRegistry registry, ISet<Type> alreadyProvidedTypes = null)
         {
-            alreadyProvidedTypes = MarkTypeAsProcessed(type, alreadyProvidedTypes);
-            var registration = GetRegistration(type, registry);
-            var constructor = type.GetFirstPublicConstructor();
+            alreadyProvidedTypes = MarkTypeAsProcessed(implType, alreadyProvidedTypes);
+            var registration = GetRegistration(implType, registry);
+            var constructor = implType.GetFirstPublicConstructor();
             var children = GetChildren(alreadyProvidedTypes, constructor, registry);
             return new ObjectGraph(registration, constructor, children);
         }
@@ -31,10 +31,10 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             return alreadyProvidedTypes;
         }
 
-        private static IRegistration GetRegistration(Type type, IRegistry registry)
+        private static IRegistration GetRegistration(Type serviceType, IRegistry registry)
         {
-            CheckForRegistration(type, registry);
-            return registry[type];
+            CheckForRegistration(serviceType, registry);
+            return registry[serviceType];
         }
 
         private static void CheckForRegistration(Type type, IRegistry registry)
@@ -43,10 +43,10 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             {
                 return;
             }
-            throw new TypeNotRefisteredException(type);
+            throw new TypeNotRegisteredException(type);
         }
 
-        private static IReadOnlyList<ObjectGraph> GetChildren(
+        private static IReadOnlyList<IObjectGraph> GetChildren(
             ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor, IRegistry registry)
         {
             var parametersTypes = GetParametersTypes(constructor);

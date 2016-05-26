@@ -15,20 +15,17 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
         private readonly IList<LocalBuilder> _localVariables;
         private readonly IObjectGraph _objectGraph;
 
-        public static void GenerateFor<TTarget>(DynamicMethod dynamicMethod, IRegistry registry)
+        public static void GenerateFor<TTarget>(ILGenerator ilGenerator, IObjectGraph objectGraph)
         {
-            var generator = dynamicMethod.GetILGenerator();
-            var implementationType = typeof(TTarget).GetFirstImplementationType();
-            var objectGraph = ObjectGraphProvider.Provide(implementationType, registry);
-            var methodResult = new InstantiateMethodBodyEmitter(generator, objectGraph).Emit();
-            GenerateReturnStatement(generator, methodResult);
+            var methodResult = new InstantiateMethodBodyEmitter(ilGenerator, objectGraph).Emit();
+            GenerateReturnStatement(ilGenerator, methodResult);
         }
 
         private InstantiateMethodBodyEmitter(ILGenerator generator, IObjectGraph objectGraph)
         {
             _generator = generator;
             _objectGraph = objectGraph;
-            _methodResult = _generator.DeclareLocal(_objectGraph.Type);
+            _methodResult = _generator.DeclareLocal(_objectGraph.ImplementationType);
             _localVariables = new List<LocalBuilder>();
         }
 

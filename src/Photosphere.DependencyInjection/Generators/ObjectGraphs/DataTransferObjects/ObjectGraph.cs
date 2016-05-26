@@ -12,19 +12,19 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferOb
         public ObjectGraph(
             IRegistration registration,
             ConstructorInfo constructor,
-            IReadOnlyList<ObjectGraph> children)
+            IReadOnlyList<IObjectGraph> children)
         {
             _registration = registration;
             Constructor = constructor;
             Children = children;
         }
 
-        public Type Type => _registration.ImplementationType;
+        public Type ImplementationType => _registration.ImplementationType;
 
         public object RegisteredInstance => _registration.Instance;
 
         public ConstructorInfo Constructor { get; }
 
-        public IReadOnlyList<ObjectGraph> Children { get; }
+        public IReadOnlyList<IObjectGraph> Children { get; }
     }
 }

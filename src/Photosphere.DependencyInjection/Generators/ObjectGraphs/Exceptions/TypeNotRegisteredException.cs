@@ -2,11 +2,11 @@
 
 namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.Exceptions
 {
-    internal class TypeNotRefisteredException : Exception
+    internal class TypeNotRegisteredException : Exception
     {
         private readonly Type _type;
 
-        public TypeNotRefisteredException(Type type)
+        public TypeNotRegisteredException(Type type)
         {
             _type = type;
         }

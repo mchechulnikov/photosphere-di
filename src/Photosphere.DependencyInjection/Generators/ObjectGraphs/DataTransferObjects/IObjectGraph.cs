@@ -6,12 +6,12 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferOb
 {
     internal interface IObjectGraph
     {
-        Type Type { get; }
+        Type ImplementationType { get; }
 
         object RegisteredInstance { get; }
 
         ConstructorInfo Constructor { get; }
 
-        IReadOnlyList<ObjectGraph> Children { get; }
+        IReadOnlyList<IObjectGraph> Children { get; }
     }
 }

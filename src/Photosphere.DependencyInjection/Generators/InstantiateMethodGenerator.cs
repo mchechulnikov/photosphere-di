@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
+using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Generators.CilEmitting;
+using Photosphere.DependencyInjection.Generators.ObjectGraphs;
+using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
 using Photosphere.DependencyInjection.InnerRegistry;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
@@ -14,7 +17,9 @@ namespace Photosphere.DependencyInjection.Generators
         {
             var dynamicMethod = CreateDynamicMethod<TTarget>();
             registry = registry ?? InnerRegistryProvider.InnerRegistry;
-            InstantiateMethodBodyEmitter.GenerateFor<TTarget>(dynamicMethod, registry);
+            var ilGenerator = dynamicMethod.GetILGenerator();
+            var objectGraph = GetObjectGraph<TTarget>(registry);
+            InstantiateMethodBodyEmitter.GenerateFor<TTarget>(ilGenerator, objectGraph);
             return CreateDelegate<TTarget>(dynamicMethod);
         }
 
@@ -28,6 +33,12 @@ namespace Photosphere.DependencyInjection.Generators
         private static Func<TTarget> CreateDelegate<TTarget>(MethodInfo dynamicMethod)
         {
             return (Func<TTarget>) dynamicMethod.CreateDelegate(typeof(Func<TTarget>));
+        }
+
+        private static IObjectGraph GetObjectGraph<TTarget>(IRegistry registry)
+        {
+            var implementationType = typeof(TTarget).GetFirstImplementationType();
+            return ObjectGraphProvider.Provide(implementationType, registry);
         }
     }
 }
