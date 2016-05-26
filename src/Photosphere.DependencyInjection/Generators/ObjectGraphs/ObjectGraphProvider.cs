@@ -14,11 +14,45 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
     {
         public static IObjectGraph Provide(Type implType, IRegistry registry, ISet<Type> alreadyProvidedTypes = null)
         {
-            alreadyProvidedTypes = MarkTypeAsProcessed(implType, alreadyProvidedTypes);
             var registration = GetRegistration(implType, registry);
             var constructor = implType.GetFirstPublicConstructor();
-            var children = GetChildren(alreadyProvidedTypes, constructor, registry);
+            var children = GetChildren(implType, alreadyProvidedTypes, constructor, registry);
             return new ObjectGraph(registration, constructor, children);
+        }
+
+        private static IRegistration GetRegistration(Type implType, IRegistry registry)
+        {
+            CheckForRegistration(implType, registry);
+            return registry[implType];
+        }
+
+        private static void CheckForRegistration(Type implType, IRegistry registry)
+        {
+            if (registry.Contains(implType))
+            {
+                return;
+            }
+            throw new TypeNotRegisteredException(implType);
+        }
+
+        private static IReadOnlyList<IObjectGraph> GetChildren(
+            Type implType, ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor, IRegistry registry)
+        {
+            alreadyProvidedTypes = MarkTypeAsProcessed(implType, alreadyProvidedTypes);
+            var parametersTypes = GetParametersTypes(constructor);
+            if (parametersTypes.IsEmpty())
+            {
+                return new List<ObjectGraph>();
+            }
+            CheckForCircleDependency(parametersTypes, alreadyProvidedTypes);
+            var result = new List<IObjectGraph>();
+            foreach (var type in parametersTypes)
+            {
+                var graph = Provide(type, registry, alreadyProvidedTypes);
+                result.Add(graph);
+                alreadyProvidedTypes.Remove(type);
+            }
+            return result;
         }
 
         private static ISet<Type> MarkTypeAsProcessed(Type type, ISet<Type> alreadyProvidedTypes)
@@ -29,33 +63,6 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             }
             alreadyProvidedTypes.Add(type);
             return alreadyProvidedTypes;
-        }
-
-        private static IRegistration GetRegistration(Type serviceType, IRegistry registry)
-        {
-            CheckForRegistration(serviceType, registry);
-            return registry[serviceType];
-        }
-
-        private static void CheckForRegistration(Type type, IRegistry registry)
-        {
-            if (registry.Contains(type))
-            {
-                return;
-            }
-            throw new TypeNotRegisteredException(type);
-        }
-
-        private static IReadOnlyList<IObjectGraph> GetChildren(
-            ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor, IRegistry registry)
-        {
-            var parametersTypes = GetParametersTypes(constructor);
-            if (parametersTypes.IsEmpty())
-            {
-                return new List<ObjectGraph>();
-            }
-            CheckForCircleDependency(parametersTypes, alreadyProvidedTypes);
-            return parametersTypes.Select(t => Provide(t, registry, alreadyProvidedTypes)).ToList();
         }
 
         private static IReadOnlyList<Type> GetParametersTypes(ConstructorInfo constructor)

@@ -18,13 +18,14 @@ namespace Photosphere.DependencyInjection.InnerRegistry
 
             var registrations = new List<IRegistration>
             {
-                GetInnerRegistration<IRegistrationFactory>(),
-                GetInnerRegistration<IRegistryInitializer>(),
-                GetInnerRegistration<IValidator>(),
-                GetInnerRegistration<IAssembliesProvider>(),
-                GetInnerRegistration<ICompositionRootProvider>(),
-                GetInnerRegistration<IRegistrator>(),
-                GetInnerRegistration<IResolver>(),
+                GetInnerRegistration<RegistrationFactory>(),
+                GetInnerRegistration<RegistryInitializer>(),
+                GetInnerRegistration<Validator>(),
+                GetInnerRegistration<AssembliesProvider>(),
+                GetInnerRegistration<CompositionRootProvider>(),
+                GetInnerRegistration<Registrator>(),
+                GetInnerRegistration<Resolver>(),
+                GetInnerRegistration<Registry>(),
             };
             Register(registrations);
         }

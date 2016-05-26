@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
-using Photosphere.DependencyInjection.Extensions;
-using Photosphere.DependencyInjection.Generators.ObjectGraphs;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
-using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Generators.CilEmitting
 {
