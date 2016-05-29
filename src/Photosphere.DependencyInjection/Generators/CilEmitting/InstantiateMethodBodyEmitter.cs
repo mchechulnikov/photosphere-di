@@ -4,7 +4,6 @@ using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObject
 
 namespace Photosphere.DependencyInjection.Generators.CilEmitting
 {
-    // TODO Rewrite without static
     internal class InstantiateMethodBodyEmitter
     {
         private readonly ILGenerator _generator;
@@ -12,7 +11,7 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
         private readonly IList<LocalBuilder> _localVariables;
         private readonly IObjectGraph _objectGraph;
 
-        public static void GenerateFor<TTarget>(ILGenerator ilGenerator, IObjectGraph objectGraph)
+        public static void GenerateFor(ILGenerator ilGenerator, IObjectGraph objectGraph)
         {
             var methodResult = new InstantiateMethodBodyEmitter(ilGenerator, objectGraph).Emit();
             GenerateReturnStatement(ilGenerator, methodResult);

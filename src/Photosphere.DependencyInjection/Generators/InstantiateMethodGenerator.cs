@@ -19,7 +19,7 @@ namespace Photosphere.DependencyInjection.Generators
             registry = registry ?? InnerRegistryProvider.InnerRegistry;
             var ilGenerator = dynamicMethod.GetILGenerator();
             var objectGraph = GetObjectGraph<TTarget>(registry);
-            InstantiateMethodBodyEmitter.GenerateFor<TTarget>(ilGenerator, objectGraph);
+            InstantiateMethodBodyEmitter.GenerateFor(ilGenerator, objectGraph);
             return CreateDelegate<TTarget>(dynamicMethod);
         }
 

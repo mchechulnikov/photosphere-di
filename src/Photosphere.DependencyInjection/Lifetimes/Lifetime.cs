@@ -5,6 +5,6 @@
         AlwaysNew,
         PerRequest,
         PerContainer,
-        PerScope // TODO
+        PerScope
     }
 }

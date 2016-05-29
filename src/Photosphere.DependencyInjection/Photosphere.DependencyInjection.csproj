@@ -47,6 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Generators\CilEmitting\InstantiationGenerationStrategies\AlwaysNewInstantiationGenerationStrategy.cs" />
+    <Compile Include="Generators\CilEmitting\InstantiationGenerationStrategies\IAlwaysNewInstantiationGenerationStrategy.cs" />
+    <Compile Include="Generators\CilEmitting\IInstantiationGenerationStrategy.cs" />
+    <Compile Include="Generators\CilEmitting\InstantiationGenerationStrategies\IScopedInstantiationGenerationStrategy.cs" />
+    <Compile Include="Generators\CilEmitting\InstantiationGenerationStrategies\ScopedInstantiationGenerationStrategy.cs" />
     <Compile Include="Generators\ObjectGraphs\DataTransferObjects\IObjectGraph.cs" />
     <Compile Include="Generators\ObjectGraphs\Exceptions\DetectedCircleDependencyException.cs" />
     <Compile Include="Generators\ObjectGraphs\Exceptions\TypeNotRegisteredException.cs" />
@@ -85,10 +90,13 @@
     <Compile Include="Registrations\ValueObjects\Registry.cs" />
     <Compile Include="Resolving\IResolver.cs" />
     <Compile Include="Resolving\Resolver.cs" />
+    <Compile Include="SystemExtends\Reflection\Emit\CilGenerator.cs" />
+    <Compile Include="SystemExtends\Reflection\Emit\ICilGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Photosphere.DependencyInjection.nuspec" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
