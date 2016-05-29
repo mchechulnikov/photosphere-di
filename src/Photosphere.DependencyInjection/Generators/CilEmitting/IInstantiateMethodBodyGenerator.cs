@@ -3,7 +3,7 @@ using Photosphere.DependencyInjection.SystemExtends.Reflection.Emit;
 
 namespace Photosphere.DependencyInjection.Generators.CilEmitting
 {
-    internal interface IInstantiationGenerationStrategy
+    internal interface IInstantiateMethodBodyGenerator
     {
         ICilGenerator Generate(IObjectGraph objectGraph);
     }

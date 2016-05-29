@@ -26,10 +26,8 @@ namespace Photosphere.DependencyInjection.Resolving
                 case Lifetime.PerContainer:
                     result = (TService) registration.Instance;
                     break;
-                case Lifetime.PerScope:
-                    throw new NotImplementedException();
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new InvalidOperationException("Not supported lifetime");
             }
             return result;
         }

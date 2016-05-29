@@ -11,9 +11,9 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
     {
         private readonly IAssembliesProvider _assembliesProvider;
 
-        public CompositionRootProvider(IAssembliesProvider assembliesProvider)
+        public CompositionRootProvider()
         {
-            _assembliesProvider = assembliesProvider;
+            _assembliesProvider = new AssembliesProvider();
         }
 
         public IEnumerable<ICompositionRoot> Provide()

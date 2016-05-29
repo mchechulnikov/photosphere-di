@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Photosphere.DependencyInjection.Lifetimes;
 
 namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects
 {
@@ -8,9 +9,9 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferOb
     {
         Type ImplementationType { get; }
 
-        object RegisteredInstance { get; }
-
         ConstructorInfo Constructor { get; }
+
+        Lifetime Lifetime { get; }
 
         IReadOnlyList<IObjectGraph> Children { get; }
     }

@@ -1,6 +1,8 @@
-﻿namespace Photosphere.DependencyInjection
+﻿using System;
+
+namespace Photosphere.DependencyInjection
 {
-    public interface IDependencyContainer
+    public interface IDependencyContainer : IDisposable
     {
         void Initialize();
 

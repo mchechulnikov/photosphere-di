@@ -1,26 +1,30 @@
 ﻿using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Generators;
 using Photosphere.DependencyInjection.Lifetimes;
+using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Registrations.Services
 {
     internal class RegistrationFactory : IRegistrationFactory
     {
-        private readonly IRegistry _registry;
+        private readonly IScopeKeeper _scopeKeeper;
+        private readonly IInstantiateMethodGenerator _methodGenerator;
 
-        public RegistrationFactory(IRegistry registry)
+        public RegistrationFactory(IRegistry registry, IScopeKeeper scopeKeeper)
         {
-            _registry = registry;
+            _scopeKeeper = scopeKeeper;
+            _methodGenerator = new InstantiateMethodGenerator(registry, scopeKeeper);
         }
 
         public IRegistration Get<TService>(Lifetime lifetime)
         {
+            _scopeKeeper.StartNewScope();
             return new Registration
             {
                 ServiceType = typeof(TService),
                 ImplementationType = typeof(TService).GetFirstImplementationType(),
-                InstantiateFunction = InstantiateMethodGenerator.Generate<TService>(_registry),
+                InstantiateFunction = _methodGenerator.Generate<TService>(),
                 Lifetime = lifetime
             };
         }

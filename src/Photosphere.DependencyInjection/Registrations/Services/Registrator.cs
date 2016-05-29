@@ -1,4 +1,5 @@
 ﻿using Photosphere.DependencyInjection.Lifetimes;
+using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Registrations.Services
@@ -9,14 +10,11 @@ namespace Photosphere.DependencyInjection.Registrations.Services
         private readonly IValidator _validator;
         private readonly IRegistrationFactory _registrationFactory;
 
-        public Registrator(
-            IRegistry registry,
-            IValidator validator,
-            IRegistrationFactory registrationFactory)
+        public Registrator(IRegistry registry, IScopeKeeper scopeKeeper)
         {
             _registry = registry;
-            _validator = validator;
-            _registrationFactory = registrationFactory;
+            _validator = new Validator();
+            _registrationFactory = new RegistrationFactory(registry, scopeKeeper);
         }
 
         public IRegistrator Register<TService>(Lifetime lifetime = Lifetime.PerRequest)

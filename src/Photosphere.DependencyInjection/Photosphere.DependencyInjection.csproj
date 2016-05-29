@@ -47,23 +47,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\AssemblyExtensions.cs" />
-    <Compile Include="Generators\CilEmitting\InstantiationGenerationStrategies\AlwaysNewInstantiationGenerationStrategy.cs" />
-    <Compile Include="Generators\CilEmitting\InstantiationGenerationStrategies\IAlwaysNewInstantiationGenerationStrategy.cs" />
-    <Compile Include="Generators\CilEmitting\IInstantiationGenerationStrategy.cs" />
-    <Compile Include="Generators\CilEmitting\InstantiationGenerationStrategies\IScopedInstantiationGenerationStrategy.cs" />
-    <Compile Include="Generators\CilEmitting\InstantiationGenerationStrategies\ScopedInstantiationGenerationStrategy.cs" />
+    <Compile Include="Generators\CilEmitting\IInstantiateMethodBodyGenerator.cs" />
+    <Compile Include="Generators\IInstantiateMethodGenerator.cs" />
     <Compile Include="Generators\ObjectGraphs\DataTransferObjects\IObjectGraph.cs" />
     <Compile Include="Generators\ObjectGraphs\Exceptions\DetectedCircleDependencyException.cs" />
     <Compile Include="Generators\ObjectGraphs\Exceptions\TypeNotRegisteredException.cs" />
+    <Compile Include="Generators\ObjectGraphs\IObjectGraphProvider.cs" />
     <Compile Include="Generators\ObjectGraphs\ObjectGraphProvider.cs" />
     <Compile Include="Generators\ObjectGraphs\DataTransferObjects\ObjectGraph.cs" />
     <Compile Include="Generators\InstantiateMethodGenerator.cs" />
-    <Compile Include="Generators\CilEmitting\InstantiateMethodBodyEmitter.cs" />
+    <Compile Include="Generators\CilEmitting\InstantiateMethodBodyGenerator.cs" />
     <Compile Include="DependencyContainer.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="IDependencyContainer.cs" />
-    <Compile Include="InnerRegistry\InnerRegistryProvider.cs" />
+    <Compile Include="Lifetimes\Scopes\IIntegratedScope.cs" />
+    <Compile Include="Lifetimes\Scopes\IScope.cs" />
     <Compile Include="Lifetimes\Lifetime.cs" />
+    <Compile Include="Lifetimes\Scopes\IntegratedScope.cs" />
+    <Compile Include="Lifetimes\Scopes\Services\IScopeKeeper.cs" />
+    <Compile Include="Lifetimes\Scopes\Services\ScopeKeeper.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\AssembliesProvider.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\IAssembliesProvider.cs" />
     <Compile Include="Registrations\Services\Exceptions\CompositionRootNotFoundException.cs" />

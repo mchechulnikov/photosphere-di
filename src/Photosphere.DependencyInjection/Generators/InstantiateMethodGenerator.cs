@@ -5,21 +5,31 @@ using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Generators.CilEmitting;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
-using Photosphere.DependencyInjection.InnerRegistry;
+using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
+using Photosphere.DependencyInjection.SystemExtends.Reflection.Emit;
 
 namespace Photosphere.DependencyInjection.Generators
 {
-    // TODO Rewrite without static
-    internal static class InstantiateMethodGenerator
+    internal class InstantiateMethodGenerator : IInstantiateMethodGenerator
     {
-        public static Func<TTarget> Generate<TTarget>(IRegistry registry = null)
+        private readonly IRegistry _registry;
+        private readonly IScopeKeeper _scopeKeeper;
+        private readonly IObjectGraphProvider _objectGraphProvider;
+
+        public InstantiateMethodGenerator(
+            IRegistry registry,
+            IScopeKeeper scopeKeeper)
+        {
+            _registry = registry;
+            _scopeKeeper = scopeKeeper;
+            _objectGraphProvider = new ObjectGraphProvider();
+        }
+
+        public Func<TTarget> Generate<TTarget>()
         {
             var dynamicMethod = CreateDynamicMethod<TTarget>();
-            registry = registry ?? InnerRegistryProvider.InnerRegistry;
-            var ilGenerator = dynamicMethod.GetILGenerator();
-            var objectGraph = GetObjectGraph<TTarget>(registry);
-            InstantiateMethodBodyEmitter.GenerateFor(ilGenerator, objectGraph);
+            Generate<TTarget>(_registry, dynamicMethod);
             return CreateDelegate<TTarget>(dynamicMethod);
         }
 
@@ -30,15 +40,23 @@ namespace Photosphere.DependencyInjection.Generators
             return new DynamicMethod(methodName, targetType, null, true);
         }
 
+        private void Generate<TTarget>(IRegistry registry, DynamicMethod dynamicMethod)
+        {
+            var objectGraph = GetObjectGraph<TTarget>(registry);
+            var ilGenerator = new CilGenerator(dynamicMethod.GetILGenerator());
+            var methodBodyGenerator = new InstantiateMethodBodyGenerator(ilGenerator, _scopeKeeper);
+            methodBodyGenerator.Generate(objectGraph);
+        }
+
+        private IObjectGraph GetObjectGraph<TTarget>(IRegistry registry)
+        {
+            var implementationType = typeof(TTarget).GetFirstImplementationType();
+            return _objectGraphProvider.Provide(implementationType, registry);
+        }
+
         private static Func<TTarget> CreateDelegate<TTarget>(MethodInfo dynamicMethod)
         {
             return (Func<TTarget>) dynamicMethod.CreateDelegate(typeof(Func<TTarget>));
-        }
-
-        private static IObjectGraph GetObjectGraph<TTarget>(IRegistry registry)
-        {
-            var implementationType = typeof(TTarget).GetFirstImplementationType();
-            return ObjectGraphProvider.Provide(implementationType, registry);
         }
     }
 }

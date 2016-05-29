@@ -1,27 +1,22 @@
-﻿using System;
-using Photosphere.DependencyInjection.Generators;
+﻿using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Registrations.Services;
+using Photosphere.DependencyInjection.Registrations.ValueObjects;
 using Photosphere.DependencyInjection.Resolving;
 
 namespace Photosphere.DependencyInjection
 {
     public class DependencyContainer : IDependencyContainer
     {
-        private static readonly Func<IRegistryInitializer> RegistryInitializerInstantiator;
-        private static readonly Func<IResolver> ResolverInstantiator;
         private readonly IRegistryInitializer _registryInitializer;
         private readonly IResolver _resolver;
-
-        static DependencyContainer()
-        {
-            RegistryInitializerInstantiator = InstantiateMethodGenerator.Generate<IRegistryInitializer>();
-            ResolverInstantiator = InstantiateMethodGenerator.Generate<IResolver>();
-        }
+        private readonly IScopeKeeper _scopeKeeper;
 
         public DependencyContainer()
         {
-            _registryInitializer = RegistryInitializerInstantiator.Invoke();
-            _resolver = ResolverInstantiator.Invoke();
+            var registry = new Registry();
+            _scopeKeeper = new ScopeKeeper();
+            _registryInitializer = new RegistryInitializer(registry, _scopeKeeper);
+            _resolver = new Resolver(registry);
         }
 
         public void Initialize()
@@ -32,6 +27,11 @@ namespace Photosphere.DependencyInjection
         public TService GetInstance<TService>()
         {
             return _resolver.GetInstance<TService>();
+        }
+
+        public void Dispose()
+        {
+            _scopeKeeper.Dispose();
         }
     }
 }

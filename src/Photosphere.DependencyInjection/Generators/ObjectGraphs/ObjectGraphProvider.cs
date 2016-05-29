@@ -9,10 +9,9 @@ using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
 {
-    // TODO Rewrite without static
-    internal static class ObjectGraphProvider
+    internal class ObjectGraphProvider : IObjectGraphProvider
     {
-        public static IObjectGraph Provide(Type implType, IRegistry registry, ISet<Type> alreadyProvidedTypes = null)
+        public IObjectGraph Provide(Type implType, IRegistry registry, ISet<Type> alreadyProvidedTypes = null)
         {
             var registration = GetRegistration(implType, registry);
             var constructor = implType.GetFirstPublicConstructor();
@@ -35,7 +34,7 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             throw new TypeNotRegisteredException(implType);
         }
 
-        private static IReadOnlyList<IObjectGraph> GetChildren(
+        private IReadOnlyList<IObjectGraph> GetChildren(
             Type implType, ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor, IRegistry registry)
         {
             alreadyProvidedTypes = MarkTypeAsProcessed(implType, alreadyProvidedTypes);
