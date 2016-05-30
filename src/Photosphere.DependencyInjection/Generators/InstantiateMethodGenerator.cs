@@ -19,11 +19,12 @@ namespace Photosphere.DependencyInjection.Generators
 
         public InstantiateMethodGenerator(
             IRegistry registry,
-            IScopeKeeper scopeKeeper)
+            IScopeKeeper scopeKeeper,
+            IObjectGraphProvider objectGraphPovider)
         {
             _registry = registry;
             _scopeKeeper = scopeKeeper;
-            _objectGraphProvider = new ObjectGraphProvider();
+            _objectGraphProvider = objectGraphPovider;
         }
 
         public Func<TTarget> Generate<TTarget>()

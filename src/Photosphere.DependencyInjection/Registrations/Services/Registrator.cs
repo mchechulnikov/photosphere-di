@@ -10,11 +10,14 @@ namespace Photosphere.DependencyInjection.Registrations.Services
         private readonly IValidator _validator;
         private readonly IRegistrationFactory _registrationFactory;
 
-        public Registrator(IRegistry registry, IScopeKeeper scopeKeeper)
+        public Registrator(
+            IRegistry registry,
+            IValidator validator,
+            IRegistrationFactory registrationFactory)
         {
             _registry = registry;
-            _validator = new Validator();
-            _registrationFactory = new RegistrationFactory(registry, scopeKeeper);
+            _validator = validator;
+            _registrationFactory = registrationFactory;
         }
 
         public IRegistrator Register<TService>(Lifetime lifetime = Lifetime.PerRequest)

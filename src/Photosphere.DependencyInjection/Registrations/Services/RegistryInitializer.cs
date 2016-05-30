@@ -1,6 +1,4 @@
-using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots;
-using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Registrations.Services
 {
@@ -9,10 +7,11 @@ namespace Photosphere.DependencyInjection.Registrations.Services
         private readonly ICompositionRootProvider _compositionRootProvider;
         private readonly IRegistrator _registrator;
 
-        public RegistryInitializer(IRegistry registry, IScopeKeeper scopeKeeper)
+        public RegistryInitializer(
+            ICompositionRootProvider compositionRootProvider, IRegistrator registrator)
         {
-            _compositionRootProvider = new CompositionRootProvider();
-            _registrator = new Registrator(registry, scopeKeeper);
+            _compositionRootProvider = compositionRootProvider;
+;            _registrator = registrator;
         }
 
         public void Initialize()

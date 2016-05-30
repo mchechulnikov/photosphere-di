@@ -11,10 +11,12 @@ namespace Photosphere.DependencyInjection.Registrations.Services
         private readonly IScopeKeeper _scopeKeeper;
         private readonly IInstantiateMethodGenerator _methodGenerator;
 
-        public RegistrationFactory(IRegistry registry, IScopeKeeper scopeKeeper)
+        public RegistrationFactory(
+            IScopeKeeper scopeKeeper,
+            IInstantiateMethodGenerator methodGenerator)
         {
             _scopeKeeper = scopeKeeper;
-            _methodGenerator = new InstantiateMethodGenerator(registry, scopeKeeper);
+            _methodGenerator = methodGenerator;
         }
 
         public IRegistration Get<TService>(Lifetime lifetime)
