@@ -15,7 +15,7 @@ namespace Photosphere.DependencyInjection.Registrations.Services
             IRegistry registry)
         {
             _compositionRootProvider = compositionRootProvider;
-;            _registrator = registrator;
+            _registrator = registrator;
             _registry = registry;
         }
 
@@ -25,9 +25,10 @@ namespace Photosphere.DependencyInjection.Registrations.Services
             {
                 compositionRoot.Compose(_registrator);
             }
+            // TODO fix it
             foreach (var registration in _registry)
             {
-                
+                registration.GenerateInstantiateFunction();
             }
         }
     }

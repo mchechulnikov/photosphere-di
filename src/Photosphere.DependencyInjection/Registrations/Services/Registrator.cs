@@ -1,5 +1,4 @@
 ﻿using Photosphere.DependencyInjection.Lifetimes;
-using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Registrations.Services

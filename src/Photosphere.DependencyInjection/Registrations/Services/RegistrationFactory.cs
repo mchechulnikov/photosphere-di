@@ -22,11 +22,10 @@ namespace Photosphere.DependencyInjection.Registrations.Services
         public IRegistration Get<TService>(Lifetime lifetime)
         {
             _scopeKeeper.StartNewScope();
-            return new Registration
+            return new Registration(() => _methodGenerator.Generate<TService>())
             {
                 ServiceType = typeof(TService),
                 ImplementationType = typeof(TService).GetFirstImplementationType(),
-                InstantiateFunction = _methodGenerator.Generate<TService>(),
                 Lifetime = lifetime
             };
         }
