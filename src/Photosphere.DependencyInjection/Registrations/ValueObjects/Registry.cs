@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
@@ -24,5 +25,15 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
         }
 
         public IRegistration this[Type type] => _dictionary[type];
+
+        public IEnumerator<IRegistration> GetEnumerator()
+        {
+            return _dictionary.Values.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

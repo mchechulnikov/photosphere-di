@@ -11,27 +11,28 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
 {
     internal class ObjectGraphProvider : IObjectGraphProvider
     {
-        public IObjectGraph Provide(Type implType, IRegistry registry, ISet<Type> alreadyProvidedTypes = null)
+        public IObjectGraph Provide(
+            Type serviceType, Type implType, IRegistry registry, ISet<Type> alreadyProvidedTypes = null)
         {
-            var registration = GetRegistration(implType, registry);
+            var registration = GetRegistration(serviceType, implType, registry);
             var constructor = implType.GetFirstPublicConstructor();
             var children = GetChildren(implType, alreadyProvidedTypes, constructor, registry);
             return new ObjectGraph(registration, constructor, children);
         }
 
-        private static IRegistration GetRegistration(Type implType, IRegistry registry)
+        private static IRegistration GetRegistration(Type serviceType, Type implType, IRegistry registry)
         {
-            CheckForRegistration(implType, registry);
+            CheckForRegistration(serviceType, registry);
             return registry[implType];
         }
 
-        private static void CheckForRegistration(Type implType, IRegistry registry)
+        private static void CheckForRegistration(Type serviceType, IRegistry registry)
         {
-            if (registry.Contains(implType))
+            if (registry.Contains(serviceType))
             {
                 return;
             }
-            throw new TypeNotRegisteredException(implType);
+            throw new TypeNotRegisteredException(serviceType);
         }
 
         private IReadOnlyList<IObjectGraph> GetChildren(
@@ -45,11 +46,12 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             }
             CheckForCircleDependency(parametersTypes, alreadyProvidedTypes);
             var result = new List<IObjectGraph>();
-            foreach (var type in parametersTypes)
+            foreach (var paramServiceType in parametersTypes)
             {
-                var graph = Provide(type, registry, alreadyProvidedTypes);
+                var paramImplType = paramServiceType.GetFirstImplementationType();
+                var graph = Provide(paramServiceType, paramImplType, registry, alreadyProvidedTypes);
                 result.Add(graph);
-                alreadyProvidedTypes.Remove(type);
+                alreadyProvidedTypes.Remove(paramServiceType);
             }
             return result;
         }
@@ -66,7 +68,7 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
 
         private static IReadOnlyList<Type> GetParametersTypes(ConstructorInfo constructor)
         {
-            return constructor.GetParameters().Select(p => p.ParameterType.GetFirstImplementationType()).ToList();
+            return constructor.GetParameters().Select(p => p.ParameterType).ToList();
         }
 
         private static void CheckForCircleDependency(IEnumerable<Type> parametersTypes, ICollection<Type> alreadyProvidedTypes)

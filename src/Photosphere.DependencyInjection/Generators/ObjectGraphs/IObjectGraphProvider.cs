@@ -7,6 +7,7 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
 {
     internal interface IObjectGraphProvider
     {
-        IObjectGraph Provide(Type implType, IRegistry registry, ISet<Type> alreadyProvidedTypes = null);
+        IObjectGraph Provide(
+            Type serviceType, Type implType, IRegistry registry, ISet<Type> alreadyProvidedTypes = null);
     }
 }

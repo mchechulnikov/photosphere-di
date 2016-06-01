@@ -19,19 +19,19 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
         public IEnumerable<ICompositionRoot> Provide()
         {
             var assemblies = _assembliesProvider.Provide().ToList();
-            return assemblies.Select(GetCompositionRoot);
+            return assemblies.Select(GetCompositionRoot).NotNull();
         }
 
         private static ICompositionRoot GetCompositionRoot(IAssemblyWrapper assembly)
         {
-            return (ICompositionRoot) GetSingleImplementationTypeOf<ICompositionRoot>(assembly).GetNewInstance();
+            return (ICompositionRoot) GetSingleImplementationTypeOf<ICompositionRoot>(assembly)?.GetNewInstance();
         }
 
         private static Type GetSingleImplementationTypeOf<TService>(IAssemblyWrapper assembly)
         {
             var compositionRootTypes = GetCompositionRootTypes<TService>(assembly);
-            CheckTypes<TService>(assembly, compositionRootTypes.ToList());
-            return compositionRootTypes.First();
+            CheckTypes(assembly, compositionRootTypes.ToList());
+            return compositionRootTypes.FirstOrDefault();
         }
 
         private static IList<Type> GetCompositionRootTypes<TService>(IAssemblyWrapper assembly)
@@ -39,12 +39,8 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
             return assembly.Types.Where(t => t.IsImplements<TService>()).ToList();
         }
 
-        private static void CheckTypes<TService>(IAssemblyWrapper assembly, IReadOnlyList<Type> compositionRootTypes)
+        private static void CheckTypes(IAssemblyWrapper assembly, IReadOnlyList<Type> compositionRootTypes)
         {
-            if (compositionRootTypes.IsEmpty())
-            {
-                throw new CompositionRootNotFoundException(assembly);
-            }
             if (compositionRootTypes.Count() > 1)
             {
                 throw new SeveralCompositionRootsWasFoundException(assembly, compositionRootTypes);

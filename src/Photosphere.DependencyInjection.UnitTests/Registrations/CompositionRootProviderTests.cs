@@ -33,30 +33,6 @@ namespace Photosphere.DependencyInjection.UnitTests.Registrations
         }
 
         [Fact]
-        internal void Provide_OneAssemblyWithoutAnyCompositionRoots_Exception()
-        {
-            var assemblyWrapper = new Mock<IAssemblyWrapper>().GetInstance(mock =>
-            {
-                mock.Setup(p => p.FullName).Returns(() => AssemblyName);
-                mock.Setup(p => p.Types).Returns(() => new[] { typeof(IFoo), typeof(Foo) });
-            });
-            var assembliesProvider = new Mock<IAssembliesProvider>().GetInstance(mock =>
-            {
-                mock.Setup(p => p.Provide()).Returns(() => new[] { assemblyWrapper });
-            });
-            var provider = new CompositionRootProvider(assembliesProvider);
-
-            try
-            {
-                provider.Provide().IdleEnumerate();
-            }
-            catch (CompositionRootNotFoundException exception)
-            {
-                Assert.True(exception.Message.Contains(AssemblyName));
-            }
-        }
-
-        [Fact]
         internal void Provide_OneAssemblyWithSeveralCompositionRoots_Exception()
         {
             var assemblyWrapper = new Mock<IAssemblyWrapper>().GetInstance(mock =>

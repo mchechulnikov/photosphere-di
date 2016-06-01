@@ -69,7 +69,6 @@
     <Compile Include="Lifetimes\Scopes\Services\ScopeKeeper.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\AssembliesProvider.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\IAssembliesProvider.cs" />
-    <Compile Include="Registrations\Services\Exceptions\CompositionRootNotFoundException.cs" />
     <Compile Include="Registrations\Services\Exceptions\SeveralCompositionRootsWasFoundException.cs" />
     <Compile Include="Registrations\Services\Exceptions\TypeNotImplementsServiceTypeException.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\CompositionRootProvider.cs" />
@@ -80,11 +79,9 @@
     <Compile Include="ICompositionRoot.cs" />
     <Compile Include="IRegistrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registrations\Services\IValidator.cs" />
     <Compile Include="Registrations\Services\RegistrationFactory.cs" />
     <Compile Include="Registrations\Services\RegistryInitializer.cs" />
     <Compile Include="Registrations\Services\Registrator.cs" />
-    <Compile Include="Registrations\Services\Validator.cs" />
     <Compile Include="Registrations\ValueObjects\AssemblyWrapper.cs" />
     <Compile Include="Registrations\ValueObjects\IAssemblyWrapper.cs" />
     <Compile Include="Registrations\ValueObjects\IRegistration.cs" />

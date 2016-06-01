@@ -14,5 +14,10 @@ namespace Photosphere.DependencyInjection.Extensions
         {
             return enumerable == null || enumerable.IsEmpty<T>();
         }
+
+        public static IEnumerable<T> NotNull<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable.Where(x => x != null);
+        }
     }
 }

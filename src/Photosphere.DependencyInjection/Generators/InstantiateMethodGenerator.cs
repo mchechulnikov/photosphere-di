@@ -51,8 +51,9 @@ namespace Photosphere.DependencyInjection.Generators
 
         private IObjectGraph GetObjectGraph<TTarget>(IRegistry registry)
         {
-            var implementationType = typeof(TTarget).GetFirstImplementationType();
-            return _objectGraphProvider.Provide(implementationType, registry);
+            var serviceType = typeof(TTarget);
+            var implementationType = serviceType.GetFirstImplementationType();
+            return _objectGraphProvider.Provide(serviceType, implementationType, registry);
         }
 
         private static Func<TTarget> CreateDelegate<TTarget>(MethodInfo dynamicMethod)
