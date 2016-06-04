@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -41,6 +42,11 @@ namespace Photosphere.DependencyInjection.Extensions
             return
                 type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.Default).FirstOrDefault()
                 ?? type.GetConstructor(Type.EmptyTypes);
+        }
+
+        public static IEnumerable<FieldInfo> GetPrivateReadonlyFields(this Type type)
+        {
+            return type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
         }
     }
 }

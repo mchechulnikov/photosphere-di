@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Extensions\GenericObjectExtensions.cs" />
     <Compile Include="Generators\CilEmitting\IInstantiateMethodBodyGenerator.cs" />
     <Compile Include="Generators\IInstantiateMethodGenerator.cs" />
     <Compile Include="Generators\ObjectGraphs\DataTransferObjects\IObjectGraph.cs" />

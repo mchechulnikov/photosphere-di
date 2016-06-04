@@ -1,4 +1,5 @@
-﻿using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects;
+﻿using Photosphere.DependencyInjection.Extensions;
+using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTests
@@ -47,6 +48,18 @@ namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTe
             var result = container.GetInstance<ITestServiceWithDependencies>();
 
             Assert.IsType<TestServiceWithDependencies>(result);
+        }
+
+        [Fact]
+        internal void GetInstance_WithDependencies_DependenciesNotNull()
+        {
+            var container = new DependencyContainer();
+
+            container.Initialize();
+            var instance = (TestServiceWithDependencies) container.GetInstance<ITestServiceWithDependencies>();
+            var dependencies = instance.GetPrivateReadonlyFieldsObjectsOf();
+
+            Assert.All(dependencies, Assert.NotNull);
         }
     }
 }
