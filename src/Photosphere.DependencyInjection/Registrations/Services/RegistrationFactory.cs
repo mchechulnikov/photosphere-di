@@ -21,8 +21,11 @@ namespace Photosphere.DependencyInjection.Registrations.Services
 
         public IRegistration Get<TService>(Lifetime lifetime)
         {
-            _scopeKeeper.StartNewScope();
-            return new Registration(() => _methodGenerator.Generate<TService>())
+            return new Registration(() =>
+            {
+                _scopeKeeper.StartNewScope();
+                return _methodGenerator.Generate<TService>();
+            })
             {
                 ServiceType = typeof(TService),
                 ImplementationType = typeof(TService).GetFirstImplementationType(),

@@ -6,7 +6,10 @@ namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.Compositi
     {
         public void Compose(IRegistrator registrator)
         {
-            registrator.Register<IFoo>();
+            registrator
+                .Register<IFoo>()
+                .Register<IBar>()
+                .Register<ITestServiceWithDependencies>();
         }
     }
 }

@@ -7,8 +7,8 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
     {
         void Add(IRegistration registration);
 
-        bool Contains(Type type);
+        bool Contains(Type serviceType);
 
-        IRegistration this[Type type] { get; }
+        IRegistration this[Type serviceType] { get; }
     }
 }

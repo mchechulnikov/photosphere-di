@@ -21,7 +21,7 @@ namespace Photosphere.DependencyInjection.Resolving
             {
                 case Lifetime.AlwaysNew:
                 case Lifetime.PerRequest:
-                    result = ((Func<TService>)registration.InstantiateFunction).Invoke();
+                    result = ((Func<TService>) registration.InstantiateFunction).Invoke();
                     break;
                 case Lifetime.PerContainer:
                     result = (TService) registration.Instance;
