@@ -61,9 +61,9 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
             }
             else
             {
+                instanceVaraiableFromScope = _ilGenerator.DeclareLocalVariableOf(objectGraph.ImplementationType);
                 CreateNewInstance(objectGraph);
-                // TODO Is there any stack peek instruction in CIL?
-                _ilGenerator.PopFromStackTo(instanceVaraiableFromScope);
+                _ilGenerator.PopFromStackTo(instanceVaraiableFromScope); // TODO Is there any stack peek instruction in CIL?
                 scope.Add(objectGraph.ImplementationType, instanceVaraiableFromScope);
                 _ilGenerator.PushToStack(instanceVaraiableFromScope);
             }

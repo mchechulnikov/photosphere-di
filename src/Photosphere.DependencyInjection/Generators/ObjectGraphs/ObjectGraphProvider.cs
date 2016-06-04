@@ -14,16 +14,16 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
         public IObjectGraph Provide(
             Type serviceType, Type implType, IRegistry registry, ISet<Type> alreadyProvidedTypes = null)
         {
-            var registration = GetRegistration(serviceType, implType, registry);
+            var registration = GetRegistration(serviceType, registry);
             var constructor = implType.GetFirstPublicConstructor();
             var children = GetChildren(implType, alreadyProvidedTypes, constructor, registry);
             return new ObjectGraph(registration, constructor, children);
         }
 
-        private static IRegistration GetRegistration(Type serviceType, Type implType, IRegistry registry)
+        private static IRegistration GetRegistration(Type serviceType, IRegistry registry)
         {
             CheckForRegistration(serviceType, registry);
-            return registry[implType];
+            return registry[serviceType];
         }
 
         private static void CheckForRegistration(Type serviceType, IRegistry registry)
