@@ -56,10 +56,9 @@ namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTe
             var container = new DependencyContainer();
 
             container.Initialize();
-            var instance = (TestServiceWithDependencies) container.GetInstance<ITestServiceWithDependencies>();
-            var dependencies = instance.GetPrivateReadonlyFieldsObjectsOf();
+            var result = (TestServiceWithDependencies) container.GetInstance<ITestServiceWithDependencies>();
 
-            Assert.All(dependencies, Assert.NotNull);
+            Assert.All(result.GetPrivateReadonlyFieldsObjects(), Assert.NotNull);
         }
     }
 }
