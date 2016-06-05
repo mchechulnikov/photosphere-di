@@ -5,11 +5,11 @@ using System.Reflection.Emit;
 
 namespace Photosphere.DependencyInjection.Lifetimes.Scopes
 {
-    internal class IntegratedScope : IIntegratedScope
+    internal class PerRequestScope : IPerRequestScope
     {
         private IDictionary<Type, LocalBuilder> _availableInstancesVariables;
 
-        public IntegratedScope()
+        public PerRequestScope()
         {
             _availableInstancesVariables = new ConcurrentDictionary<Type, LocalBuilder>();
         }

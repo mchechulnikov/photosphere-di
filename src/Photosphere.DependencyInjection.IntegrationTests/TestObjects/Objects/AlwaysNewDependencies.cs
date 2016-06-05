@@ -1,8 +1,8 @@
 ﻿namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects
 {
-    internal class WithAlwaysNewDependencies : IWithAlwaysNewDependencies
+    internal class AlwaysNewDependencies : IAlwaysNewDependencies
     {
-        public WithAlwaysNewDependencies(IAlwaysNewFoo foo, IAlwaysNewBar bar)
+        public AlwaysNewDependencies(IAlwaysNewFoo foo, IAlwaysNewBar bar)
         {
             Foo = foo;
             Bar = bar;

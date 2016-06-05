@@ -10,8 +10,12 @@ namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
         void CreateNewInstanceBy(ConstructorInfo constructor);
         void PopFromStackTo(LocalBuilder localVariable);
         void PushToStack(LocalBuilder localVariable);
+        void PushToStack(int number);
         void PushToStack(IEnumerable<LocalBuilder> localVariables);
+        void PushToStackFirstArgument();
+        void PushToStackArrayElementAsRef();
         void ReturnStatement(LocalBuilder variableForReturn);
+        void ReplaceArrayElementAtIndexWithRefValueFromStack();
         LocalBuilder DeclareLocalVariableOf(Type type);
     }
 }

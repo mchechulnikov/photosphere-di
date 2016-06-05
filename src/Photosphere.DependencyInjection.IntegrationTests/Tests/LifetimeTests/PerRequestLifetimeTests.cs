@@ -21,7 +21,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.LifetimeTests
         {
             var container = new DependencyContainer();
 
-            var serviceWithDependencies = container.GetInstance<IWithPerRequestDependencies>();
+            var serviceWithDependencies = container.GetInstance<IPerRequestDependencies>();
             var foo1 = serviceWithDependencies.Foo;
             var foo2 = serviceWithDependencies.Bar.PerRequestFoo;
 

@@ -4,7 +4,8 @@ namespace Photosphere.DependencyInjection.Lifetimes.Scopes.Services
 {
     internal interface IScopeKeeper : IDisposable
     {
-        IIntegratedScope Provide(Lifetime lifetime);
+        IPerContainerScope PerContainerScope { get; }
+        IPerRequestScope PerRequestScope { get; }
         void StartNewScope();
     }
 }

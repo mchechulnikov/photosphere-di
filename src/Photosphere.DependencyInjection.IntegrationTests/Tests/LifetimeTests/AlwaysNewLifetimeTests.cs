@@ -21,7 +21,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.LifetimeTests
         {
             var container = new DependencyContainer();
 
-            var serviceWithDependencies = container.GetInstance<IWithAlwaysNewDependencies>();
+            var serviceWithDependencies = container.GetInstance<IAlwaysNewDependencies>();
             var foo1 = serviceWithDependencies.Foo;
             var foo2 = serviceWithDependencies.Bar.AlwaysNewFoo;
 

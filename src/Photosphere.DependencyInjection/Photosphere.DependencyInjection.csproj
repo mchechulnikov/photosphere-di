@@ -61,10 +61,12 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="IDependencyContainer.cs" />
     <Compile Include="InnerStructure\InnerServiceLocator.cs" />
-    <Compile Include="Lifetimes\Scopes\IIntegratedScope.cs" />
+    <Compile Include="Lifetimes\Scopes\IPerContainerScope.cs" />
+    <Compile Include="Lifetimes\Scopes\IPerRequestScope.cs" />
     <Compile Include="Lifetimes\Scopes\IScope.cs" />
     <Compile Include="Lifetimes\Lifetime.cs" />
-    <Compile Include="Lifetimes\Scopes\IntegratedScope.cs" />
+    <Compile Include="Lifetimes\Scopes\PerContainerScope.cs" />
+    <Compile Include="Lifetimes\Scopes\PerRequestScope.cs" />
     <Compile Include="Lifetimes\Scopes\Services\IScopeKeeper.cs" />
     <Compile Include="Lifetimes\Scopes\Services\ScopeKeeper.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\AssembliesProvider.cs" />

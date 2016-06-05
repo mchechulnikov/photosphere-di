@@ -1,39 +1,25 @@
-﻿using System;
-
-namespace Photosphere.DependencyInjection.Lifetimes.Scopes.Services
+﻿namespace Photosphere.DependencyInjection.Lifetimes.Scopes.Services
 {
     internal class ScopeKeeper : IScopeKeeper
     {
-        private readonly IIntegratedScope _perContainerScope;
-        private IIntegratedScope _perRequestScope;
-
         public ScopeKeeper()
         {
-            _perContainerScope = new IntegratedScope();
+            PerContainerScope = new PerContainerScope();
         }
 
-        public IIntegratedScope Provide(Lifetime lifetime)
-        {
-            switch (lifetime)
-            {
-                case Lifetime.PerContainer:
-                    return _perContainerScope;
-                case Lifetime.PerRequest:
-                    return _perRequestScope;
-                default:
-                    throw new InvalidOperationException("Unexpected lifetime");
-            }
-        }
+        public IPerContainerScope PerContainerScope { get; }
+
+        public IPerRequestScope PerRequestScope { get; private set; }
 
         public void StartNewScope()
         {
-            _perRequestScope = new IntegratedScope();
+            PerRequestScope = new PerRequestScope();
         }
 
         public void Dispose()
         {
-            _perContainerScope.Dispose();
-            _perRequestScope.Dispose();
+            PerContainerScope.Dispose();
+            PerRequestScope.Dispose();
         }
     }
 }

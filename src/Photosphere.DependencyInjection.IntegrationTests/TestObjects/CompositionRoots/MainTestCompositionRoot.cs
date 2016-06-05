@@ -10,10 +10,15 @@ namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.Compositi
             registrator
                 .Register<IPerRequestFoo>()
                 .Register<IPerRequestBar>()
-                .Register<IWithPerRequestDependencies>()
+                .Register<IPerRequestDependencies>()
+
                 .Register<IAlwaysNewFoo>(Lifetime.AlwaysNew)
                 .Register<IAlwaysNewBar>(Lifetime.AlwaysNew)
-                .Register<IWithAlwaysNewDependencies>();
+                .Register<IAlwaysNewDependencies>(Lifetime.AlwaysNew)
+
+                .Register<IPerContainerFoo>(Lifetime.PerContainer)
+                .Register<IPerContainerBar>(Lifetime.PerContainer)
+                .Register<IPerContainerDependencies>(Lifetime.PerContainer);
         }
     }
 }

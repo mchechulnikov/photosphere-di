@@ -58,8 +58,15 @@
   <ItemGroup>
     <Compile Include="Extensions\GenericObjectExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="TestObjects\Objects\IPerContainerBar.cs" />
+    <Compile Include="TestObjects\Objects\IPerContainerDependencies.cs" />
+    <Compile Include="TestObjects\Objects\IPerContainerFoo.cs" />
+    <Compile Include="TestObjects\Objects\PerContainerBar.cs" />
+    <Compile Include="TestObjects\Objects\PerContainerDependencies.cs" />
+    <Compile Include="TestObjects\Objects\PerContainerFoo.cs" />
     <Compile Include="Tests\GetInstanceTests.cs" />
     <Compile Include="Tests\LifetimeTests\AlwaysNewLifetimeTests.cs" />
+    <Compile Include="Tests\LifetimeTests\PerContainerLifetimeTests.cs" />
     <Compile Include="Tests\LifetimeTests\PerRequestLifetimeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestObjects\CompositionRoots\MainTestCompositionRoot.cs" />
@@ -67,14 +74,14 @@
     <Compile Include="TestObjects\Objects\AlwaysNewFoo.cs" />
     <Compile Include="TestObjects\Objects\IAlwaysNewBar.cs" />
     <Compile Include="TestObjects\Objects\IAlwaysNewFoo.cs" />
-    <Compile Include="TestObjects\Objects\IWithAlwaysNewDependencies.cs" />
+    <Compile Include="TestObjects\Objects\IAlwaysNewDependencies.cs" />
     <Compile Include="TestObjects\Objects\PerRequestBar.cs" />
     <Compile Include="TestObjects\Objects\PerRequestFoo.cs" />
     <Compile Include="TestObjects\Objects\IPerRequestBar.cs" />
     <Compile Include="TestObjects\Objects\IPerRequestFoo.cs" />
-    <Compile Include="TestObjects\Objects\IWithPerRequestDependencies.cs" />
-    <Compile Include="TestObjects\Objects\WithAlwaysNewDependencies.cs" />
-    <Compile Include="TestObjects\Objects\WithPerRequestDependencies.cs" />
+    <Compile Include="TestObjects\Objects\IPerRequestDependencies.cs" />
+    <Compile Include="TestObjects\Objects\AlwaysNewDependencies.cs" />
+    <Compile Include="TestObjects\Objects\PerRequestDependencies.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

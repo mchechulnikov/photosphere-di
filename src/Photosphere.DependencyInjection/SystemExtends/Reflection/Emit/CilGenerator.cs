@@ -29,6 +29,11 @@ namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
             _systemIlGenerator.Emit(OpCodes.Ldloc, localVariable);
         }
 
+        public void PushToStack(int number)
+        {
+            _systemIlGenerator.Emit(OpCodes.Ldc_I4_S, number);
+        }
+
         public void PushToStack(IEnumerable<LocalBuilder> localVariables)
         {
             foreach (var localVariable in localVariables)
@@ -37,10 +42,25 @@ namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
             }
         }
 
+        public void PushToStackFirstArgument()
+        {
+            _systemIlGenerator.Emit(OpCodes.Ldarg_1);
+        }
+
+        public void PushToStackArrayElementAsRef()
+        {
+            _systemIlGenerator.Emit(OpCodes.Ldelem_Ref);
+        }
+
         public void ReturnStatement(LocalBuilder variableForReturn)
         {
             PushToStack(variableForReturn);
             _systemIlGenerator.Emit(OpCodes.Ret);
+        }
+
+        public void ReplaceArrayElementAtIndexWithRefValueFromStack()
+        {
+            _systemIlGenerator.Emit(OpCodes.Stelem_Ref);
         }
 
         public LocalBuilder DeclareLocalVariableOf(Type type)

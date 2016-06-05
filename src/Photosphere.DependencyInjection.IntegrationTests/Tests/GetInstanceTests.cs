@@ -31,7 +31,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests
         {
             var container = new DependencyContainer();
 
-            var result = container.GetInstance<IWithPerRequestDependencies>();
+            var result = container.GetInstance<IPerRequestDependencies>();
 
             Assert.NotNull(result);
         }
@@ -41,9 +41,9 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests
         {
             var container = new DependencyContainer();
 
-            var result = container.GetInstance<IWithPerRequestDependencies>();
+            var result = container.GetInstance<IPerRequestDependencies>();
 
-            Assert.IsType<WithPerRequestDependencies>(result);
+            Assert.IsType<PerRequestDependencies>(result);
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests
         {
             var container = new DependencyContainer();
 
-            var result = (WithPerRequestDependencies) container.GetInstance<IWithPerRequestDependencies>();
+            var result = (PerRequestDependencies) container.GetInstance<IPerRequestDependencies>();
 
             Assert.All(result.GetPrivateReadonlyFieldsObjects(), Assert.NotNull);
         }

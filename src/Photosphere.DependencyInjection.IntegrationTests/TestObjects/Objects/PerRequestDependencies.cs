@@ -1,8 +1,8 @@
 ﻿namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects
 {
-    internal class WithPerRequestDependencies : IWithPerRequestDependencies
+    internal class PerRequestDependencies : IPerRequestDependencies
     {
-        public WithPerRequestDependencies(
+        public PerRequestDependencies(
             IPerRequestFoo foo,
             IPerRequestBar bar)
         {

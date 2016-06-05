@@ -27,9 +27,10 @@ namespace Photosphere.DependencyInjection.Generators
             _objectGraphProvider = objectGraphPovider;
         }
 
-        public Func<TTarget> Generate<TTarget>()
+        public Func<object[], TTarget> Generate<TTarget>()
         {
             var dynamicMethod = CreateDynamicMethod<TTarget>();
+            DefineParameters(dynamicMethod);
             Generate<TTarget>(_registry, dynamicMethod);
             return CreateDelegate<TTarget>(dynamicMethod);
         }
@@ -37,8 +38,13 @@ namespace Photosphere.DependencyInjection.Generators
         private static DynamicMethod CreateDynamicMethod<TTarget>()
         {
             var targetType = typeof(TTarget);
-            var methodName = $"Photosphere_CreateInstance_Of_{targetType.Name}";
-            return new DynamicMethod(methodName, targetType, null, true);
+            var methodName = $"PhotosphereDI_CreateInstance_Of_{targetType.Name}";
+            return new DynamicMethod(methodName, targetType, new [] { typeof(object[]) }, true);
+        }
+
+        private static void DefineParameters(DynamicMethod dynamicMethod)
+        {
+            dynamicMethod.DefineParameter(1, ParameterAttributes.None, "perContainerInstances");
         }
 
         private void Generate<TTarget>(IRegistry registry, DynamicMethod dynamicMethod)
@@ -56,9 +62,9 @@ namespace Photosphere.DependencyInjection.Generators
             return _objectGraphProvider.Provide(serviceType, implementationType, registry);
         }
 
-        private static Func<TTarget> CreateDelegate<TTarget>(MethodInfo dynamicMethod)
+        private static Func<object[], TTarget> CreateDelegate<TTarget>(MethodInfo dynamicMethod)
         {
-            return (Func<TTarget>) dynamicMethod.CreateDelegate(typeof(Func<TTarget>));
+            return (Func<object[], TTarget>) dynamicMethod.CreateDelegate(typeof(Func<object[], TTarget>));
         }
     }
 }

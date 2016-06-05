@@ -14,7 +14,7 @@ namespace Photosphere.DependencyInjection.InnerStructure
         {
             var registry = new Registry();
             var scopeKeeper = new ScopeKeeper();
-            var resolver = new Resolver(registry);
+            var resolver = new Resolver(registry, scopeKeeper);
             var assembliesProvider = new AssembliesProvider();
             var compositionRootProvider = new CompositionRootProvider(assembliesProvider);
             var objectGraphProvider = new ObjectGraphProvider();

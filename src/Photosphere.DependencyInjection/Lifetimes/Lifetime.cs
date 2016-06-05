@@ -4,7 +4,6 @@
     {
         AlwaysNew,
         PerRequest,
-        PerContainer,
-        PerScope
+        PerContainer
     }
 }
