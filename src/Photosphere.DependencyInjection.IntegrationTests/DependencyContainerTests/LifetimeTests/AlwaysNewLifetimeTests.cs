@@ -3,29 +3,29 @@ using Xunit;
 
 namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTests.LifetimeTests
 {
-    public class PerRequestLifetimeTests
+    public class AlwaysNewLifetimeTests
     {
         [Fact]
         internal void GetInstance_SameDependenciesInDifferentRequests_DifferentObject()
         {
             var container = new DependencyContainer();
 
-            var foo1 = container.GetInstance<IPerRequestFoo>();
-            var foo2 = container.GetInstance<IPerRequestFoo>();
+            var foo1 = container.GetInstance<IAlwaysNewFoo>();
+            var foo2 = container.GetInstance<IAlwaysNewFoo>();
 
             Assert.NotSame(foo1, foo2);
         }
 
         [Fact]
-        internal void GetInstance_SameDependenciesOnVariousTreeNodes_SameObject()
+        internal void GetInstance_SameDependenciesOnVariousTreeNodes_DifferentObject()
         {
             var container = new DependencyContainer();
 
             var serviceWithDependencies = container.GetInstance<ITestServiceWithDependencies>();
-            var foo1 = serviceWithDependencies.PerRequestFoo;
-            var foo2 = serviceWithDependencies.PerRequestBar.Foo;
+            var foo1 = serviceWithDependencies.AlwaysNewFoo;
+            var foo2 = serviceWithDependencies.AlwaysNewBar.Foo;
 
-            Assert.Same(foo1, foo2);
+            Assert.NotSame(foo1, foo2);
         }
     }
 }

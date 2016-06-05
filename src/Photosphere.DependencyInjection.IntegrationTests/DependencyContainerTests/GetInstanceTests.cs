@@ -11,7 +11,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTe
         {
             var container = new DependencyContainer();
 
-            var result = container.GetInstance<IFoo>();
+            var result = container.GetInstance<IPerRequestFoo>();
 
             Assert.NotNull(result);
         }
@@ -21,9 +21,9 @@ namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTe
         {
             var container = new DependencyContainer();
 
-            var result = container.GetInstance<IFoo>();
+            var result = container.GetInstance<IPerRequestFoo>();
 
-            Assert.IsType<Foo>(result);
+            Assert.IsType<PerRequestFoo>(result);
         }
 
         [Fact]

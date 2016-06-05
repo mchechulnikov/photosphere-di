@@ -1,7 +1,7 @@
 ﻿namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects
 {
-    internal interface IBar
+    internal interface IAlwaysNewBar
     {
-        IFoo Foo { get; }
+        IAlwaysNewFoo Foo { get; }
     }
 }

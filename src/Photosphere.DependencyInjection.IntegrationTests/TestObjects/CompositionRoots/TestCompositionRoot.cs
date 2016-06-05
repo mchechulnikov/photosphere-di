@@ -1,14 +1,17 @@
 ﻿using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects;
+using Photosphere.DependencyInjection.Lifetimes;
 
 namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.CompositionRoots
 {
-    internal class FirstCompositionRoot : ICompositionRoot
+    internal class TestCompositionRoot : ICompositionRoot
     {
         public void Compose(IRegistrator registrator)
         {
             registrator
-                .Register<IFoo>()
-                .Register<IBar>()
+                .Register<IPerRequestFoo>()
+                .Register<IPerRequestBar>()
+                .Register<IAlwaysNewFoo>(Lifetime.AlwaysNew)
+                .Register<IAlwaysNewBar>(Lifetime.AlwaysNew)
                 .Register<ITestServiceWithDependencies>();
         }
     }

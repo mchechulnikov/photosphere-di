@@ -2,7 +2,9 @@
 {
     internal interface ITestServiceWithDependencies
     {
-        IFoo Foo { get; }
-        IBar Bar { get; }
+        IPerRequestFoo PerRequestFoo { get; }
+        IPerRequestBar PerRequestBar { get; }
+        IAlwaysNewFoo AlwaysNewFoo { get; }
+        IAlwaysNewBar AlwaysNewBar { get; }
     }
 }

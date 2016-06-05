@@ -2,16 +2,18 @@
 {
     internal class TestServiceWithDependencies : ITestServiceWithDependencies
     {
-        private readonly IFoo _foo;
-        private readonly IBar _bar;
 
-        public TestServiceWithDependencies(IFoo foo, IBar bar)
+        public TestServiceWithDependencies(IPerRequestFoo perRequestFoo, IPerRequestBar perRequestBar, IAlwaysNewFoo alwaysNewFoo, IAlwaysNewBar alwaysNewBar)
         {
-            _bar = bar;
-            _foo = foo;
+            PerRequestFoo = perRequestFoo;
+            PerRequestBar = perRequestBar;
+            AlwaysNewFoo = alwaysNewFoo;
+            AlwaysNewBar = alwaysNewBar;
         }
 
-        public IFoo Foo => _foo;
-        public IBar Bar => _bar;
+        public IPerRequestFoo PerRequestFoo { get; }
+        public IPerRequestBar PerRequestBar { get; }
+        public IAlwaysNewFoo AlwaysNewFoo { get; }
+        public IAlwaysNewBar AlwaysNewBar { get; }
     }
 }
