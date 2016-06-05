@@ -3,7 +3,7 @@ using Photosphere.DependencyInjection.Lifetimes;
 
 namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.CompositionRoots
 {
-    internal class TestCompositionRoot : ICompositionRoot
+    internal class MainTestCompositionRoot : ICompositionRoot
     {
         public void Compose(IRegistrator registrator)
         {

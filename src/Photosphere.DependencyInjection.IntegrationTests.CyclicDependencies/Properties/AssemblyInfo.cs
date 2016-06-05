@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Photosphere.DependencyInjection")]
+[assembly: AssemblyTitle("Photosphere.DependencyInjection.IntegrationTests.CyclicDependencies")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Photosphere")]
+[assembly: AssemblyProduct("Photosphere.DependencyInjection.IntegrationTests.CyclicDependencies")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("452e8e26-5885-4e8d-9e56-8f08bf1198dd")]
+[assembly: Guid("2f55d7c5-4648-47e6-adbc-016d89ba05fe")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -34,6 +34,3 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-
-[assembly: InternalsVisibleTo("Photosphere.DependencyInjection.UnitTests")]
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

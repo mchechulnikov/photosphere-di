@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Photosphere.DependencyInjection.Extensions
+namespace Photosphere.DependencyInjection.IntegrationTests.Extensions
 {
     internal static class GenericObjectExtensions
     {

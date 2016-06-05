@@ -16,7 +16,7 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
         {
             var registration = GetRegistration(serviceType, registry);
             var constructor = implType.GetFirstPublicConstructor();
-            var children = GetChildren(implType, alreadyProvidedTypes, constructor, registry);
+            var children = GetChildren(serviceType, alreadyProvidedTypes, constructor, registry);
             return new ObjectGraph(registration, constructor, children);
         }
 
@@ -36,9 +36,9 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
         }
 
         private IReadOnlyList<IObjectGraph> GetChildren(
-            Type implType, ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor, IRegistry registry)
+            Type serviceType, ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor, IRegistry registry)
         {
-            alreadyProvidedTypes = MarkTypeAsProcessed(implType, alreadyProvidedTypes);
+            alreadyProvidedTypes = MarkTypeAsProcessed(serviceType, alreadyProvidedTypes);
             var parametersTypes = GetParametersTypes(constructor);
             if (parametersTypes.IsEmpty())
             {
@@ -56,13 +56,13 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             return result;
         }
 
-        private static ISet<Type> MarkTypeAsProcessed(Type type, ISet<Type> alreadyProvidedTypes)
+        private static ISet<Type> MarkTypeAsProcessed(Type serviceType, ISet<Type> alreadyProvidedTypes)
         {
             if (alreadyProvidedTypes == null)
             {
                 alreadyProvidedTypes = new HashSet<Type>();
             }
-            alreadyProvidedTypes.Add(type);
+            alreadyProvidedTypes.Add(serviceType);
             return alreadyProvidedTypes;
         }
 
@@ -76,7 +76,7 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             var alreadyProvidedType = parametersTypes.FirstOrDefault(alreadyProvidedTypes.Contains);
             if (alreadyProvidedType != null)
             {
-                throw new DetectedCircleDependencyException(alreadyProvidedType);
+                throw new DetectedCycleDependencyException(alreadyProvidedType);
             }
         }
     }

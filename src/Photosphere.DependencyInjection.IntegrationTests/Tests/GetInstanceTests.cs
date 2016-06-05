@@ -1,8 +1,8 @@
-﻿using Photosphere.DependencyInjection.Extensions;
+﻿using Photosphere.DependencyInjection.IntegrationTests.Extensions;
 using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects;
 using Xunit;
 
-namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTests
+namespace Photosphere.DependencyInjection.IntegrationTests.Tests
 {
     public class GetInstanceTests
     {

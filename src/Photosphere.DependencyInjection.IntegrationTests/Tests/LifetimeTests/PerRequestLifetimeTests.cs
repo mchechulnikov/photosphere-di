@@ -1,7 +1,7 @@
 ﻿using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects;
 using Xunit;
 
-namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTests.LifetimeTests
+namespace Photosphere.DependencyInjection.IntegrationTests.Tests.LifetimeTests
 {
     public class PerRequestLifetimeTests
     {

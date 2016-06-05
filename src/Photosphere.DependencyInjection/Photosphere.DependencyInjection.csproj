@@ -47,11 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\AssemblyExtensions.cs" />
-    <Compile Include="Extensions\GenericObjectExtensions.cs" />
     <Compile Include="Generators\CilEmitting\IInstantiateMethodBodyGenerator.cs" />
     <Compile Include="Generators\IInstantiateMethodGenerator.cs" />
     <Compile Include="Generators\ObjectGraphs\DataTransferObjects\IObjectGraph.cs" />
-    <Compile Include="Generators\ObjectGraphs\Exceptions\DetectedCircleDependencyException.cs" />
+    <Compile Include="Generators\ObjectGraphs\Exceptions\DetectedCycleDependencyException.cs" />
     <Compile Include="Generators\ObjectGraphs\Exceptions\TypeNotRegisteredException.cs" />
     <Compile Include="Generators\ObjectGraphs\IObjectGraphProvider.cs" />
     <Compile Include="Generators\ObjectGraphs\ObjectGraphProvider.cs" />
