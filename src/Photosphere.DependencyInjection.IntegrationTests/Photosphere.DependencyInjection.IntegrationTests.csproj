@@ -65,12 +65,14 @@
     <Compile Include="TestObjects\Objects\AlwaysNewFoo.cs" />
     <Compile Include="TestObjects\Objects\IAlwaysNewBar.cs" />
     <Compile Include="TestObjects\Objects\IAlwaysNewFoo.cs" />
+    <Compile Include="TestObjects\Objects\IWithAlwaysNewDependencies.cs" />
     <Compile Include="TestObjects\Objects\PerRequestBar.cs" />
     <Compile Include="TestObjects\Objects\PerRequestFoo.cs" />
     <Compile Include="TestObjects\Objects\IPerRequestBar.cs" />
     <Compile Include="TestObjects\Objects\IPerRequestFoo.cs" />
-    <Compile Include="TestObjects\Objects\ITestServiceWithDependencies.cs" />
-    <Compile Include="TestObjects\Objects\TestServiceWithDependencies.cs" />
+    <Compile Include="TestObjects\Objects\IWithPerRequestDependencies.cs" />
+    <Compile Include="TestObjects\Objects\WithAlwaysNewDependencies.cs" />
+    <Compile Include="TestObjects\Objects\WithPerRequestDependencies.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

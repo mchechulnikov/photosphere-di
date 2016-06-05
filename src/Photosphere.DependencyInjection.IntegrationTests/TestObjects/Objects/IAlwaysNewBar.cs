@@ -2,6 +2,7 @@
 {
     internal interface IAlwaysNewBar
     {
-        IAlwaysNewFoo Foo { get; }
+        IAlwaysNewFoo AlwaysNewFoo { get; }
+        IPerRequestBar PerRequestBar { get; }
     }
 }

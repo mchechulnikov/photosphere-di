@@ -37,7 +37,7 @@ namespace Photosphere.DependencyInjection.Generators
         private static DynamicMethod CreateDynamicMethod<TTarget>()
         {
             var targetType = typeof(TTarget);
-            var methodName = $"CreateInstanceOf{targetType.Name}";
+            var methodName = $"Photosphere_CreateInstance_Of_{targetType.Name}";
             return new DynamicMethod(methodName, targetType, null, true);
         }
 

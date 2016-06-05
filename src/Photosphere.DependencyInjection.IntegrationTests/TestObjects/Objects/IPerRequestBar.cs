@@ -2,6 +2,6 @@
 {
     internal interface IPerRequestBar
     {
-        IPerRequestFoo Foo { get; }
+        IPerRequestFoo PerRequestFoo { get; }
     }
 }

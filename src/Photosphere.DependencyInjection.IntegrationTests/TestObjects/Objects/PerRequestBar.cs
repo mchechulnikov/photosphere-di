@@ -2,13 +2,11 @@
 {
     internal class PerRequestBar : IPerRequestBar
     {
-        private readonly IPerRequestFoo _foo;
-
-        public PerRequestBar(IPerRequestFoo foo)
+        public PerRequestBar(IPerRequestFoo perRequestFoo)
         {
-            _foo = foo;
+            PerRequestFoo = perRequestFoo;
         }
 
-        public IPerRequestFoo Foo => _foo;
+        public IPerRequestFoo PerRequestFoo { get; }
     }
 }

@@ -2,12 +2,13 @@
 {
     internal class AlwaysNewBar : IAlwaysNewBar
     {
-
-        public AlwaysNewBar(IAlwaysNewFoo foo)
+        public AlwaysNewBar(IAlwaysNewFoo alwaysNewFoo, IPerRequestBar perRequestBar)
         {
-            Foo = foo;
+            AlwaysNewFoo = alwaysNewFoo;
+            PerRequestBar = perRequestBar;
         }
 
-        public IAlwaysNewFoo Foo { get; }
+        public IAlwaysNewFoo AlwaysNewFoo { get; }
+        public IPerRequestBar PerRequestBar { get; }
     }
 }

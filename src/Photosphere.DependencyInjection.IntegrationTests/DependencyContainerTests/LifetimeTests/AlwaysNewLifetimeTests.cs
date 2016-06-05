@@ -21,9 +21,9 @@ namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTe
         {
             var container = new DependencyContainer();
 
-            var serviceWithDependencies = container.GetInstance<ITestServiceWithDependencies>();
-            var foo1 = serviceWithDependencies.AlwaysNewFoo;
-            var foo2 = serviceWithDependencies.AlwaysNewBar.Foo;
+            var serviceWithDependencies = container.GetInstance<IWithAlwaysNewDependencies>();
+            var foo1 = serviceWithDependencies.Foo;
+            var foo2 = serviceWithDependencies.Bar.AlwaysNewFoo;
 
             Assert.NotSame(foo1, foo2);
         }
