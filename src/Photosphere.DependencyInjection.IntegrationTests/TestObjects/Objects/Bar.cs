@@ -2,6 +2,13 @@
 {
     internal class Bar : IBar
     {
-        public Bar() {}
+        private readonly IFoo _foo;
+
+        public Bar(IFoo foo)
+        {
+            _foo = foo;
+        }
+
+        public IFoo Foo => _foo;
     }
 }
