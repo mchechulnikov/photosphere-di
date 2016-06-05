@@ -21,7 +21,6 @@ internal class CompositionRoot : ICompositionRoot
 And resolve:
 ``` C#
 var container = new DependencyContainer();
-container.Initialize();
 var foo = container.GetInstance<IFoo>();
 foo.DoSomething();
 ```
