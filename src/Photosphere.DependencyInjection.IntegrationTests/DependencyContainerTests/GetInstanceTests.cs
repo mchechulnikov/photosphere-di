@@ -11,7 +11,6 @@ namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTe
         {
             var container = new DependencyContainer();
 
-            container.Initialize();
             var result = container.GetInstance<IFoo>();
 
             Assert.NotNull(result);
@@ -22,7 +21,6 @@ namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTe
         {
             var container = new DependencyContainer();
 
-            container.Initialize();
             var result = container.GetInstance<IFoo>();
 
             Assert.IsType<Foo>(result);
@@ -33,7 +31,6 @@ namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTe
         {
             var container = new DependencyContainer();
 
-            container.Initialize();
             var result = container.GetInstance<ITestServiceWithDependencies>();
 
             Assert.NotNull(result);
@@ -44,7 +41,6 @@ namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTe
         {
             var container = new DependencyContainer();
 
-            container.Initialize();
             var result = container.GetInstance<ITestServiceWithDependencies>();
 
             Assert.IsType<TestServiceWithDependencies>(result);
@@ -55,7 +51,6 @@ namespace Photosphere.DependencyInjection.IntegrationTests.DependencyContainerTe
         {
             var container = new DependencyContainer();
 
-            container.Initialize();
             var result = (TestServiceWithDependencies) container.GetInstance<ITestServiceWithDependencies>();
 
             Assert.All(result.GetPrivateReadonlyFieldsObjects(), Assert.NotNull);
