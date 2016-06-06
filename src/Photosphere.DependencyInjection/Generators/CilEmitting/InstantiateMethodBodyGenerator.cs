@@ -69,48 +69,67 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
 
         private void GenerateForPerRequestScope(IPerRequestScope scope, IObjectGraph objectGraph)
         {
-            LocalBuilder instanceVariableFromScope;
-            if (scope.AvailableInstancesVariables.TryGetValue(objectGraph.ImplementationType, out instanceVariableFromScope))
+            LocalBuilder instanceVariable;
+            if (scope.AvailableInstancesVariables.TryGetValue(objectGraph.ImplementationType, out instanceVariable))
             {
-                _ilGenerator.PushToStack(instanceVariableFromScope);
+                _ilGenerator.PushToStack(instanceVariable);
             }
             else
             {
-                instanceVariableFromScope = _ilGenerator.DeclareLocalVariableOf(objectGraph.ImplementationType);
+                instanceVariable = _ilGenerator.DeclareLocalVariableOf(objectGraph.ImplementationType);
                 CreateNewInstance(objectGraph);
-                _ilGenerator.PopFromStackTo(instanceVariableFromScope);
-                scope.Add(objectGraph.ImplementationType, instanceVariableFromScope);
-                _ilGenerator.PushToStack(instanceVariableFromScope);
+                _ilGenerator.PopFromStackTo(instanceVariable);
+                scope.Add(objectGraph.ImplementationType, instanceVariable);
+                _ilGenerator.PushToStack(instanceVariable);
             }
         }
 
         private void GenerateForPerContainerScope(IPerContainerScope scope, IObjectGraph objectGraph)
         {
-            var instanceFromScope = scope.AvailableInstances.SingleOrDefault(i => i != null && i.GetType() == objectGraph.ImplementationType);
-            if (instanceFromScope != null)
+            int instanceIndex;
+            if (!scope.AvailableInstancesIndexes.TryGetValue(objectGraph.ImplementationType, out instanceIndex))
             {
-                _ilGenerator.PushToStackFirstArgument();
-                var arrayIndex = Array.IndexOf(scope.AvailableInstances, instanceFromScope);
-                _ilGenerator.PushToStack(arrayIndex);
-                _ilGenerator.PushToStackArrayElementAsRef();
+                instanceIndex = scope.AvailableInstancesIndexes.Count;
+                scope.AvailableInstancesIndexes.Add(objectGraph.ImplementationType, instanceIndex);
             }
-            else
+
+            // final
+            var instanceVariable = _ilGenerator.DeclareLocalVariableOf(typeof(object));
+            var booleanVariable = _ilGenerator.DeclareLocalVariableOf(typeof(bool));
+
+            var branchLabel = _ilGenerator.DefineLabel();
+            var exitLabel = _ilGenerator.DefineLabel();
+
+            _ilGenerator.Generator.Emit(OpCodes.Ldarg_1);
+            _ilGenerator.Generator.Emit(OpCodes.Ldc_I4_S, instanceIndex);
+            _ilGenerator.Generator.Emit(OpCodes.Ldelem_Ref);
+            _ilGenerator.Generator.Emit(OpCodes.Ldnull);
+            _ilGenerator.Generator.Emit(OpCodes.Cgt_Un);
+            _ilGenerator.Generator.Emit(OpCodes.Stloc, booleanVariable);
+            _ilGenerator.Generator.Emit(OpCodes.Ldloc, booleanVariable);
+            _ilGenerator.Generator.Emit(OpCodes.Brfalse_S, branchLabel);
+            _ilGenerator.Generator.Emit(OpCodes.Br_S, exitLabel);
+            _ilGenerator.MarkLabel(branchLabel);
+            CreateNewInstance(objectGraph);
+            _ilGenerator.PopFromStackTo(instanceVariable);
+            _ilGenerator.PushToStackFirstArgument();
+            _ilGenerator.PushToStack(instanceIndex);
+            _ilGenerator.PushToStack(instanceVariable);
+            _ilGenerator.ReplaceArrayElementAtIndexWithRefValueFromStack();
+            _ilGenerator.MarkLabel(exitLabel);
+            _ilGenerator.PushToStack(instanceVariable);
+        }
+
+        private void Do(object[] objects)
+        {
+            const int index = 42;
+
+            if (objects[index] != null)
             {
-                var arrayIndex = scope.AvailableInstances.All(i => i == null)
-                    ? 0
-                    : Array.IndexOf(scope.AvailableInstances, scope.AvailableInstances.Last(x => x != null)) + 1;
-                var instanceVariableFromScope = _ilGenerator.DeclareLocalVariableOf(typeof(object));
-
-                CreateNewInstance(objectGraph);
-                _ilGenerator.PopFromStackTo(instanceVariableFromScope);
-
-                _ilGenerator.PushToStackFirstArgument();
-                _ilGenerator.PushToStack(arrayIndex);
-                _ilGenerator.PushToStack(instanceVariableFromScope);
-                _ilGenerator.ReplaceArrayElementAtIndexWithRefValueFromStack();
-
-                _ilGenerator.PushToStack(instanceVariableFromScope);
+                return;
             }
+            var result = new PerContainerScope();
+            objects[index] = result;
         }
     }
 }

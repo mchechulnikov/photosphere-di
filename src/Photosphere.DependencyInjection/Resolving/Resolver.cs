@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
@@ -20,7 +19,7 @@ namespace Photosphere.DependencyInjection.Resolving
         {
             var registration = _registry[typeof(TService)];
             var instantiateFunction = (Func<object[], TService>) registration.InstantiateFunction;
-            var instances = _scopeKeeper.PerContainerScope.AvailableInstances.ToArray();
+            var instances = _scopeKeeper.PerContainerScope.AvailableInstances;
             return instantiateFunction.Invoke(instances);
         }
     }

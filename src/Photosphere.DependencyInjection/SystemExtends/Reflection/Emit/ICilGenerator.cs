@@ -17,5 +17,13 @@ namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
         void ReturnStatement(LocalBuilder variableForReturn);
         void ReplaceArrayElementAtIndexWithRefValueFromStack();
         LocalBuilder DeclareLocalVariableOf(Type type);
+        void DuplicateValueOnTopOfStack();
+        void BranchToTarget(Label label);
+        void Pop();
+
+        Label DefineLabel();
+        void MarkLabel(Label label);
+
+        ILGenerator Generator { get; }
     }
 }

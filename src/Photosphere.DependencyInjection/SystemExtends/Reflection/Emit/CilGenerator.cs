@@ -67,5 +67,32 @@ namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
         {
             return _systemIlGenerator.DeclareLocal(type);
         }
+
+        public void DuplicateValueOnTopOfStack()
+        {
+            _systemIlGenerator.Emit(OpCodes.Dup);
+        }
+
+        public void BranchToTarget(Label label)
+        {
+            _systemIlGenerator.Emit(OpCodes.Brtrue_S, label);
+        }
+
+        public void Pop()
+        {
+            _systemIlGenerator.Emit(OpCodes.Pop);
+        }
+
+        public Label DefineLabel()
+        {
+            return _systemIlGenerator.DefineLabel();
+        }
+
+        public void MarkLabel(Label label)
+        {
+            _systemIlGenerator.MarkLabel(label);
+        }
+
+        public ILGenerator Generator => _systemIlGenerator;
     }
 }
