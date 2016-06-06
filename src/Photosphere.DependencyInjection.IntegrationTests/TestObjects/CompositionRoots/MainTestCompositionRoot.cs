@@ -17,8 +17,8 @@ namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.Compositi
                 .Register<IAlwaysNewDependencies>(Lifetime.AlwaysNew)
 
                 .Register<IPerContainerFoo>(Lifetime.PerContainer)
-                .Register<IPerContainerBar>(Lifetime.PerContainer)
-                .Register<IPerContainerDependencies>(Lifetime.PerContainer);
+                /*.Register<IPerContainerBar>(Lifetime.PerContainer)
+                .Register<IPerContainerDependencies>(Lifetime.PerContainer)*/;
         }
     }
 }
