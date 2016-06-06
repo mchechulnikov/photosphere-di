@@ -1,24 +1,16 @@
-﻿using System.Collections.Generic;
-
-namespace Photosphere.DependencyInjection.Lifetimes.Scopes
+﻿namespace Photosphere.DependencyInjection.Lifetimes.Scopes
 {
     internal class PerContainerScope : IPerContainerScope
     {
-        public PerContainerScope()
-        {
-            AvailableInstances = new List<object>();
-        }
+        private object[] _availableServices;
 
-        public IList<object> AvailableInstances { get; private set; }
+        public int AvailableInstancesCount { private get; set; }
 
-        public void Add(object instance)
-        {
-            AvailableInstances.Add(instance);
-        }
+        public object[] AvailableInstances => _availableServices ?? (_availableServices = new object[AvailableInstancesCount]);
 
         public void Dispose()
         {
-            AvailableInstances = null;
+            _availableServices = null;
         }
     }
 }

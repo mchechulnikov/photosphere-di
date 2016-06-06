@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace Photosphere.DependencyInjection.Lifetimes.Scopes
+﻿namespace Photosphere.DependencyInjection.Lifetimes.Scopes
 {
     internal interface IPerContainerScope : IScope
     {
-        void Add(object instance);
+        int AvailableInstancesCount { set; }
 
-        IList<object> AvailableInstances { get; }
+        object[] AvailableInstances { get; }
     }
 }

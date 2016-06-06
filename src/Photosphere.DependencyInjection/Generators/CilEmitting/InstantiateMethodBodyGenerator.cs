@@ -78,7 +78,7 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
             {
                 instanceVariableFromScope = _ilGenerator.DeclareLocalVariableOf(objectGraph.ImplementationType);
                 CreateNewInstance(objectGraph);
-                _ilGenerator.PopFromStackTo(instanceVariableFromScope); // TODO Is there any stack peek instruction in CIL?
+                _ilGenerator.PopFromStackTo(instanceVariableFromScope);
                 scope.Add(objectGraph.ImplementationType, instanceVariableFromScope);
                 _ilGenerator.PushToStack(instanceVariableFromScope);
             }
@@ -86,19 +86,19 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
 
         private void GenerateForPerContainerScope(IPerContainerScope scope, IObjectGraph objectGraph)
         {
-            var instanceFromScope = scope.AvailableInstances.SingleOrDefault(o => o.GetType() == objectGraph.ImplementationType);
+            var instanceFromScope = scope.AvailableInstances.SingleOrDefault(i => i != null && i.GetType() == objectGraph.ImplementationType);
             if (instanceFromScope != null)
             {
                 _ilGenerator.PushToStackFirstArgument();
-                var arrayIndex = scope.AvailableInstances.IndexOf(instanceFromScope);
+                var arrayIndex = Array.IndexOf(scope.AvailableInstances, instanceFromScope);
                 _ilGenerator.PushToStack(arrayIndex);
                 _ilGenerator.PushToStackArrayElementAsRef();
             }
             else
             {
-                var arrayIndex = scope.AvailableInstances.IsEmpty()
+                var arrayIndex = scope.AvailableInstances.All(i => i == null)
                     ? 0
-                    : scope.AvailableInstances.IndexOf(scope.AvailableInstances.LastOrDefault()) + 1;
+                    : Array.IndexOf(scope.AvailableInstances, scope.AvailableInstances.Last(x => x != null)) + 1;
                 var instanceVariableFromScope = _ilGenerator.DeclareLocalVariableOf(typeof(object));
 
                 CreateNewInstance(objectGraph);
@@ -111,13 +111,6 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
 
                 _ilGenerator.PushToStack(instanceVariableFromScope);
             }
-        }
-
-        private object Do(object[] objects)
-        {
-            var result = new List<int>();
-            objects[42] = result;
-            return result;
         }
     }
 }
