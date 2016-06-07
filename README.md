@@ -9,6 +9,7 @@ Simplest dependency injection framework based on emitting CIL code.
 * Detects and denies cycles and not registered dependencies while service registration.
 * Service can be registered just by interface: search of implementation is carried out in the registration process. It reduce horrible registration mappings that bring only redundant references throught the code.
 * Provides three strategies of managing of lifetime: services can be always created anew, lives only during the time of the request or has container bounded life.
+* Container must be configured in a composition root of project/assembly.
 
 ## Example
 Register:
