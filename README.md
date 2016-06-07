@@ -1,9 +1,13 @@
 # Photosphere.DependencyInjection
-## About
-Simplest dependency injection framework based on System.Reflection.Emit.
+Simplest dependency injection framework based on emitting CIL code.
 
 ## Status
 [![Windows build Status](https://ci.appveyor.com/api/projects/status/github/sunloving/photosphere-di?retina=true&svg=true)](https://ci.appveyor.com/project/sunloving/photosphere-di)
+
+## Features
+* Building dynamic methods (using System.Reflection.Emit) for every registered service. It is very speeds up the resolving of dependencies when requested.
+* Detects and denies cycle and not registered dependencies while service registration.
+* Service can be registered just by interface: search of implementation is carried out in the registration process. It reduce horrible registration mappings that bring only redundant references throught the code.
 
 ## Example
 Register:
@@ -15,6 +19,7 @@ internal class CompositionRoot : ICompositionRoot
         registrator
             .Register<IFoo>()
             .Register<IBar>(Lifetime.AlwaysNew)
+            .Register<IBuz>(Lifetime.PerRequest)
             .Register<IQiz>(Lifetime.PerContainer);
     }
 }
