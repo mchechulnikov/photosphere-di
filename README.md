@@ -14,7 +14,8 @@ internal class CompositionRoot : ICompositionRoot
     {
         registrator
             .Register<IFoo>()
-            .Register<IBar>();
+            .Register<IBar>(Lifetime.AlwaysNew)
+            .Register<IQiz>(Lifetime.PerContainer);
     }
 }
 ```
