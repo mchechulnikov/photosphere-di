@@ -17,6 +17,17 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.LifetimeTests
         }
 
         [Fact]
+        internal void GetInstance_SameDependenciesWithInnerDependenciesOnVariousTreeNodes_SameObject()
+        {
+            var container = new DependencyContainer();
+
+            var bar1 = container.GetInstance<IPerContainerBar>();
+            var bar2 = container.GetInstance<IPerContainerBar>();
+
+            Assert.Same(bar1, bar2);
+        }
+
+        [Fact]
         internal void GetInstance_SameDependenciesOnVariousTreeNodes_SameObject()
         {
             var container = new DependencyContainer();
