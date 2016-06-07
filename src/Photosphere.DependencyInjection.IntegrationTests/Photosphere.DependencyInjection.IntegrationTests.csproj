@@ -58,14 +58,20 @@
   <ItemGroup>
     <Compile Include="Extensions\GenericObjectExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="TestObjects\Objects\IMixedLifetimesPerContainerDependencies.cs" />
+    <Compile Include="TestObjects\Objects\IMixedLifetimesPerRequestDependencies.cs" />
     <Compile Include="TestObjects\Objects\IPerContainerBar.cs" />
     <Compile Include="TestObjects\Objects\IPerContainerDependencies.cs" />
     <Compile Include="TestObjects\Objects\IPerContainerFoo.cs" />
+    <Compile Include="TestObjects\Objects\MixedLifetimesPerContainerDependencies.cs" />
+    <Compile Include="TestObjects\Objects\MixedLifetimesPerRequestDependencies.cs" />
     <Compile Include="TestObjects\Objects\PerContainerBar.cs" />
     <Compile Include="TestObjects\Objects\PerContainerDependencies.cs" />
     <Compile Include="TestObjects\Objects\PerContainerFoo.cs" />
     <Compile Include="Tests\GetInstanceTests.cs" />
     <Compile Include="Tests\LifetimeTests\AlwaysNewLifetimeTests.cs" />
+    <Compile Include="Tests\LifetimeTests\MixedLifetimesPerContainerTests.cs" />
+    <Compile Include="Tests\LifetimeTests\MixedLifetimesPerRequestTests.cs" />
     <Compile Include="Tests\LifetimeTests\PerContainerLifetimeTests.cs" />
     <Compile Include="Tests\LifetimeTests\PerRequestLifetimeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
