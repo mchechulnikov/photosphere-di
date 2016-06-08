@@ -18,8 +18,11 @@ namespace Photosphere.DependencyInjection.Registrations.Services
 
         public IRegistrator Register<TService>(Lifetime lifetime = Lifetime.PerRequest)
         {
-            var registration = _registrationFactory.Get<TService>(lifetime);
-            _registry.Add(registration);
+            var readOnlyList = _registrationFactory.Get<TService>(lifetime);
+            foreach (var registration in readOnlyList)
+            {
+                _registry.Add(registration);
+            }
             return this;
         }
     }

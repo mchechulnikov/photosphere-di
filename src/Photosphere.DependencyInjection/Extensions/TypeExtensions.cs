@@ -13,18 +13,26 @@ namespace Photosphere.DependencyInjection.Extensions
             return type.IsImplements(interfaceType);
         }
 
-        public static bool IsImplements(this Type type, Type interfaceType)
+        public static bool IsImplements(this Type type, Type serviceType)
         {
-            if (!interfaceType.IsInterface)
+            if (!serviceType.IsInterface)
             {
-                throw new ArgumentException($"Type `{interfaceType.Name}` must be interface");
+                throw new ArgumentException($"Type `{serviceType.Name}` must be interface");
             }
-            return type.GetInterfaces().Any(it => it == interfaceType);
+            return
+                type.GetInterfaces().Any(it => it == serviceType)
+                && !type.IsAbstract
+                && !type.IsInterface;
         }
 
         public static object GetNewInstance(this Type type)
         {
             return Activator.CreateInstance(type);
+        }
+
+        public static IEnumerable<Type> GetAllDerivedTypes(this Type type)
+        {
+            return type.Assembly.GetAllDerivedTypesOf(type).Where(t => t != null);
         }
 
         public static Type GetFirstImplementationType(this Type type)
@@ -33,8 +41,7 @@ namespace Photosphere.DependencyInjection.Extensions
             {
                 return type;
             }
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            return assemblies.Select(a => a.GetFirstOrDefaultImplementationTypeOf(type)).First(t => t != null);
+            return type.Assembly.GetFirstOrDefaultImplementationTypeOf(type);
         }
 
         public static ConstructorInfo GetFirstPublicConstructor(this Type type)

@@ -63,11 +63,22 @@
     <Compile Include="TestObjects\Objects\IPerContainerBar.cs" />
     <Compile Include="TestObjects\Objects\IPerContainerDependencies.cs" />
     <Compile Include="TestObjects\Objects\IPerContainerFoo.cs" />
+    <Compile Include="TestObjects\Objects\IService.cs" />
+    <Compile Include="TestObjects\Objects\IService1.cs" />
+    <Compile Include="TestObjects\Objects\IService11.cs" />
+    <Compile Include="TestObjects\Objects\IService12.cs" />
+    <Compile Include="TestObjects\Objects\IService2.cs" />
+    <Compile Include="TestObjects\Objects\IService21.cs" />
+    <Compile Include="TestObjects\Objects\IService22.cs" />
     <Compile Include="TestObjects\Objects\MixedLifetimesPerContainerDependencies.cs" />
     <Compile Include="TestObjects\Objects\MixedLifetimesPerRequestDependencies.cs" />
     <Compile Include="TestObjects\Objects\PerContainerBar.cs" />
     <Compile Include="TestObjects\Objects\PerContainerDependencies.cs" />
     <Compile Include="TestObjects\Objects\PerContainerFoo.cs" />
+    <Compile Include="TestObjects\Objects\Service11.cs" />
+    <Compile Include="TestObjects\Objects\Service12.cs" />
+    <Compile Include="TestObjects\Objects\Service21.cs" />
+    <Compile Include="TestObjects\Objects\Service22.cs" />
     <Compile Include="Tests\GetInstanceTests.cs" />
     <Compile Include="Tests\LifetimeTests\AlwaysNewLifetimeTests.cs" />
     <Compile Include="Tests\LifetimeTests\MixedLifetimesPerContainerTests.cs" />
@@ -88,6 +99,7 @@
     <Compile Include="TestObjects\Objects\IPerRequestDependencies.cs" />
     <Compile Include="TestObjects\Objects\AlwaysNewDependencies.cs" />
     <Compile Include="TestObjects\Objects\PerRequestDependencies.cs" />
+    <Compile Include="Tests\RegisteringByCommonInterfaceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
