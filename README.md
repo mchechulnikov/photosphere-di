@@ -14,12 +14,12 @@ Container must be configured in a composition root of project/assembly.
 ``` C#
 internal class CompositionRoot : ICompositionRoot
 {
-    public void Compose(IRegistrator registrator)
-    {
-        registrator
-            .Register<IFoo>()
-            .Register<IBar>();
-    }
+  public void Compose(IRegistrator registrator)
+  {
+    registrator
+      .Register<IFoo>()
+      .Register<IBar>();
+  }
 }
 ```
 
@@ -62,14 +62,14 @@ Register:
 ``` C#
 internal class CompositionRoot : ICompositionRoot
 {
-    public void Compose(IRegistrator registrator)
-    {
-        registrator
-            .Register<IFoo>()
-            .Register<IBar>(Lifetime.AlwaysNew)
-            .Register<IBuz>(Lifetime.PerRequest)
-            .Register<IQiz>(Lifetime.PerContainer);
-    }
+  public void Compose(IRegistrator registrator)
+  {
+    registrator
+      .Register<IFoo>()
+      .Register<IBar>(Lifetime.AlwaysNew)
+      .Register<IBuz>(Lifetime.PerRequest)
+      .Register<IQiz>(Lifetime.PerContainer);
+  }
 }
 ```
 ...and resolve:
