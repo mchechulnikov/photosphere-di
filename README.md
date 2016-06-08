@@ -24,7 +24,7 @@ internal class CompositionRoot : ICompositionRoot
 ```
 
 ### Facilitate low coupling
-Service can be registered just by interface: search of implementation is carried out in the registration process. It reduce horrible registration mappings that bring only redundant references throught the code.<br/>
+Service can be registered just by interface: search of implementation is carried out in the registration process. It reduce horrible registration mappings that bring only redundant references through a code.<br/>
 Just use `Register<TService>` method:
 ``` C#
 registrator.Register<IFoo>();
