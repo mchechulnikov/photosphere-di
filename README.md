@@ -5,14 +5,58 @@ Simplest dependency injection framework based on emitting CIL code.
 [![Windows build Status](https://ci.appveyor.com/api/projects/status/github/sunloving/photosphere-di?retina=true&svg=true)](https://ci.appveyor.com/project/sunloving/photosphere-di)
 
 ## Features
-* Building dynamic methods (using `System.Reflection.Emit`) for every registered service. It is very speeds up the resolving of dependencies when requested.
-* Service can be registered just by interface: search of implementation is carried out in the registration process. It reduce horrible registration mappings that bring only redundant references throught the code.
-* Provides three strategies of managing of lifetime: services can be always created anew, lives only during the time of the request or has container bounded life.
-* Container must be configured in a composition root of project/assembly.
-* Registering all descendants by common interface.
-* Detects and denies cycles and not registered dependencies while service registration.
+### Fast resolving
+This container based on building dynamic methods (using `System.Reflection.Emit`) for every registered service. It is very speeds up the resolving of dependencies when requested.
 
-## Example
+### Preffer declarating style
+Container must be configured in a composition root of project/assembly.
+``` C#
+internal class CompositionRoot : ICompositionRoot
+{
+    public void Compose(IRegistrator registrator)
+    {
+        registrator
+            .Register<IFoo>()
+            .Register<IBar>();
+    }
+}
+```
+
+### Facilitate low coupling
+Service can be registered just by interface: search of implementation is carried out in the registration process. It reduce horrible registration mappings that bring only redundant references throught the code.<br/>
+Just use `Register<TService>` method:
+``` C#
+registrator.Register<IFoo>();
+registrator.Register<IBar>();
+```
+for register implementations of `IFoo` and `IBar`.
+
+### Registering all descendants by common interface.
+``` C#
+interface IService {}
+interface IFoo : IService{}
+class Foo : IFoo {}
+interface IBar : IService {}
+class Bar : IBar
+{
+  public Bar(IFoo foo) {}
+}
+```
+``` C#
+registrator.Register<IService>();
+```
+``` C#
+var foo = registrator.GetInstance<IFoo>();
+var bar = registrator.GetInstance<Bar>();
+```
+
+### Object graph analysis performed at registration time
+Detects and denies cycles and not registered dependencies while service registration.
+
+### Control over objects life
+Provides three strategies of managing of lifetime: services can be always created anew, lives only during the time of the request or has container bounded life. Not uber feature :)
+
+### Easy to use
 Register:
 ``` C#
 internal class CompositionRoot : ICompositionRoot
@@ -27,11 +71,19 @@ internal class CompositionRoot : ICompositionRoot
     }
 }
 ```
-And resolve:
+...and resolve:
 ``` C#
 var container = new DependencyContainer();
 var foo = container.GetInstance<IFoo>();
 foo.DoSomething();
+```
+
+### Disposable
+``` C#
+using (var container = new DependencyContainer())
+{
+  // Objects that resolved here will beсome unreacheble outside this scope 
+}
 ```
 
 ## License
