@@ -3,6 +3,7 @@ Simplest dependency injection framework based on emitting CIL code.
 
 ## Status
 [![Windows build Status](https://ci.appveyor.com/api/projects/status/github/sunloving/photosphere-di?retina=true&svg=true)](https://ci.appveyor.com/project/sunloving/photosphere-di)
+[![NuGet](https://img.shields.io/nuget/v/Photosphere.DependencyInjection.svg)](https://www.nuget.org/packages/Photosphere.DependencyInjection/)
 
 ## Features
 ### Fast resolving
