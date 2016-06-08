@@ -1,7 +1,7 @@
 skip_commits:
   message: /((Create.*\.md)|(Update.*\.md))/
 
-version: 0.1.0.{build}
+version: 0.1.1.{build}
 
 configuration: Release
 
@@ -35,3 +35,12 @@ build:
 artifacts:
   - path: $(sourcesFolder)\$(projectName)\bin\$(configuration)\
     name: $(projectName)-v$(APPVEYOR_BUILD_VERSION)
+
+deploy:
+  - provider: NuGet
+    server: https://www.nuget.org
+    api_key:
+      secure: ddglAApbf5fja6dAaDstiBmewHSQ09BHjeLiQpA/WVvyTaSBmARSdH3xOjlAzkcQ
+    skip_symbols: false
+    symbol_server: nuget.smbsrc.net
+    artifact: $(projectName).$(APPVEYOR_BUILD_VERSION).nupkg
