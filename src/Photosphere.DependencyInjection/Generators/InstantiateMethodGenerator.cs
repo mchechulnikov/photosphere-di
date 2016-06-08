@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using Photosphere.DependencyInjection.Extensions;
@@ -27,17 +28,16 @@ namespace Photosphere.DependencyInjection.Generators
             _objectGraphProvider = objectGraphPovider;
         }
 
-        public Func<object[], TTarget> Generate<TTarget>()
+        public Delegate Generate(Type serviceType)
         {
-            var dynamicMethod = CreateDynamicMethod<TTarget>();
+            var dynamicMethod = CreateDynamicMethod(serviceType);
             DefineParameters(dynamicMethod);
-            Generate<TTarget>(_registry, dynamicMethod);
-            return CreateDelegate<TTarget>(dynamicMethod);
+            Generate(_registry, dynamicMethod, serviceType);
+            return CreateDelegate(dynamicMethod, serviceType);
         }
 
-        private static DynamicMethod CreateDynamicMethod<TTarget>()
+        private static DynamicMethod CreateDynamicMethod(Type targetType)
         {
-            var targetType = typeof(TTarget);
             var methodName = $"PhotosphereDI_CreateInstance_Of_{targetType.Name}";
             return new DynamicMethod(methodName, targetType, new [] { typeof(object[]) }, true);
         }
@@ -47,24 +47,24 @@ namespace Photosphere.DependencyInjection.Generators
             dynamicMethod.DefineParameter(1, ParameterAttributes.None, "perContainerInstances");
         }
 
-        private void Generate<TTarget>(IRegistry registry, DynamicMethod dynamicMethod)
+        private void Generate(IRegistry registry, DynamicMethod dynamicMethod, Type targetType)
         {
-            var objectGraph = GetObjectGraph<TTarget>(registry);
+            var objectGraph = GetObjectGraph(registry, targetType);
             var ilGenerator = new CilGenerator(dynamicMethod.GetILGenerator());
             var methodBodyGenerator = new InstantiateMethodBodyGenerator(ilGenerator, _scopeKeeper);
             methodBodyGenerator.Generate(objectGraph);
         }
 
-        private IObjectGraph GetObjectGraph<TTarget>(IRegistry registry)
+        private IObjectGraph GetObjectGraph(IRegistry registry, Type serviceType)
         {
-            var serviceType = typeof(TTarget);
             var implementationType = serviceType.GetFirstImplementationType();
             return _objectGraphProvider.Provide(serviceType, implementationType, registry);
         }
 
-        private static Func<object[], TTarget> CreateDelegate<TTarget>(MethodInfo dynamicMethod)
+        private static Delegate CreateDelegate(MethodInfo dynamicMethod, Type serviceType)
         {
-            return (Func<object[], TTarget>) dynamicMethod.CreateDelegate(typeof(Func<object[], TTarget>));
+            var delegateType = Expression.GetFuncType(typeof(object[]), serviceType);
+            return dynamicMethod.CreateDelegate(delegateType);
         }
     }
 }

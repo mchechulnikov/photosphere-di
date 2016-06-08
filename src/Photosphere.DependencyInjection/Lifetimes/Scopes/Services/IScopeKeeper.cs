@@ -6,6 +6,6 @@ namespace Photosphere.DependencyInjection.Lifetimes.Scopes.Services
     {
         IPerContainerScope PerContainerScope { get; }
         IPerRequestScope PerRequestScope { get; }
-        void StartNewScope();
+        void StartNewPerRequestScope();
     }
 }

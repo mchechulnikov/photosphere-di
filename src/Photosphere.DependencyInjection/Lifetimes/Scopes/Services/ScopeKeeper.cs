@@ -11,7 +11,7 @@
 
         public IPerRequestScope PerRequestScope { get; private set; }
 
-        public void StartNewScope()
+        public void StartNewPerRequestScope()
         {
             PerRequestScope = new PerRequestScope();
         }

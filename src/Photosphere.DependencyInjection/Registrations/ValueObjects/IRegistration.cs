@@ -11,8 +11,6 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
 
         Delegate InstantiateFunction { get; }
 
-        object Instance { get; }
-
         Lifetime Lifetime { get; }
 
         void GenerateInstantiateFunction();

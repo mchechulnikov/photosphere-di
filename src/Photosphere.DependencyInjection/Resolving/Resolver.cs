@@ -19,8 +19,7 @@ namespace Photosphere.DependencyInjection.Resolving
         {
             var registration = _registry[typeof(TService)];
             var instantiateFunction = (Func<object[], TService>) registration.InstantiateFunction;
-            var instances = _scopeKeeper.PerContainerScope.AvailableInstances;
-            return instantiateFunction.Invoke(instances);
+            return instantiateFunction.Invoke(_scopeKeeper.PerContainerScope.AvailableInstances);
         }
     }
 }
