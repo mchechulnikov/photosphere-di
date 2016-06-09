@@ -59,6 +59,13 @@ var bar = registrator.GetInstance<Bar>();
 ### Object graph analysis performed at registration time
 Detects and denies cycles and not registered dependencies while service registration.
 
+#### Cycle example
+``` C#
+class Foo { public Foo(Bar bar) {} }
+class Bar { public Bar(Buz buz) {} }
+class Buz { public Buz(Foo foo) {} }
+```
+
 ### Control over objects life
 Provides three strategies of managing of lifetime: services can be always created anew, lives only during the time of the request or has container bounded life. Not uber feature :)
 
