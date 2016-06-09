@@ -37,7 +37,7 @@ registrator.Register<IBar>();
 ```
 for register implementations of `IFoo` and `IBar`.
 
-### Registering all descendants by common interface.
+### Registering all descendants by common interface
 ``` C#
 interface IService {}
 interface IFoo : IService{}
