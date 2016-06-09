@@ -99,6 +99,7 @@
     <Compile Include="TestObjects\Objects\IPerRequestDependencies.cs" />
     <Compile Include="TestObjects\Objects\AlwaysNewDependencies.cs" />
     <Compile Include="TestObjects\Objects\PerRequestDependencies.cs" />
+    <Compile Include="Tests\RegisteringByClassTests.cs" />
     <Compile Include="Tests\RegisteringByCommonInterfaceTests.cs" />
   </ItemGroup>
   <ItemGroup>
