@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
@@ -17,8 +18,18 @@ namespace Photosphere.DependencyInjection.Resolving
 
         public TService GetInstance<TService>()
         {
-            var registration = _registry[typeof(TService)];
-            var instantiateFunction = (Func<object[], TService>) registration.InstantiateFunction;
+            return Get<TService>();
+        }
+
+        public IEnumerable<TService> GetAllInstances<TService>()
+        {
+            return Get<IEnumerable<TService>>();
+        }
+
+        private T Get<T>()
+        {
+            var registration = _registry[typeof(T)];
+            var instantiateFunction = (Func<object[], T>) registration.InstantiateFunction;
             return instantiateFunction.Invoke(_scopeKeeper.PerContainerScope.AvailableInstances);
         }
     }

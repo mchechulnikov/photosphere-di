@@ -31,7 +31,7 @@ namespace Photosphere.DependencyInjection.Registrations.Services
             var implementationType = serviceType.GetFirstImplementationType();
             if (implementationType == null)
             {
-                return null;
+                return null; // TODO Sick!
             }
             return new Registration(() => _methodGenerator.Generate(serviceType))
             {
