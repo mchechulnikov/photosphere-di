@@ -5,6 +5,11 @@ Simplest dependency injection framework based on emitting CIL code.
 [![Windows build Status](https://ci.appveyor.com/api/projects/status/github/sunloving/photosphere-di?retina=true&svg=true)](https://ci.appveyor.com/project/sunloving/photosphere-di)
 [![NuGet](https://img.shields.io/nuget/v/Photosphere.DependencyInjection.svg)](https://www.nuget.org/packages/Photosphere.DependencyInjection/)
 
+## Install via NuGet
+```
+PM> Install-Package Photosphere.DependencyInjection
+```
+
 ## Features
 ### Fast resolving
 This container based on building dynamic methods (using `System.Reflection.Emit`) for every registered service. It is very speeds up the resolving of dependencies when requested.
