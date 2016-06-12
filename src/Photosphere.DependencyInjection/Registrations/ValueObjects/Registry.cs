@@ -15,9 +15,12 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
             _dictionary = new ConcurrentDictionary<Type, IRegistration>();
         }
 
-        public void Add(IRegistration registration)
+        public void Add(IEnumerable<IRegistration> registrations)
         {
-            _dictionary.Add(registration.ServiceType, registration);
+            foreach (var registration in registrations)
+            {
+                _dictionary.Add(registration.ServiceType, registration);
+            }
         }
 
         public bool Contains(Type serviceType)

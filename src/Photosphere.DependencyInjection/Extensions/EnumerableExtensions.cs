@@ -19,5 +19,15 @@ namespace Photosphere.DependencyInjection.Extensions
         {
             return enumerable.Where(x => x != null);
         }
+
+        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> enumerable)
+        {
+            return new HashSet<T>(enumerable);
+        }
+
+        public static bool HasSeveralElements<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable.Count() > 1;
+        }
     }
 }

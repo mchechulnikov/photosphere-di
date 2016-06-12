@@ -79,6 +79,7 @@
     <Compile Include="TestObjects\Objects\Service12.cs" />
     <Compile Include="TestObjects\Objects\Service21.cs" />
     <Compile Include="TestObjects\Objects\Service22.cs" />
+    <Compile Include="Tests\EnumerableResolvingTests.cs" />
     <Compile Include="Tests\GetInstanceTests.cs" />
     <Compile Include="Tests\LifetimeTests\AlwaysNewLifetimeTests.cs" />
     <Compile Include="Tests\LifetimeTests\MixedLifetimesPerContainerTests.cs" />

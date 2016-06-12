@@ -20,12 +20,14 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferOb
             Children = children;
         }
 
-        public Type ImplementationType => _registration.ImplementationType;
+        public Type ImplementationType => _registration.DirectImplementationType;
 
         public ConstructorInfo Constructor { get; }
 
         public Lifetime Lifetime => _registration.Lifetime;
 
         public IReadOnlyList<IObjectGraph> Children { get; }
+
+        public bool IsEnumerable => _registration.IsEnumerable;
     }
 }

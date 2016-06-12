@@ -14,5 +14,7 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferOb
         Lifetime Lifetime { get; }
 
         IReadOnlyList<IObjectGraph> Children { get; }
+
+        bool IsEnumerable { get; }
     }
 }

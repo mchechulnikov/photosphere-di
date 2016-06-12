@@ -5,7 +5,7 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
 {
     internal interface IRegistry : IEnumerable<IRegistration>
     {
-        void Add(IRegistration registration);
+        void Add(IEnumerable<IRegistration> registrations);
 
         bool Contains(Type serviceType);
 

@@ -6,6 +6,6 @@ namespace Photosphere.DependencyInjection.Registrations.Services
 {
     internal interface IRegistrationFactory
     {
-        IReadOnlyList<IRegistration> Get<TService>(Lifetime lifetime);
+        IEnumerable<IRegistration> Get<TService>(Lifetime lifetime);
     }
 }

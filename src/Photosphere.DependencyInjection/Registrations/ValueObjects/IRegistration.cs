@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Photosphere.DependencyInjection.Lifetimes;
 
 namespace Photosphere.DependencyInjection.Registrations.ValueObjects
@@ -7,9 +8,13 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
     {
         Type ServiceType { get; }
 
-        Type ImplementationType { get; }
+        Type DirectImplementationType { get; }
+
+        IReadOnlyCollection<Type> ImplementationTypes { get; }
 
         Delegate InstantiateFunction { get; }
+
+        bool IsEnumerable { get; }
 
         Lifetime Lifetime { get; }
 

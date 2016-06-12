@@ -7,6 +7,11 @@ namespace Photosphere.DependencyInjection.Extensions
 {
     internal static class TypeExtensions
     {
+        public static bool IsInstantiatibleClass(this Type type)
+        {
+            return !type.IsAbstract && !type.IsInterface;
+        }
+
         public static bool IsImplements<TInterface>(this Type type)
         {
             var interfaceType = typeof(TInterface);
@@ -51,9 +56,9 @@ namespace Photosphere.DependencyInjection.Extensions
                 ?? type.GetConstructor(Type.EmptyTypes);
         }
 
-        public static IEnumerable<FieldInfo> GetPrivateReadonlyFields(this Type type)
+        public static Type MakeGenericWrappedBy(this Type type, Type genericType)
         {
-            return type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+            return genericType.MakeGenericType(type);
         }
     }
 }

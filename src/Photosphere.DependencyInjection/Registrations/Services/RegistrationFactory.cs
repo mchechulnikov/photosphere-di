@@ -17,26 +17,43 @@ namespace Photosphere.DependencyInjection.Registrations.Services
             _methodGenerator = methodGenerator;
         }
 
-        public IReadOnlyList<IRegistration> Get<TService>(Lifetime lifetime)
+        public IEnumerable<IRegistration> Get<TService>(Lifetime lifetime)
         {
-            return typeof(TService)
-                .GetAllDerivedTypes()
-                .Select(serviceType => GetRegistration(lifetime, serviceType))
-                .Where(r => r != null)
-                .ToList();
+            var derivedTypes = typeof(TService).GetAllDerivedTypes().ToHashSet();
+            foreach (var serviceType in derivedTypes)
+            {
+                var implementationTypes = derivedTypes.GetTypesThatImplements(serviceType).ToHashSet();
+                if (implementationTypes.IsNullOrEmpty())
+                {
+                    continue;
+                }
+                yield return GetRegistration(lifetime, serviceType, implementationTypes);
+                if (implementationTypes.HasSeveralElements())
+                {
+                    yield return GetRegistration(lifetime, serviceType, implementationTypes, true);
+                }
+            }
         }
 
-        private IRegistration GetRegistration(Lifetime lifetime, Type serviceType)
+        private Registration GetRegistration(Lifetime lifetime, Type originalServiceType, IReadOnlyCollection<Type> implementationTypes, bool isEnumerable = false)
         {
-            var implementationType = serviceType.GetFirstImplementationType();
-            if (implementationType == null)
+            Type serviceType, directImplementationType;
+            if (isEnumerable)
             {
-                return null; // TODO Sick!
+                serviceType = originalServiceType.MakeGenericWrappedBy(typeof(IEnumerable<>));
+                directImplementationType = originalServiceType.MakeGenericWrappedBy(typeof(List<>));
+            }
+            else
+            {
+                serviceType = originalServiceType;
+                directImplementationType = implementationTypes.First();
             }
             return new Registration(() => _methodGenerator.Generate(serviceType))
             {
                 ServiceType = serviceType,
-                ImplementationType = implementationType,
+                DirectImplementationType = directImplementationType,
+                ImplementationTypes = implementationTypes,
+                IsEnumerable = isEnumerable,
                 Lifetime = lifetime
             };
         }

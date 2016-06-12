@@ -11,32 +11,24 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
 {
     internal class ObjectGraphProvider : IObjectGraphProvider
     {
-        public IObjectGraph Provide(
-            Type serviceType, Type implType, IRegistry registry, ISet<Type> alreadyProvidedTypes = null)
+        private readonly IRegistry _registry;
+
+        public ObjectGraphProvider(IRegistry registry)
         {
-            var registration = GetRegistration(serviceType, registry);
-            var constructor = implType.GetFirstPublicConstructor();
-            var children = GetChildren(serviceType, alreadyProvidedTypes, constructor, registry);
+            _registry = registry;
+        }
+
+        public IObjectGraph Provide(
+            Type serviceType, ISet<Type> alreadyProvidedTypes = null)
+        {
+            var registration = _registry[serviceType];
+            var constructor = registration.DirectImplementationType.GetFirstPublicConstructor();
+            var children = GetChildren(serviceType, alreadyProvidedTypes, constructor);
             return new ObjectGraph(registration, constructor, children);
         }
 
-        private static IRegistration GetRegistration(Type serviceType, IRegistry registry)
-        {
-            CheckForRegistration(serviceType, registry);
-            return registry[serviceType];
-        }
-
-        private static void CheckForRegistration(Type serviceType, IRegistry registry)
-        {
-            if (registry.Contains(serviceType))
-            {
-                return;
-            }
-            throw new TypeNotRegisteredException(serviceType);
-        }
-
         private IReadOnlyList<IObjectGraph> GetChildren(
-            Type serviceType, ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor, IRegistry registry)
+            Type serviceType, ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor)
         {
             alreadyProvidedTypes = MarkTypeAsProcessed(serviceType, alreadyProvidedTypes);
             var parametersTypes = GetParametersTypes(constructor);
@@ -48,8 +40,7 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             var result = new List<IObjectGraph>();
             foreach (var paramServiceType in parametersTypes)
             {
-                var paramImplType = paramServiceType.GetFirstImplementationType();
-                var graph = Provide(paramServiceType, paramImplType, registry, alreadyProvidedTypes);
+                var graph = Provide(paramServiceType, alreadyProvidedTypes);
                 result.Add(graph);
                 alreadyProvidedTypes.Remove(paramServiceType);
             }
