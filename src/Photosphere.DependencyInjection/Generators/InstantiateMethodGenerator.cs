@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Photosphere.DependencyInjection.Generators.CilEmitting;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs;
-using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.SystemExtends.Reflection.Emit;
 

@@ -23,6 +23,10 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
         {
             var registration = _registry[serviceType];
             var constructor = registration.DirectImplementationType.GetFirstPublicConstructor();
+            if (registration.IsEnumerable)
+            {
+                return new ObjectGraph(registration, constructor);
+            }
             var children = GetChildren(serviceType, alreadyProvidedTypes, constructor);
             return new ObjectGraph(registration, constructor, children);
         }

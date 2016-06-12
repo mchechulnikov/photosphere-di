@@ -13,11 +13,11 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferOb
         public ObjectGraph(
             IRegistration registration,
             ConstructorInfo constructor,
-            IReadOnlyList<IObjectGraph> children)
+            IReadOnlyList<IObjectGraph> children = null)
         {
             _registration = registration;
             Constructor = constructor;
-            Children = children;
+            Children = children ?? new List<IObjectGraph>();
         }
 
         public Type ImplementationType => _registration.DirectImplementationType;
