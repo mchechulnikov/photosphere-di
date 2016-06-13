@@ -3,9 +3,9 @@ using System.Linq;
 using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects;
 using Xunit;
 
-namespace Photosphere.DependencyInjection.IntegrationTests.Tests
+namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstaces
 {
-    public class EnumerableResolvingTests
+    public class GetInstanceEnumerableResolvingTests
     {
         [Fact]
         internal void GetInstance_EnumerableBySecondLevelInterface_NotNull()

@@ -79,8 +79,9 @@
     <Compile Include="TestObjects\Objects\Service12.cs" />
     <Compile Include="TestObjects\Objects\Service21.cs" />
     <Compile Include="TestObjects\Objects\Service22.cs" />
-    <Compile Include="Tests\EnumerableResolvingTests.cs" />
-    <Compile Include="Tests\GetInstanceTests.cs" />
+    <Compile Include="Tests\GetInstaces\GetInstanceEnumerableResolvingTests.cs" />
+    <Compile Include="Tests\GetAllInstancesTests.cs" />
+    <Compile Include="Tests\GetInstaces\GetInstanceTests.cs" />
     <Compile Include="Tests\LifetimeTests\AlwaysNewLifetimeTests.cs" />
     <Compile Include="Tests\LifetimeTests\MixedLifetimesPerContainerTests.cs" />
     <Compile Include="Tests\LifetimeTests\MixedLifetimesPerRequestTests.cs" />
@@ -100,8 +101,8 @@
     <Compile Include="TestObjects\Objects\IPerRequestDependencies.cs" />
     <Compile Include="TestObjects\Objects\AlwaysNewDependencies.cs" />
     <Compile Include="TestObjects\Objects\PerRequestDependencies.cs" />
-    <Compile Include="Tests\RegisteringByClassTests.cs" />
-    <Compile Include="Tests\RegisteringByCommonInterfaceTests.cs" />
+    <Compile Include="Tests\GetInstaces\GetInstanceRegisteringByClassTests.cs" />
+    <Compile Include="Tests\GetInstaces\GetInstanceRegisteringByCommonInterfaceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -112,6 +113,7 @@
       <Name>Photosphere.DependencyInjection</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
