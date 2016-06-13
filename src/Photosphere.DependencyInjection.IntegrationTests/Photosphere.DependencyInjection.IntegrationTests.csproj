@@ -83,7 +83,7 @@
     <Compile Include="TestObjects\Objects\Service12.cs" />
     <Compile Include="TestObjects\Objects\Service21.cs" />
     <Compile Include="TestObjects\Objects\Service22.cs" />
-    <Compile Include="Tests\GetInstaces\GetInstanceEnumerableResolvingTests - Copy.cs" />
+    <Compile Include="Tests\GetInstaces\GetInstanceReadOnlyCollectionResolvingTests.cs" />
     <Compile Include="Tests\GetInstaces\GetInstanceEnumerableResolvingTests.cs" />
     <Compile Include="Tests\GetAllInstancesTests.cs" />
     <Compile Include="Tests\GetInstaces\GetInstanceTests.cs" />
