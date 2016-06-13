@@ -5,6 +5,6 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
 {
     internal interface IInstantiateMethodBodyGenerator
     {
-        ICilGenerator Generate(IObjectGraph objectGraph);
+        IFluentCilGenerator Generate(IObjectGraph objectGraph);
     }
 }

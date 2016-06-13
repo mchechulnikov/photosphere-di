@@ -93,8 +93,8 @@
     <Compile Include="Registrations\ValueObjects\Registry.cs" />
     <Compile Include="Resolving\IResolver.cs" />
     <Compile Include="Resolving\Resolver.cs" />
-    <Compile Include="SystemExtends\Reflection\Emit\CilGenerator.cs" />
-    <Compile Include="SystemExtends\Reflection\Emit\ICilGenerator.cs" />
+    <Compile Include="SystemExtends\Reflection\Emit\FluentCilGenerator.cs" />
+    <Compile Include="SystemExtends\Reflection\Emit\IFluentCilGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Photosphere.DependencyInjection.nuspec" />

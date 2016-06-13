@@ -11,19 +11,20 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
 {
     internal class InstantiateMethodBodyGenerator : IInstantiateMethodBodyGenerator
     {
-        private readonly ICilGenerator _ilGenerator;
+        private readonly IFluentCilGenerator _ilGenerator;
         private readonly IScopeKeeper _scopeKeeper;
 
-        public InstantiateMethodBodyGenerator(ICilGenerator ilGenerator, IScopeKeeper scopeKeeper)
+        public InstantiateMethodBodyGenerator(IFluentCilGenerator ilGenerator, IScopeKeeper scopeKeeper)
         {
             _ilGenerator = ilGenerator;
             _scopeKeeper = scopeKeeper;
         }
 
-        public ICilGenerator Generate(IObjectGraph objectGraph)
+        public IFluentCilGenerator Generate(IObjectGraph objectGraph)
         {
             var resultVariable = GenerateForGraph(objectGraph);
-            _ilGenerator.ReturnStatement(resultVariable);
+            _ilGenerator.Emit(OpCodes.Ldloc, resultVariable);
+            _ilGenerator.Emit(OpCodes.Ret);
             return _ilGenerator;
         }
 
@@ -31,7 +32,7 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
         {
             var resultVariable = _ilGenerator.DeclareLocalVariableOf(objectGraph.ReturnType);
             GenerateInstantiating(objectGraph);
-            _ilGenerator.PopFromStackTo(resultVariable);
+            _ilGenerator.Emit(OpCodes.Stloc, resultVariable);
             return resultVariable;
         }
 
@@ -62,16 +63,18 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
         {
             var parameters = EmitParameters(objectGraph).ToList();
 
-            _ilGenerator.Generator.Emit(OpCodes.Ldc_I4, objectGraph.Children.Count);
-            _ilGenerator.Generator.Emit(OpCodes.Newarr, objectGraph.ImplementationType.GetElementType());
+            _ilGenerator
+                .Emit(OpCodes.Ldc_I4, objectGraph.Children.Count)
+                .Emit(OpCodes.Newarr, objectGraph.ImplementationType.GetElementType());
 
             var index = 0;
             foreach (var parameter in parameters)
             {
-                _ilGenerator.Generator.Emit(OpCodes.Dup);
-                _ilGenerator.Generator.Emit(OpCodes.Ldc_I4, index);
-                _ilGenerator.Generator.Emit(OpCodes.Ldloc, parameter);
-                _ilGenerator.Generator.Emit(OpCodes.Stelem_Ref);
+                _ilGenerator
+                    .Emit(OpCodes.Dup)
+                    .Emit(OpCodes.Ldc_I4, index)
+                    .Emit(OpCodes.Ldloc, parameter)
+                    .Emit(OpCodes.Stelem_Ref);
                 index++;
             }
         }
@@ -79,8 +82,9 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
         private void CreateNewInstance(IObjectGraph objectGraph)
         {
             var parameters = EmitParameters(objectGraph);
-            _ilGenerator.PushToStack(parameters);
-            _ilGenerator.CreateNewInstanceBy(objectGraph.Constructor);
+            _ilGenerator
+                .Emit(OpCodes.Ldloc, parameters)
+                .Emit(OpCodes.Newobj, objectGraph.Constructor);
         }
 
         private void GenerateForPerRequestScope(IObjectGraph objectGraph)
@@ -89,7 +93,7 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
             LocalBuilder instanceVariable;
             if (scope.AvailableInstancesVariables.TryGetValue(objectGraph.ImplementationType, out instanceVariable))
             {
-                _ilGenerator.PushToStack(instanceVariable);
+                _ilGenerator.Emit(OpCodes.Ldloc, instanceVariable);
             }
             else
             {
@@ -97,8 +101,9 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
                 scope.Add(objectGraph.ImplementationType, instanceVariable);
 
                 CreateNewInstance(objectGraph);
-                _ilGenerator.PopFromStackTo(instanceVariable);
-                _ilGenerator.PushToStack(instanceVariable);
+                _ilGenerator
+                    .Emit(OpCodes.Stloc, instanceVariable)
+                    .Emit(OpCodes.Ldloc, instanceVariable);
             }
         }
 
@@ -117,28 +122,29 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
 
             var branchLabel = _ilGenerator.DefineLabel();
 
-            _ilGenerator.Generator.Emit(OpCodes.Ldarg_0);
-            _ilGenerator.Generator.Emit(OpCodes.Ldc_I4, instanceIndex);
-            _ilGenerator.Generator.Emit(OpCodes.Ldelem_Ref);
-            _ilGenerator.Generator.Emit(OpCodes.Stloc, instanceVariable);
-            _ilGenerator.Generator.Emit(OpCodes.Ldloc, instanceVariable);
-            _ilGenerator.Generator.Emit(OpCodes.Ldnull);
-            _ilGenerator.Generator.Emit(OpCodes.Ceq);
-            _ilGenerator.Generator.Emit(OpCodes.Stloc, booleanVariable);
-            _ilGenerator.Generator.Emit(OpCodes.Ldloc, booleanVariable);
-            _ilGenerator.Generator.Emit(OpCodes.Brfalse, branchLabel);
+            _ilGenerator
+                .Emit(OpCodes.Ldarg_0)
+                .Emit(OpCodes.Ldc_I4, instanceIndex)
+                .Emit(OpCodes.Ldelem_Ref)
+                .Emit(OpCodes.Stloc, instanceVariable)
+                .Emit(OpCodes.Ldloc, instanceVariable)
+                .Emit(OpCodes.Ldnull)
+                .Emit(OpCodes.Ceq)
+                .Emit(OpCodes.Stloc, booleanVariable)
+                .Emit(OpCodes.Ldloc, booleanVariable)
+                .Emit(OpCodes.Brfalse, branchLabel);
 
             CreateNewInstance(objectGraph);
 
-            _ilGenerator.Generator.Emit(OpCodes.Stloc, instanceVariable);
-
-            _ilGenerator.Generator.Emit(OpCodes.Ldarg_0);
-            _ilGenerator.Generator.Emit(OpCodes.Ldc_I4, instanceIndex);
-            _ilGenerator.Generator.Emit(OpCodes.Ldloc, instanceVariable);
-            _ilGenerator.Generator.Emit(OpCodes.Stelem_Ref);
-            _ilGenerator.MarkLabel(branchLabel);
-            _ilGenerator.PushToStack(instanceVariable);
-            _ilGenerator.Generator.Emit(OpCodes.Castclass, objectGraph.ImplementationType);
+            _ilGenerator
+                .Emit(OpCodes.Stloc, instanceVariable)
+                .Emit(OpCodes.Ldarg_0)
+                .Emit(OpCodes.Ldc_I4, instanceIndex)
+                .Emit(OpCodes.Ldloc, instanceVariable)
+                .Emit(OpCodes.Stelem_Ref)
+                .MarkLabel(branchLabel)
+                .Emit(OpCodes.Ldloc, instanceVariable)
+                .Emit(OpCodes.Castclass, objectGraph.ImplementationType);
         }
 
         private IEnumerable<LocalBuilder> EmitParameters(IObjectGraph objectGraph)
