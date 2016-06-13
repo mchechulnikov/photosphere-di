@@ -65,6 +65,7 @@
     <Compile Include="TestObjects\Objects\IPerContainerBar.cs" />
     <Compile Include="TestObjects\Objects\IPerContainerDependencies.cs" />
     <Compile Include="TestObjects\Objects\IPerContainerFoo.cs" />
+    <Compile Include="TestObjects\Objects\IReadOnlyCollectionDependencyFoo.cs" />
     <Compile Include="TestObjects\Objects\IService.cs" />
     <Compile Include="TestObjects\Objects\IService1.cs" />
     <Compile Include="TestObjects\Objects\IService11.cs" />
@@ -77,10 +78,12 @@
     <Compile Include="TestObjects\Objects\PerContainerBar.cs" />
     <Compile Include="TestObjects\Objects\PerContainerDependencies.cs" />
     <Compile Include="TestObjects\Objects\PerContainerFoo.cs" />
+    <Compile Include="TestObjects\Objects\ReadOnlyCollectionDependencyFoo.cs" />
     <Compile Include="TestObjects\Objects\Service11.cs" />
     <Compile Include="TestObjects\Objects\Service12.cs" />
     <Compile Include="TestObjects\Objects\Service21.cs" />
     <Compile Include="TestObjects\Objects\Service22.cs" />
+    <Compile Include="Tests\GetInstaces\GetInstanceEnumerableResolvingTests - Copy.cs" />
     <Compile Include="Tests\GetInstaces\GetInstanceEnumerableResolvingTests.cs" />
     <Compile Include="Tests\GetAllInstancesTests.cs" />
     <Compile Include="Tests\GetInstaces\GetInstanceTests.cs" />

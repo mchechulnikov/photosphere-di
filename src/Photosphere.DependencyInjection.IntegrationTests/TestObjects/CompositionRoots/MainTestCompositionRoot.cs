@@ -25,7 +25,8 @@ namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.Compositi
                 
                 .Register<IService>()
                 
-                .Register<IEnumerableDependencyFoo>();
+                .Register<IEnumerableDependencyFoo>()
+                .Register<IReadOnlyCollectionDependencyFoo>(Lifetime.AlwaysNew);
         }
     }
 }

@@ -30,17 +30,19 @@ namespace Photosphere.DependencyInjection.Registrations.Services
                 yield return GetRegistration(lifetime, serviceType, implementationTypes);
                 if (implementationTypes.HasSeveralElements())
                 {
-                    yield return GetRegistration(lifetime, serviceType, implementationTypes, true);
+                    yield return GetRegistration(lifetime, serviceType, implementationTypes, typeof(IEnumerable<>));
+                    yield return GetRegistration(lifetime, serviceType, implementationTypes, typeof(IReadOnlyCollection<>));
                 }
             }
         }
 
-        private Registration GetRegistration(Lifetime lifetime, Type originalServiceType, IReadOnlyCollection<Type> implementationTypes, bool isEnumerable = false)
+        private Registration GetRegistration(
+            Lifetime lifetime, Type originalServiceType, IReadOnlyCollection<Type> implementationTypes, Type genericWrapperType = null)
         {
             Type serviceType, directImplementationType;
-            if (isEnumerable)
+            if (genericWrapperType != null)
             {
-                serviceType = originalServiceType.MakeGenericWrappedBy(typeof(IEnumerable<>));
+                serviceType = originalServiceType.MakeGenericWrappedBy(genericWrapperType);
                 directImplementationType = originalServiceType.MakeArrayType(implementationTypes.Count);
                 lifetime = Lifetime.AlwaysNew;
             }
@@ -54,7 +56,7 @@ namespace Photosphere.DependencyInjection.Registrations.Services
                 ServiceType = serviceType,
                 DirectImplementationType = directImplementationType,
                 ImplementationTypes = implementationTypes,
-                IsEnumerable = isEnumerable,
+                IsEnumerable = genericWrapperType != null,
                 Lifetime = lifetime
             };
         }
