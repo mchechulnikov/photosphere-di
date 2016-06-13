@@ -91,7 +91,7 @@ var foo = container.GetInstance<IFoo>();
 foo.DoSomething();
 ```
 
-### `IEnumerable` injecting
+### Collections injecting
 ``` C#
 var foos = container.GetInstance<IEnumerable<IFoo>>();
 ```
@@ -106,6 +106,7 @@ class Bar
   public Bar(IEnumerable<IFoo> foos) {}
 }
 ```
+Instead `IEnumerable` can be used `IReadOnlyCollection` that can be preffered for more clean OOP style.
 
 ### Disposable
 ``` C#
