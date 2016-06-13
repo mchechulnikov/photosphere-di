@@ -5,46 +5,46 @@ using System.Reflection.Emit;
 
 namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
 {
-    internal class FluentCilGenerator : IFluentCilGenerator
+    internal class CilEmitter : ICilEmitter
     {
         private readonly ILGenerator _systemIlGenerator;
 
-        public FluentCilGenerator(ILGenerator systemIlGenerator)
+        public CilEmitter(ILGenerator systemIlGenerator)
         {
             _systemIlGenerator = systemIlGenerator;
         }
 
-        public IFluentCilGenerator Emit(OpCode opCode)
+        public ICilEmitter Emit(OpCode opCode)
         {
             _systemIlGenerator.Emit(opCode);
             return this;
         }
 
-        public IFluentCilGenerator Emit(OpCode opCode, int integer)
+        public ICilEmitter Emit(OpCode opCode, int integer)
         {
             _systemIlGenerator.Emit(opCode, integer);
             return this;
         }
 
-        public IFluentCilGenerator Emit(OpCode opCode, Type type)
+        public ICilEmitter Emit(OpCode opCode, Type type)
         {
             _systemIlGenerator.Emit(opCode, type);
             return this;
         }
 
-        public IFluentCilGenerator Emit(OpCode opCode, ConstructorInfo constructor)
+        public ICilEmitter Emit(OpCode opCode, ConstructorInfo constructor)
         {
             _systemIlGenerator.Emit(opCode, constructor);
             return this;
         }
 
-        public IFluentCilGenerator Emit(OpCode opCode, LocalBuilder localVariableBuilder)
+        public ICilEmitter Emit(OpCode opCode, LocalBuilder localVariableBuilder)
         {
             _systemIlGenerator.Emit(opCode, localVariableBuilder);
             return this;
         }
 
-        public IFluentCilGenerator Emit(OpCode opCode, IEnumerable<LocalBuilder> localVariableBuilders)
+        public ICilEmitter Emit(OpCode opCode, IEnumerable<LocalBuilder> localVariableBuilders)
         {
             foreach (var localVariableBuilder in localVariableBuilders)
             {
@@ -53,15 +53,15 @@ namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
             return this;
         }
 
-        public IFluentCilGenerator Emit(OpCode opCode, Label label)
+        public ICilEmitter Emit(OpCode opCode, Label label)
         {
             _systemIlGenerator.Emit(opCode, label);
             return this;
         }
 
-        public LocalBuilder DeclareLocalVariableOf(Type type)
+        public LocalBuilder DeclareLocalVariableOf(Type type, bool isPinned = false)
         {
-            return _systemIlGenerator.DeclareLocal(type);
+            return _systemIlGenerator.DeclareLocal(type, isPinned);
         }
 
         public Label DefineLabel()
@@ -69,7 +69,7 @@ namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
             return _systemIlGenerator.DefineLabel();
         }
 
-        public IFluentCilGenerator MarkLabel(Label label)
+        public ICilEmitter MarkLabel(Label label)
         {
             _systemIlGenerator.MarkLabel(label);
             return this;

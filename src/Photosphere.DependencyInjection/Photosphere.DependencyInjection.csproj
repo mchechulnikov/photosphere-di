@@ -48,7 +48,11 @@
   <ItemGroup>
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\EnumerableOfTypeExtensions.cs" />
-    <Compile Include="Generators\CilEmitting\IInstantiateMethodBodyGenerator.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Builders\ArrayBuilder.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Builders\MethodBodyBuilder.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Builders\VariableBuilder.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Strategies\IInstantiationGeneratingStrategy.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\IInstantiateMethodBodyGenerator.cs" />
     <Compile Include="Generators\IInstantiateMethodGenerator.cs" />
     <Compile Include="Generators\ObjectGraphs\DataTransferObjects\IObjectGraph.cs" />
     <Compile Include="Generators\ObjectGraphs\Exceptions\DetectedCycleDependencyException.cs" />
@@ -57,7 +61,7 @@
     <Compile Include="Generators\ObjectGraphs\ObjectGraphProvider.cs" />
     <Compile Include="Generators\ObjectGraphs\DataTransferObjects\ObjectGraph.cs" />
     <Compile Include="Generators\InstantiateMethodGenerator.cs" />
-    <Compile Include="Generators\CilEmitting\InstantiateMethodBodyGenerator.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\InstantiateMethodBodyGenerator.cs" />
     <Compile Include="DependencyContainer.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="IDependencyContainer.cs" />
@@ -93,8 +97,8 @@
     <Compile Include="Registrations\ValueObjects\Registry.cs" />
     <Compile Include="Resolving\IResolver.cs" />
     <Compile Include="Resolving\Resolver.cs" />
-    <Compile Include="SystemExtends\Reflection\Emit\FluentCilGenerator.cs" />
-    <Compile Include="SystemExtends\Reflection\Emit\IFluentCilGenerator.cs" />
+    <Compile Include="SystemExtends\Reflection\Emit\CilEmitter.cs" />
+    <Compile Include="SystemExtends\Reflection\Emit\ICilEmitter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Photosphere.DependencyInjection.nuspec" />

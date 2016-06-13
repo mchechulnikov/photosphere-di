@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using Photosphere.DependencyInjection.Extensions;
-using Photosphere.DependencyInjection.Generators.CilEmitting;
+using Photosphere.DependencyInjection.Generators.MethodBodyGenerating;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.SystemExtends.Reflection.Emit;
@@ -46,7 +46,7 @@ namespace Photosphere.DependencyInjection.Generators
         private void Generate(DynamicMethod dynamicMethod, Type targetType)
         {
             var objectGraph = _objectGraphProvider.Provide(targetType);
-            var ilGenerator = new FluentCilGenerator(dynamicMethod.GetILGenerator());
+            var ilGenerator = new CilEmitter(dynamicMethod.GetILGenerator());
             var methodBodyGenerator = new InstantiateMethodBodyGenerator(ilGenerator, _scopeKeeper);
             methodBodyGenerator.Generate(objectGraph);
         }
