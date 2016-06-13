@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Extensions\GenericObjectExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="TestObjects\Objects\EnumerableDependencyFoo.cs" />
+    <Compile Include="TestObjects\Objects\IEnumerableDependencyFoo.cs" />
     <Compile Include="TestObjects\Objects\IMixedLifetimesPerContainerDependencies.cs" />
     <Compile Include="TestObjects\Objects\IMixedLifetimesPerRequestDependencies.cs" />
     <Compile Include="TestObjects\Objects\IPerContainerBar.cs" />

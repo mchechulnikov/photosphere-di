@@ -23,7 +23,9 @@ namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.Compositi
                 .Register<IMixedLifetimesPerRequestDependencies>()
                 .Register<IMixedLifetimesPerContainerDependencies>(Lifetime.PerContainer)
                 
-                .Register<IService>();
+                .Register<IService>()
+                
+                .Register<IEnumerableDependencyFoo>();
         }
     }
 }
