@@ -91,6 +91,22 @@ var foo = container.GetInstance<IFoo>();
 foo.DoSomething();
 ```
 
+### `IEnumerable` injecting
+``` C#
+var foos = container.GetInstance<IEnumerable<IFoo>>();
+```
+or
+``` C#
+var foos = container.GetAllInstances<IFoo>();
+```
+or
+``` C#
+class Bar
+{
+  public Bar(IEnumerable<IFoo> foos) {}
+}
+```
+
 ### Disposable
 ``` C#
 using (var container = new DependencyContainer())
