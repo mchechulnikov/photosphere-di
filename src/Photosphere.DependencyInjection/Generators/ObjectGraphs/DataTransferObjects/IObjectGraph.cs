@@ -7,6 +7,8 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferOb
 {
     internal interface IObjectGraph
     {
+        Type ReturnType { get; }
+
         Type ImplementationType { get; }
 
         ConstructorInfo Constructor { get; }

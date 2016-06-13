@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection.Emit;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
 using Photosphere.DependencyInjection.Lifetimes;
-using Photosphere.DependencyInjection.Lifetimes.Scopes;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.SystemExtends.Reflection.Emit;
 
@@ -30,44 +29,63 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
 
         private LocalBuilder GenerateForGraph(IObjectGraph objectGraph)
         {
-            var resultVariable = _ilGenerator.DeclareLocalVariableOf(objectGraph.ImplementationType);
+            var resultVariable = _ilGenerator.DeclareLocalVariableOf(objectGraph.ReturnType);
             GenerateInstantiating(objectGraph);
             _ilGenerator.PopFromStackTo(resultVariable);
             return resultVariable;
         }
 
-        private IEnumerable<LocalBuilder> EmitParameters(IObjectGraph objectGraph)
-        {
-            return objectGraph.Children.Select(GenerateForGraph);
-        }
-
         private void GenerateInstantiating(IObjectGraph objectGraph)
         {
+            if (objectGraph.IsEnumerable)
+            {
+                CreateNewArrayInstance(objectGraph);
+                return;
+            }
             switch (objectGraph.Lifetime)
             {
                 case Lifetime.AlwaysNew:
                     CreateNewInstance(objectGraph);
                     return;
                 case Lifetime.PerRequest:
-                    GenerateForPerRequestScope(_scopeKeeper.PerRequestScope, objectGraph);
+                    GenerateForPerRequestScope(objectGraph);
                     return;
                 case Lifetime.PerContainer:
-                    GenerateForPerContainerScope(_scopeKeeper.PerContainerScope, objectGraph);
+                    GenerateForPerContainerScope(objectGraph);
                     return;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
+        private void CreateNewArrayInstance(IObjectGraph objectGraph)
+        {
+            var parameters = EmitParameters(objectGraph).ToList();
+
+            _ilGenerator.Generator.Emit(OpCodes.Ldc_I4, objectGraph.Children.Count);
+            _ilGenerator.Generator.Emit(OpCodes.Newarr, objectGraph.ImplementationType.GetElementType());
+
+            var index = 0;
+            foreach (var parameter in parameters)
+            {
+                _ilGenerator.Generator.Emit(OpCodes.Dup);
+                _ilGenerator.Generator.Emit(OpCodes.Ldc_I4, index);
+                _ilGenerator.Generator.Emit(OpCodes.Ldloc, parameter);
+                _ilGenerator.Generator.Emit(OpCodes.Stelem_Ref);
+                index++;
+            }
+        }
+
         private void CreateNewInstance(IObjectGraph objectGraph)
         {
-            var localVariables = EmitParameters(objectGraph);
-            _ilGenerator.PushToStack(localVariables);
+            var parameters = EmitParameters(objectGraph);
+            _ilGenerator.PushToStack(parameters);
             _ilGenerator.CreateNewInstanceBy(objectGraph.Constructor);
         }
 
-        private void GenerateForPerRequestScope(IPerRequestScope scope, IObjectGraph objectGraph)
+        private void GenerateForPerRequestScope(IObjectGraph objectGraph)
         {
+            var scope = _scopeKeeper.PerRequestScope;
             LocalBuilder instanceVariable;
             if (scope.AvailableInstancesVariables.TryGetValue(objectGraph.ImplementationType, out instanceVariable))
             {
@@ -84,8 +102,9 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
             }
         }
 
-        private void GenerateForPerContainerScope(IPerContainerScope scope, IObjectGraph objectGraph)
+        private void GenerateForPerContainerScope(IObjectGraph objectGraph)
         {
+            var scope = _scopeKeeper.PerContainerScope;
             int instanceIndex;
             if (!scope.AvailableInstancesIndexes.TryGetValue(objectGraph.ImplementationType, out instanceIndex))
             {
@@ -120,6 +139,11 @@ namespace Photosphere.DependencyInjection.Generators.CilEmitting
             _ilGenerator.MarkLabel(branchLabel);
             _ilGenerator.PushToStack(instanceVariable);
             _ilGenerator.Generator.Emit(OpCodes.Castclass, objectGraph.ImplementationType);
+        }
+
+        private IEnumerable<LocalBuilder> EmitParameters(IObjectGraph objectGraph)
+        {
+            return objectGraph.Children.Select(GenerateForGraph);
         }
     }
 }

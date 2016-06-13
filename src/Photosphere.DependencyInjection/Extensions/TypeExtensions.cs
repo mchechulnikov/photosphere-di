@@ -60,5 +60,12 @@ namespace Photosphere.DependencyInjection.Extensions
         {
             return genericType.MakeGenericType(type);
         }
+
+        public static string GetFormattedName(this Type type)
+        {
+            return type.IsGenericType
+                ? type.Name + "`" + string.Join("`", type.GenericTypeArguments.Select(x => x.Name).ToArray())
+                : type.Name;
+        }
     }
 }

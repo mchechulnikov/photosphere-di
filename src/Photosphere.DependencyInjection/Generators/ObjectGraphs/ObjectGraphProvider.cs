@@ -18,28 +18,36 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             _registry = registry;
         }
 
-        public IObjectGraph Provide(
-            Type serviceType, ISet<Type> alreadyProvidedTypes = null)
+        public IObjectGraph Provide(Type serviceType, ISet<Type> alreadyProvidedTypes = null)
         {
             var registration = _registry[serviceType];
             var constructor = registration.DirectImplementationType.GetFirstPublicConstructor();
-            if (registration.IsEnumerable)
-            {
-                return new ObjectGraph(registration, constructor);
-            }
-            var children = GetChildren(serviceType, alreadyProvidedTypes, constructor);
+            var children = registration.IsEnumerable
+                ? GetChildrenForEnumerable(serviceType, alreadyProvidedTypes, registration.ImplementationTypes)
+                : GetChildren(serviceType, alreadyProvidedTypes, constructor);
             return new ObjectGraph(registration, constructor, children);
         }
 
-        private IReadOnlyList<IObjectGraph> GetChildren(
-            Type serviceType, ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor)
+        private IReadOnlyList<IObjectGraph> GetChildrenForEnumerable(Type serviceType, ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> implTypes)
         {
             alreadyProvidedTypes = MarkTypeAsProcessed(serviceType, alreadyProvidedTypes);
+            return GetChildren(alreadyProvidedTypes, implTypes);
+        }
+
+        private IReadOnlyList<IObjectGraph> GetChildren(Type serviceType, ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor)
+        {
+            alreadyProvidedTypes = MarkTypeAsProcessed(serviceType, alreadyProvidedTypes);
+
             var parametersTypes = GetParametersTypes(constructor);
             if (parametersTypes.IsEmpty())
             {
                 return new List<ObjectGraph>();
             }
+            return GetChildren(alreadyProvidedTypes, parametersTypes);
+        }
+
+        private IReadOnlyList<IObjectGraph> GetChildren(ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> parametersTypes)
+        {
             CheckForCircleDependency(parametersTypes, alreadyProvidedTypes);
             var result = new List<IObjectGraph>();
             foreach (var paramServiceType in parametersTypes)

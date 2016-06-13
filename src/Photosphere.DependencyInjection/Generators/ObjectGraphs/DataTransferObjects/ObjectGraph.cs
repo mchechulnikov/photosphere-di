@@ -20,6 +20,8 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferOb
             Children = children ?? new List<IObjectGraph>();
         }
 
+        public Type ReturnType => _registration.ServiceType;
+
         public Type ImplementationType => _registration.DirectImplementationType;
 
         public ConstructorInfo Constructor { get; }

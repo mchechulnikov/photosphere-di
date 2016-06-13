@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
+using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Generators.CilEmitting;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
@@ -32,7 +34,7 @@ namespace Photosphere.DependencyInjection.Generators
 
         private static DynamicMethod CreateDynamicMethod(Type targetType)
         {
-            var methodName = $"PhotosphereDI_CreateInstance_Of_{targetType.Name}";
+            var methodName = $"PhotosphereDI_CreateInstance_Of_{targetType.GetFormattedName()}";
             return new DynamicMethod(methodName, targetType, new [] { typeof(object[]) }, true);
         }
 

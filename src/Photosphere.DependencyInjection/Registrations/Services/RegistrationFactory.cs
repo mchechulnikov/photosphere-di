@@ -41,7 +41,8 @@ namespace Photosphere.DependencyInjection.Registrations.Services
             if (isEnumerable)
             {
                 serviceType = originalServiceType.MakeGenericWrappedBy(typeof(IEnumerable<>));
-                directImplementationType = originalServiceType.MakeGenericWrappedBy(typeof(List<>));
+                directImplementationType = originalServiceType.MakeArrayType(implementationTypes.Count);
+                lifetime = Lifetime.AlwaysNew;
             }
             else
             {
