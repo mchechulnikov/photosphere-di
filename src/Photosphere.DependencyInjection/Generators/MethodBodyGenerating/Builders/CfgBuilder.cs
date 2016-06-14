@@ -6,28 +6,28 @@ using Photosphere.DependencyInjection.SystemExtends.Reflection.Emit;
 
 namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builders
 {
-    internal struct MethodBodyBuilder
+    internal struct CfgBuilder
     {
         private readonly ICilEmitter _ilEmitter;
 
-        public MethodBodyBuilder(ICilEmitter ilEmitter)
+        public CfgBuilder(ICilEmitter ilEmitter)
         {
             _ilEmitter = ilEmitter;
         }
 
-        public MethodBodyBuilder PushToStack(LocalBuilder localVariable)
+        public CfgBuilder PushToStack(LocalBuilder localVariable)
         {
             _ilEmitter.Emit(OpCodes.Ldloc, localVariable);
             return this;
         }
 
-        public MethodBodyBuilder PopFromStackTo(LocalBuilder localVariable)
+        public CfgBuilder PopFromStackTo(LocalBuilder localVariable)
         {
             _ilEmitter.Emit(OpCodes.Stloc, localVariable);
             return this;
         }
 
-        public MethodBodyBuilder CreateNewObject(ConstructorInfo constructor, IEnumerable<LocalBuilder> parametersVariables)
+        public CfgBuilder CreateNewObject(ConstructorInfo constructor, IEnumerable<LocalBuilder> parametersVariables)
         {
             _ilEmitter
                 .Emit(OpCodes.Ldloc, parametersVariables)
@@ -40,7 +40,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
             return new ArrayBuilder(_ilEmitter, elementType, elementsCount);
         }
 
-        public MethodBodyBuilder ReturnStatement(LocalBuilder localVariable)
+        public CfgBuilder ReturnStatement(LocalBuilder localVariable)
         {
             _ilEmitter
                 .Emit(OpCodes.Ldloc, localVariable)
@@ -48,21 +48,22 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
             return this;
         }
 
-        public MethodBodyBuilder LoadArgumentToStack(int argumentIndex)
+        public CfgBuilder LoadArgumentToStack(int argumentIndex)
         {
             _ilEmitter.Emit(OpCodes.Ldarg, argumentIndex);
             return this;
         }
 
-        public MethodBodyBuilder LoadArrayRefElement(int index)
+        public CfgBuilder LoadArrayRefElementTo(int index, LocalBuilder localVariable)
         {
             _ilEmitter
                 .Emit(OpCodes.Ldc_I4, index)
-                .Emit(OpCodes.Ldelem_Ref);
+                .Emit(OpCodes.Ldelem_Ref)
+                .Emit(OpCodes.Stloc, localVariable);
             return this;
         }
 
-        public MethodBodyBuilder SetArrayRefElement(int index, LocalBuilder localVariable)
+        public CfgBuilder SetArrayRefElement(int index, LocalBuilder localVariable)
         {
             _ilEmitter
                 .Emit(OpCodes.Ldc_I4, index)
@@ -71,23 +72,22 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
             return this;
         }
 
-        public MethodBodyBuilder CompareWithNull(LocalBuilder localVariable, LocalBuilder resultBooleanVariable)
+        public CfgBuilder CompareWithNull(LocalBuilder localVariable)
         {
             _ilEmitter
                 .Emit(OpCodes.Ldloc, localVariable)
                 .Emit(OpCodes.Ldnull)
-                .Emit(OpCodes.Ceq)
-                .Emit(OpCodes.Stloc, resultBooleanVariable);
+                .Emit(OpCodes.Ceq);
             return this;
         }
 
-        public MethodBodyBuilder IfFalseJumpToLabel(Label label)
+        public CfgBuilder IfFalseJumpToLabel(Label label)
         {
             _ilEmitter.Emit(OpCodes.Brfalse, label);
             return this;
         }
 
-        public MethodBodyBuilder CastToClass(Type targetType)
+        public CfgBuilder CastToClass(Type targetType)
         {
             _ilEmitter.Emit(OpCodes.Castclass, targetType);
             return this;
@@ -95,29 +95,17 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
 
         public VariableBuilder DeclareVariable(Type type)
         {
-            return new VariableBuilder(_ilEmitter, type);
+            return new VariableBuilder(this, _ilEmitter, type);
         }
-    }
 
-    internal struct IfBuilder
-    {
-        private readonly ICilEmitter _ilEmitter;
-        private readonly LocalBuilder _conditionBooleanBuilder;
-
-        public IfBuilder(ICilEmitter ilEmitter, LocalBuilder conditionBooleanBuilder)
+        public VariableBuilder DeclareVariable<T>()
         {
-            _ilEmitter = ilEmitter;
-            _conditionBooleanBuilder = conditionBooleanBuilder;
+            return new VariableBuilder(this, _ilEmitter, typeof(T));
         }
-    }
 
-    internal struct ConditionBuilder
-    {
-        private readonly ICilEmitter _ilEmitter;
-
-        public ConditionBuilder(ICilEmitter ilEmitter)
+        public IfBuilder If(Func<CfgBuilder, LocalBuilder> conditionAction)
         {
-            _ilEmitter = ilEmitter;
+            return new IfBuilder(this, _ilEmitter, conditionAction);
         }
     }
 }

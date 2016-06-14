@@ -49,7 +49,8 @@
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\EnumerableOfTypeExtensions.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Builders\ArrayBuilder.cs" />
-    <Compile Include="Generators\MethodBodyGenerating\Builders\MethodBodyBuilder.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Builders\CfgBuilder.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Builders\IfBuilder.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Builders\VariableBuilder.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Strategies\IInstantiationGeneratingStrategy.cs" />
     <Compile Include="Generators\MethodBodyGenerating\IInstantiateMethodBodyGenerator.cs" />

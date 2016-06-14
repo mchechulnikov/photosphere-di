@@ -14,26 +14,26 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
     {
         private readonly ICilEmitter _ilEmitter;
         private readonly IScopeKeeper _scopeKeeper;
-        private MethodBodyBuilder _methodBodyBuilder;
+        private CfgBuilder _cfgBuilder;
 
         public InstantiateMethodBodyGenerator(ICilEmitter ilEmitter, IScopeKeeper scopeKeeper)
         {
             _ilEmitter = ilEmitter;
-            _methodBodyBuilder = new MethodBodyBuilder(_ilEmitter);
+            _cfgBuilder = new CfgBuilder(_ilEmitter);
             _scopeKeeper = scopeKeeper;
         }
 
         public void Generate(IObjectGraph objectGraph)
         {
             var resultVariable = GenerateForGraph(objectGraph);
-            _methodBodyBuilder.ReturnStatement(resultVariable);
+            _cfgBuilder.ReturnStatement(resultVariable);
         }
 
         private LocalBuilder GenerateForGraph(IObjectGraph objectGraph)
         {
-            return _methodBodyBuilder
+            return _cfgBuilder
                 .DeclareVariable(objectGraph.ReturnType)
-                .Assign(v => GenerateInstantiating(objectGraph))
+                .AssignTo(v => GenerateInstantiating(objectGraph))
                 .Variable;
         }
 
@@ -65,7 +65,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
             var parameters = EmitParameters(objectGraph).ToList();
             var elementType = objectGraph.ImplementationType.GetElementType();
 
-            _methodBodyBuilder
+            _cfgBuilder
                 .CreateNewArray(elementType, parameters.Count)
                 .FillArray(parameters);
         }
@@ -73,7 +73,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
         private void CreateNewInstance(IObjectGraph objectGraph)
         {
             var parameters = EmitParameters(objectGraph);
-            _methodBodyBuilder.CreateNewObject(objectGraph.Constructor, parameters);
+            _cfgBuilder.CreateNewObject(objectGraph.Constructor, parameters);
         }
 
         private void GenerateForPerRequestScope(IObjectGraph objectGraph)
@@ -82,16 +82,16 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
             LocalBuilder instanceVariable;
             if (!scope.AvailableInstancesVariables.TryGetValue(objectGraph.ImplementationType, out instanceVariable))
             {
-                instanceVariable = _methodBodyBuilder
+                instanceVariable = _cfgBuilder
                     .DeclareVariable(objectGraph.ImplementationType)
-                    .Assign(v =>
+                    .AssignTo(v =>
                     {
                         scope.Add(objectGraph.ImplementationType, v);
                         CreateNewInstance(objectGraph);
                     })
                     .Variable;
             }
-            _methodBodyBuilder.PushToStack(instanceVariable);
+            _cfgBuilder.PushToStack(instanceVariable);
         }
 
         private void GenerateForPerContainerScope(IObjectGraph objectGraph)
@@ -104,28 +104,26 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
                 scope.AvailableInstancesIndexes.Add(objectGraph.ImplementationType, instanceIndex);
             }
 
-            var instanceVariable = _methodBodyBuilder.DeclareVariable(typeof(object)).Variable;
-            var booleanVariable = _methodBodyBuilder.DeclareVariable(typeof(bool)).Variable;
+            var instanceVariable = _cfgBuilder.DeclareVariable<object>().Variable;
 
-            var branchLabel = _ilEmitter.DefineLabel();
-
-            _methodBodyBuilder
+            _cfgBuilder
                 .LoadArgumentToStack(0)
-                .LoadArrayRefElement(instanceIndex)
-                .PopFromStackTo(instanceVariable)
-                .CompareWithNull(instanceVariable, booleanVariable)
-                .PushToStack(booleanVariable)
-                .IfFalseJumpToLabel(branchLabel);
-
-            CreateNewInstance(objectGraph);
-            _methodBodyBuilder
-                .PopFromStackTo(instanceVariable)
-                .LoadArgumentToStack(0)
-                .SetArrayRefElement(instanceIndex, instanceVariable);
-
-            _ilEmitter.MarkLabel(branchLabel);
-
-            _methodBodyBuilder
+                .LoadArrayRefElementTo(instanceIndex, instanceVariable)
+                .If(cfgBuilder =>
+                {
+                    return cfgBuilder
+                        .DeclareVariable<bool>()
+                        .AssignTo(v => _cfgBuilder.CompareWithNull(instanceVariable))
+                        .Variable;
+                })
+                .Then(cfgBuilder =>
+                {
+                    CreateNewInstance(objectGraph);
+                    cfgBuilder
+                        .PopFromStackTo(instanceVariable)
+                        .LoadArgumentToStack(0)
+                        .SetArrayRefElement(instanceIndex, instanceVariable);
+                })
                 .PushToStack(instanceVariable)
                 .CastToClass(objectGraph.ImplementationType);
         }
