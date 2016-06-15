@@ -14,7 +14,7 @@ PM> Install-Package Photosphere.DependencyInjection
 ### Fast resolving
 This container based on building dynamic methods (using `System.Reflection.Emit`) for every registered service. It is very speeds up the resolving of dependencies when requested.
 
-### Preffer declarating style
+### Preferred declarative style
 Container must be configured in a composition root of project/assembly.
 ``` C#
 internal class CompositionRoot : ICompositionRoot
