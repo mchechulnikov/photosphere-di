@@ -121,4 +121,4 @@ using (var container = new DependencyContainer())
 
 ## Other Photosphere projects
 * [Photosphere.Mapping](https://github.com/sunloving/photosphere-mapping)
-* [Photosphere.MemoryAllocation](https://github.com/sunloving/photosphere-memprofiler)
+* [Photosphere.MemoryProfiler](https://github.com/sunloving/photosphere-memprofiler)
