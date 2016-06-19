@@ -12,26 +12,24 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
 {
     internal class InstantiateMethodBodyGenerator : IInstantiateMethodBodyGenerator
     {
-        private readonly ICilEmitter _ilEmitter;
         private readonly IScopeKeeper _scopeKeeper;
-        private CfgBuilder _cfgBuilder;
+        private ControlFlowBuilder _controlFlowBuilder;
 
         public InstantiateMethodBodyGenerator(ICilEmitter ilEmitter, IScopeKeeper scopeKeeper)
         {
-            _ilEmitter = ilEmitter;
-            _cfgBuilder = new CfgBuilder(_ilEmitter);
+            _controlFlowBuilder = new ControlFlowBuilder(ilEmitter);
             _scopeKeeper = scopeKeeper;
         }
 
         public void Generate(IObjectGraph objectGraph)
         {
             var resultVariable = GenerateForGraph(objectGraph);
-            _cfgBuilder.ReturnStatement(resultVariable);
+            _controlFlowBuilder.ReturnStatement(resultVariable);
         }
 
         private LocalBuilder GenerateForGraph(IObjectGraph objectGraph)
         {
-            return _cfgBuilder
+            return _controlFlowBuilder
                 .DeclareVariable(objectGraph.ReturnType)
                 .AssignTo(v => GenerateInstantiating(objectGraph))
                 .Variable;
@@ -65,7 +63,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
             var parameters = EmitParameters(objectGraph).ToList();
             var elementType = objectGraph.ImplementationType.GetElementType();
 
-            _cfgBuilder
+            _controlFlowBuilder
                 .CreateNewArray(elementType, parameters.Count)
                 .FillArray(parameters);
         }
@@ -73,7 +71,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
         private void CreateNewInstance(IObjectGraph objectGraph)
         {
             var parameters = EmitParameters(objectGraph);
-            _cfgBuilder.CreateNewObject(objectGraph.Constructor, parameters);
+            _controlFlowBuilder.CreateNewObject(objectGraph.Constructor, parameters);
         }
 
         private void GenerateForPerRequestScope(IObjectGraph objectGraph)
@@ -82,7 +80,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
             LocalBuilder instanceVariable;
             if (!scope.AvailableInstancesVariables.TryGetValue(objectGraph.ImplementationType, out instanceVariable))
             {
-                instanceVariable = _cfgBuilder
+                instanceVariable = _controlFlowBuilder
                     .DeclareVariable(objectGraph.ImplementationType)
                     .AssignTo(v =>
                     {
@@ -91,7 +89,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
                     })
                     .Variable;
             }
-            _cfgBuilder.PushToStack(instanceVariable);
+            _controlFlowBuilder.PushToStack(instanceVariable);
         }
 
         private void GenerateForPerContainerScope(IObjectGraph objectGraph)
@@ -104,26 +102,18 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
                 scope.AvailableInstancesIndexes.Add(objectGraph.ImplementationType, instanceIndex);
             }
 
-            var instanceVariable = _cfgBuilder.DeclareVariable<object>().Variable;
+            var instanceVariable = _controlFlowBuilder.DeclareVariable<object>().Variable;
 
-            _cfgBuilder
+            _controlFlowBuilder
                 .LoadArgumentToStack(0)
-                .LoadArrayRefElementTo(instanceIndex, instanceVariable)
-                .If(cfgBuilder =>
-                {
-                    return cfgBuilder
-                        .DeclareVariable<bool>()
-                        .AssignTo(v => _cfgBuilder.CompareWithNull(instanceVariable))
-                        .Variable;
-                })
-                .Then(cfgBuilder =>
-                {
-                    CreateNewInstance(objectGraph);
-                    cfgBuilder
-                        .PopFromStackTo(instanceVariable)
-                        .LoadArgumentToStack(0)
-                        .SetArrayRefElement(instanceIndex, instanceVariable);
-                })
+                .LoadArrayRefElementTo(instanceVariable, instanceIndex)
+                .If().IsNull(instanceVariable)
+                .BeginBranch()
+                    .Action(() => CreateNewInstance(objectGraph))
+                    .PopFromStackTo(instanceVariable)
+                    .LoadArgumentToStack(0)
+                    .SetArrayRefElement(instanceIndex, instanceVariable)
+                .EndBranch()
                 .PushToStack(instanceVariable)
                 .CastToClass(objectGraph.ImplementationType);
         }
