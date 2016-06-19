@@ -7,9 +7,9 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
 {
     internal struct ArrayBuilder
     {
-        private readonly ICilEmitter _ilEmitter;
+        private readonly CilEmitter _ilEmitter;
 
-        public ArrayBuilder(ICilEmitter ilEmitter, Type elementType, int elementsCount)
+        public ArrayBuilder(CilEmitter ilEmitter, Type elementType, int elementsCount)
         {
             _ilEmitter = ilEmitter;
             _ilEmitter

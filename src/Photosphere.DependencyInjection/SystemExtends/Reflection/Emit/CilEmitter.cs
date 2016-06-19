@@ -5,7 +5,7 @@ using System.Reflection.Emit;
 
 namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
 {
-    internal class CilEmitter : ICilEmitter
+    internal struct CilEmitter
     {
         private readonly ILGenerator _systemIlGenerator;
 
@@ -14,37 +14,37 @@ namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
             _systemIlGenerator = systemIlGenerator;
         }
 
-        public ICilEmitter Emit(OpCode opCode)
+        public CilEmitter Emit(OpCode opCode)
         {
             _systemIlGenerator.Emit(opCode);
             return this;
         }
 
-        public ICilEmitter Emit(OpCode opCode, int integer)
+        public CilEmitter Emit(OpCode opCode, int integer)
         {
             _systemIlGenerator.Emit(opCode, integer);
             return this;
         }
 
-        public ICilEmitter Emit(OpCode opCode, Type type)
+        public CilEmitter Emit(OpCode opCode, Type type)
         {
             _systemIlGenerator.Emit(opCode, type);
             return this;
         }
 
-        public ICilEmitter Emit(OpCode opCode, ConstructorInfo constructor)
+        public CilEmitter Emit(OpCode opCode, ConstructorInfo constructor)
         {
             _systemIlGenerator.Emit(opCode, constructor);
             return this;
         }
 
-        public ICilEmitter Emit(OpCode opCode, LocalBuilder localVariableBuilder)
+        public CilEmitter Emit(OpCode opCode, LocalBuilder localVariableBuilder)
         {
             _systemIlGenerator.Emit(opCode, localVariableBuilder);
             return this;
         }
 
-        public ICilEmitter Emit(OpCode opCode, IEnumerable<LocalBuilder> localVariableBuilders)
+        public CilEmitter Emit(OpCode opCode, IEnumerable<LocalBuilder> localVariableBuilders)
         {
             foreach (var localVariableBuilder in localVariableBuilders)
             {
@@ -53,7 +53,7 @@ namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
             return this;
         }
 
-        public ICilEmitter Emit(OpCode opCode, Label label)
+        public CilEmitter Emit(OpCode opCode, Label label)
         {
             _systemIlGenerator.Emit(opCode, label);
             return this;
@@ -69,7 +69,7 @@ namespace Photosphere.DependencyInjection.SystemExtends.Reflection.Emit
             return _systemIlGenerator.DefineLabel();
         }
 
-        public ICilEmitter MarkLabel(Label label)
+        public CilEmitter MarkLabel(Label label)
         {
             _systemIlGenerator.MarkLabel(label);
             return this;

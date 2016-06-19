@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Photosphere.DependencyInjection.Extensions;
+using Photosphere.DependencyInjection.Generators.MethodBodyGenerating;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs.Exceptions;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
@@ -12,10 +13,12 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
     internal class ObjectGraphProvider : IObjectGraphProvider
     {
         private readonly IRegistry _registry;
+        private readonly IGeneratingStrategyProvider _generatingStrategyProvider;
 
-        public ObjectGraphProvider(IRegistry registry)
+        public ObjectGraphProvider(IRegistry registry, IGeneratingStrategyProvider generatingStrategyProvider)
         {
             _registry = registry;
+            _generatingStrategyProvider = generatingStrategyProvider;
         }
 
         public IObjectGraph Provide(Type serviceType, ISet<Type> alreadyProvidedTypes = null)
@@ -25,7 +28,9 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             var children = registration.IsEnumerable
                 ? GetChildrenForEnumerable(serviceType, alreadyProvidedTypes, registration.ImplementationTypes)
                 : GetChildren(serviceType, alreadyProvidedTypes, constructor);
-            return new ObjectGraph(registration, constructor, children);
+            var objectGraph = new ObjectGraph(registration, constructor, children);
+            objectGraph.GeneratingStrategy = _generatingStrategyProvider.Provide(objectGraph);
+            return objectGraph;
         }
 
         private IReadOnlyList<IObjectGraph> GetChildrenForEnumerable(Type serviceType, ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> implTypes)

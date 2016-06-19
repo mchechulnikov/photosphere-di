@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strategies;
 using Photosphere.DependencyInjection.Lifetimes;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
@@ -31,5 +32,7 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferOb
         public IReadOnlyList<IObjectGraph> Children { get; }
 
         public bool IsEnumerable => _registration.IsEnumerable;
+
+        public IGeneratingStrategy GeneratingStrategy { get; set; }
     }
 }

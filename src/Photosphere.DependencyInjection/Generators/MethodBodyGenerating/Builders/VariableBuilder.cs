@@ -6,15 +6,15 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
 {
     internal struct VariableBuilder
     {
-        private readonly ICilEmitter _ilEmitter;
+        private CilEmitter _ilEmitter;
 
-        public VariableBuilder(ControlFlowBuilder controlFlowBuilder, ICilEmitter ilEmitter, Type type)
+        public VariableBuilder(CilEmitter ilEmitter, Type type)
         {
             _ilEmitter = ilEmitter;
             Variable = ilEmitter.DeclareLocalVariableOf(type);
         }
 
-        public LocalBuilder Variable { get; private set; }
+        public LocalBuilder Variable { get; }
 
         public VariableBuilder AssignTo(Action<LocalBuilder> assignAction)
         {

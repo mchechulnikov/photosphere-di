@@ -5,14 +5,14 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
 {
     internal struct IfStatementBuilder
     {
-        private readonly ICilEmitter _ilEmitter;
         private readonly Label _endBranchLabel;
-        private ControlFlowBuilder _controlFlowBuilder;
+        private CilEmitter _ilEmitter;
+        private ControlFlowDesigner _controlFlowDesigner;
 
-        public IfStatementBuilder(ICilEmitter ilEmitter, ControlFlowBuilder controlFlowBuilder, Label endBranchLabel)
+        public IfStatementBuilder(CilEmitter ilEmitter, ControlFlowDesigner controlFlowDesigner, Label endBranchLabel)
         {
             _ilEmitter = ilEmitter;
-            _controlFlowBuilder = controlFlowBuilder;
+            _controlFlowDesigner = controlFlowDesigner;
             _endBranchLabel = endBranchLabel;
         }
 
@@ -26,10 +26,10 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
             return this;
         }
 
-        public ControlFlowBuilder BeginBranch()
+        public ControlFlowDesigner BeginBranch()
         {
-            _controlFlowBuilder.IntoBranch = true;
-            return _controlFlowBuilder;
+            _controlFlowDesigner.IntoBranch = true;
+            return _controlFlowDesigner;
         }
     }
 }

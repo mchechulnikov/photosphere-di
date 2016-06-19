@@ -49,12 +49,23 @@
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\EnumerableOfTypeExtensions.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Builders\ArrayBuilder.cs" />
-    <Compile Include="Generators\MethodBodyGenerating\Builders\ControlFlowBuilder.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Builders\ControlFlowDesigner.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Builders\IfStatementBuilder.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Builders\VariableBuilder.cs" />
-    <Compile Include="Generators\MethodBodyGenerating\Strategies\IInstantiationGeneratingStrategy.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\GeneratingDesign.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\GeneratingStrategyProvider.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\IGeneratingStrategyProvider.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Strategies\EnumerableProvidingGeneratingStrategy.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Strategies\IEnumerableProvidingGeneratingStrategy.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Strategies\IIntantiationGeneratingStrategy.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Strategies\IntantiationGeneratingStrategy.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Strategies\IGeneratingStrategy.cs" />
     <Compile Include="Generators\MethodBodyGenerating\IInstantiateMethodBodyGenerator.cs" />
     <Compile Include="Generators\IInstantiateMethodGenerator.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Strategies\IPerContainerProvidingGeneratingStrategy.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Strategies\IPerRequestProvidingGeneratingStrategy.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Strategies\PerContainerProvidingGeneratingStrategy.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Strategies\PerRequestProvidingGeneratingStrategy.cs" />
     <Compile Include="Generators\ObjectGraphs\DataTransferObjects\IObjectGraph.cs" />
     <Compile Include="Generators\ObjectGraphs\Exceptions\DetectedCycleDependencyException.cs" />
     <Compile Include="Generators\ObjectGraphs\Exceptions\TypeNotRegisteredException.cs" />
@@ -99,7 +110,6 @@
     <Compile Include="Resolving\IResolver.cs" />
     <Compile Include="Resolving\Resolver.cs" />
     <Compile Include="SystemExtends\Reflection\Emit\CilEmitter.cs" />
-    <Compile Include="SystemExtends\Reflection\Emit\ICilEmitter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Photosphere.DependencyInjection.nuspec" />

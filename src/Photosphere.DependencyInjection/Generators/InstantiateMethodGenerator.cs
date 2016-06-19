@@ -1,27 +1,25 @@
 ﻿using System;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Generators.MethodBodyGenerating;
+using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builders;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs;
-using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
-using Photosphere.DependencyInjection.SystemExtends.Reflection.Emit;
 
 namespace Photosphere.DependencyInjection.Generators
 {
     internal class InstantiateMethodGenerator : IInstantiateMethodGenerator
     {
-        private readonly IScopeKeeper _scopeKeeper;
         private readonly IObjectGraphProvider _objectGraphProvider;
+        private readonly IInstantiateMethodBodyGenerator _methodBodyGenerator;
 
         public InstantiateMethodGenerator(
-            IScopeKeeper scopeKeeper,
-            IObjectGraphProvider objectGraphPovider)
+            IObjectGraphProvider objectGraphPovider,
+            IInstantiateMethodBodyGenerator methodBodyGenerator)
         {
-            _scopeKeeper = scopeKeeper;
             _objectGraphProvider = objectGraphPovider;
+            _methodBodyGenerator = methodBodyGenerator;
         }
 
         public Delegate Generate(Type serviceType)
@@ -45,10 +43,11 @@ namespace Photosphere.DependencyInjection.Generators
 
         private void Generate(DynamicMethod dynamicMethod, Type targetType)
         {
-            var objectGraph = _objectGraphProvider.Provide(targetType);
-            var ilGenerator = new CilEmitter(dynamicMethod.GetILGenerator());
-            var methodBodyGenerator = new InstantiateMethodBodyGenerator(ilGenerator, _scopeKeeper);
-            methodBodyGenerator.Generate(objectGraph);
+            _methodBodyGenerator.Generate(new GeneratingDesign
+            {
+                Designer = new ControlFlowDesigner(dynamicMethod.GetILGenerator()),
+                ObjectGraph = _objectGraphProvider.Provide(targetType)
+            });
         }
 
         private static Delegate CreateDelegate(MethodInfo dynamicMethod, Type serviceType)

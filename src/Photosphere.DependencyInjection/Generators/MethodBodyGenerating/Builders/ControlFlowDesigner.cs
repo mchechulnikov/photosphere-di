@@ -6,14 +6,14 @@ using Photosphere.DependencyInjection.SystemExtends.Reflection.Emit;
 
 namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builders
 {
-    internal struct ControlFlowBuilder
+    internal struct ControlFlowDesigner
     {
-        private readonly ICilEmitter _ilEmitter;
+        private CilEmitter _ilEmitter;
         private Label _endBranchLabel;
 
-        public ControlFlowBuilder(ICilEmitter ilEmitter)
+        public ControlFlowDesigner(ILGenerator ilGenerator)
         {
-            _ilEmitter = ilEmitter;
+            _ilEmitter = new CilEmitter(ilGenerator);
 
             IntoBranch = false;
             _endBranchLabel = _ilEmitter.DefineLabel();
@@ -21,19 +21,19 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
 
         public bool IntoBranch { get; set; }
 
-        public ControlFlowBuilder PushToStack(LocalBuilder localVariable)
+        public ControlFlowDesigner PushToStack(LocalBuilder localVariable)
         {
             _ilEmitter.Emit(OpCodes.Ldloc, localVariable);
             return this;
         }
 
-        public ControlFlowBuilder PopFromStackTo(LocalBuilder localVariable)
+        public ControlFlowDesigner PopFromStackTo(LocalBuilder localVariable)
         {
             _ilEmitter.Emit(OpCodes.Stloc, localVariable);
             return this;
         }
 
-        public ControlFlowBuilder CreateNewObject(ConstructorInfo constructor, IEnumerable<LocalBuilder> parametersVariables)
+        public ControlFlowDesigner CreateNewObject(ConstructorInfo constructor, IEnumerable<LocalBuilder> parametersVariables)
         {
             _ilEmitter
                 .Emit(OpCodes.Ldloc, parametersVariables)
@@ -46,7 +46,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
             return new ArrayBuilder(_ilEmitter, elementType, elementsCount);
         }
 
-        public ControlFlowBuilder ReturnStatement(LocalBuilder localVariable)
+        public ControlFlowDesigner ReturnStatement(LocalBuilder localVariable)
         {
             _ilEmitter
                 .Emit(OpCodes.Ldloc, localVariable)
@@ -54,13 +54,13 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
             return this;
         }
 
-        public ControlFlowBuilder LoadArgumentToStack(int argumentIndex)
+        public ControlFlowDesigner LoadArgumentToStack(int argumentIndex)
         {
             _ilEmitter.Emit(OpCodes.Ldarg, argumentIndex);
             return this;
         }
 
-        public ControlFlowBuilder LoadArrayRefElementTo(LocalBuilder localVariable, int index)
+        public ControlFlowDesigner LoadArrayRefElementTo(LocalBuilder localVariable, int index)
         {
             _ilEmitter
                 .Emit(OpCodes.Ldc_I4, index)
@@ -69,7 +69,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
             return this;
         }
 
-        public ControlFlowBuilder SetArrayRefElement(int index, LocalBuilder localVariable)
+        public ControlFlowDesigner SetArrayRefElement(int index, LocalBuilder localVariable)
         {
             _ilEmitter
                 .Emit(OpCodes.Ldc_I4, index)
@@ -78,7 +78,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
             return this;
         }
 
-        public ControlFlowBuilder CastToClass(Type targetType)
+        public ControlFlowDesigner CastToClass(Type targetType)
         {
             _ilEmitter.Emit(OpCodes.Castclass, targetType);
             return this;
@@ -86,12 +86,12 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
 
         public VariableBuilder DeclareVariable(Type type)
         {
-            return new VariableBuilder(this, _ilEmitter, type);
+            return new VariableBuilder(_ilEmitter, type);
         }
 
         public VariableBuilder DeclareVariable<T>()
         {
-            return new VariableBuilder(this, _ilEmitter, typeof(T));
+            return new VariableBuilder(_ilEmitter, typeof(T));
         }
 
         public IfStatementBuilder If()
@@ -100,7 +100,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
             return new IfStatementBuilder(_ilEmitter, this, _endBranchLabel);
         }
 
-        public ControlFlowBuilder EndBranch()
+        public ControlFlowDesigner EndBranch()
         {
             if (!IntoBranch)
             {
@@ -111,7 +111,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Builde
             return this;
         }
 
-        public ControlFlowBuilder Action(Action action)
+        public ControlFlowDesigner Action(Action action)
         {
             action();
             return this;
