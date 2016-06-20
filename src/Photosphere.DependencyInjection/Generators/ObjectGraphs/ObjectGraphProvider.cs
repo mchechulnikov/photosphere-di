@@ -41,19 +41,7 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
         {
             alreadyProvidedTypes = MarkTypeAsProcessed(serviceType, alreadyProvidedTypes);
             CheckForCircleDependency(childTypes, alreadyProvidedTypes);
-            return GetChildObjectGraphs(alreadyProvidedTypes, childTypes);
-        }
-
-        private IReadOnlyList<IObjectGraph> GetChildObjectGraphs(ISet<Type> alreadyProvidedTypes, IEnumerable<Type> childTypes)
-        {
-            var result = new List<IObjectGraph>();
-            foreach (var type in childTypes)
-            {
-                var graph = Provide(type, alreadyProvidedTypes);
-                alreadyProvidedTypes.Remove(type);
-                result.Add(graph);
-            }
-            return result;
+            return GetChildObjectGraphs(childTypes, alreadyProvidedTypes);
         }
 
         private static ISet<Type> MarkTypeAsProcessed(Type serviceType, ISet<Type> alreadyProvidedTypes)
@@ -77,6 +65,18 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             {
                 throw new DetectedCycleDependencyException(alreadyProvidedType);
             }
+        }
+
+        private IReadOnlyList<IObjectGraph> GetChildObjectGraphs(IEnumerable<Type> childTypes, ISet<Type> alreadyProvidedTypes)
+        {
+            var result = new List<IObjectGraph>();
+            foreach (var type in childTypes)
+            {
+                var graph = Provide(type, alreadyProvidedTypes);
+                alreadyProvidedTypes.Remove(type);
+                result.Add(graph);
+            }
+            return result;
         }
     }
 }
