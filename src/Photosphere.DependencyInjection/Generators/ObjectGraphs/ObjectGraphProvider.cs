@@ -40,15 +40,12 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
         private IReadOnlyList<IObjectGraph> GetChildObjectGraphs(Type serviceType, ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> childTypes)
         {
             alreadyProvidedTypes = MarkTypeAsProcessed(serviceType, alreadyProvidedTypes);
+            CheckForCircleDependency(childTypes, alreadyProvidedTypes);
             return GetChildObjectGraphs(alreadyProvidedTypes, childTypes);
         }
 
-        private IReadOnlyList<IObjectGraph> GetChildObjectGraphs(ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> childTypes)
+        private IReadOnlyList<IObjectGraph> GetChildObjectGraphs(ISet<Type> alreadyProvidedTypes, IEnumerable<Type> childTypes)
         {
-            if (!childTypes.IsEmpty())
-            {
-                CheckForCircleDependency(childTypes, alreadyProvidedTypes);
-            }
             var result = new List<IObjectGraph>();
             foreach (var type in childTypes)
             {
@@ -69,9 +66,13 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             return alreadyProvidedTypes;
         }
 
-        private static void CheckForCircleDependency(IEnumerable<Type> parametersTypes, ICollection<Type> alreadyProvidedTypes)
+        private static void CheckForCircleDependency(IReadOnlyCollection<Type> childTypes, ICollection<Type> alreadyProvidedTypes)
         {
-            var alreadyProvidedType = parametersTypes.FirstOrDefault(alreadyProvidedTypes.Contains);
+            if (childTypes.IsEmpty())
+            {
+                return;
+            }
+            var alreadyProvidedType = childTypes.FirstOrDefault(alreadyProvidedTypes.Contains);
             if (alreadyProvidedType != null)
             {
                 throw new DetectedCycleDependencyException(alreadyProvidedType);
