@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
@@ -33,28 +32,28 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
                 ReturnType = registration.ServiceType,
                 ImplementationType = registration.DirectImplementationType,
                 Constructor = constructor,
-                Children = GetChildrenForEnumerable(serviceType, alreadyProvidedTypes, childTypes),
+                Children = GetChildObjectGraphs(serviceType, alreadyProvidedTypes, childTypes),
                 GeneratingStrategy = _generatingStrategyProvider.Provide(registration)
             };
         }
 
-        private IReadOnlyList<IObjectGraph> GetChildrenForEnumerable(Type serviceType, ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> childTypes)
+        private IReadOnlyList<IObjectGraph> GetChildObjectGraphs(Type serviceType, ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> childTypes)
         {
             alreadyProvidedTypes = MarkTypeAsProcessed(serviceType, alreadyProvidedTypes);
             return GetChildObjectGraphs(alreadyProvidedTypes, childTypes);
         }
 
-        private IReadOnlyList<IObjectGraph> GetChildObjectGraphs(ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> parametersTypes)
+        private IReadOnlyList<IObjectGraph> GetChildObjectGraphs(ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> childTypes)
         {
-            if (!parametersTypes.IsEmpty())
+            if (!childTypes.IsEmpty())
             {
-                CheckForCircleDependency(parametersTypes, alreadyProvidedTypes);
+                CheckForCircleDependency(childTypes, alreadyProvidedTypes);
             }
             var result = new List<IObjectGraph>();
-            foreach (var paramServiceType in parametersTypes)
+            foreach (var type in childTypes)
             {
-                var graph = Provide(paramServiceType, alreadyProvidedTypes);
-                alreadyProvidedTypes.Remove(paramServiceType);
+                var graph = Provide(type, alreadyProvidedTypes);
+                alreadyProvidedTypes.Remove(type);
                 result.Add(graph);
             }
             return result;
