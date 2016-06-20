@@ -1,7 +1,7 @@
 ﻿using System;
 using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strategies;
-using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
 using Photosphere.DependencyInjection.Lifetimes;
+using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
 {
@@ -24,13 +24,13 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
             _enumerableProvidingGeneratingStrategy = enumerableProvidingGeneratingStrategy;
         }
 
-        public IGeneratingStrategy Provide(IObjectGraph objectGraph)
+        public IGeneratingStrategy Provide(IRegistration registration)
         {
-            if (objectGraph.IsEnumerable)
+            if (registration.IsEnumerable)
             {
                 return _enumerableProvidingGeneratingStrategy;
             }
-            switch (objectGraph.Lifetime)
+            switch (registration.Lifetime)
             {
                 case Lifetime.AlwaysNew:
                     return _intantiationGeneratingStrategy;

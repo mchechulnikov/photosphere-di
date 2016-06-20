@@ -1,10 +1,10 @@
 ﻿using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strategies;
-using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
+using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
 {
     internal interface IGeneratingStrategyProvider
     {
-        IGeneratingStrategy Provide(IObjectGraph objectGraph);
+        IGeneratingStrategy Provide(IRegistration registration);
     }
 }

@@ -28,9 +28,10 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             var children = registration.IsEnumerable
                 ? GetChildrenForEnumerable(serviceType, alreadyProvidedTypes, registration.ImplementationTypes)
                 : GetChildren(serviceType, alreadyProvidedTypes, constructor);
-            var objectGraph = new ObjectGraph(registration, constructor, children);
-            objectGraph.GeneratingStrategy = _generatingStrategyProvider.Provide(objectGraph);
-            return objectGraph;
+            return new ObjectGraph(registration, constructor, children)
+            {
+                GeneratingStrategy = _generatingStrategyProvider.Provide(registration)
+            };
         }
 
         private IReadOnlyList<IObjectGraph> GetChildrenForEnumerable(Type serviceType, ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> implTypes)
