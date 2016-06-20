@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Generators.MethodBodyGenerating;
+using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs.Exceptions;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;

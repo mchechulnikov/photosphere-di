@@ -1,22 +1,23 @@
 using System.Reflection.Emit;
+using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.InstantiatingGenerators;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 
-namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strategies
+namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.Strategies
 {
     internal class PerRequestProvidingGeneratingStrategy : GeneratingStrategyBase, IPerRequestProvidingGeneratingStrategy
     {
         private readonly IScopeKeeper _scopeKeeper;
-        private readonly IntantiationGeneratingStrategy _intantiationGeneratingStrategy;
+        private readonly IObjectInstantiatingGenerator _objectInstantiatingGenerator;
 
         public PerRequestProvidingGeneratingStrategy(
             IScopeKeeper scopeKeeper,
-            IntantiationGeneratingStrategy intantiationGeneratingStrategy)
+            IObjectInstantiatingGenerator objectInstantiatingGenerator)
         {
             _scopeKeeper = scopeKeeper;
-            _intantiationGeneratingStrategy = intantiationGeneratingStrategy;
+            _objectInstantiatingGenerator = objectInstantiatingGenerator;
         }
 
-        protected override void GenerateInstantiating(GeneratingDesign design)
+        protected override void GenerateDependencyProviding(GeneratingDesign design)
         {
             var scope = _scopeKeeper.PerRequestScope;
             LocalBuilder instanceVariable;
@@ -27,7 +28,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strate
                     .AssignTo(v =>
                     {
                         scope.Add(design.ObjectGraph.ImplementationType, v);
-                        _intantiationGeneratingStrategy.GenerateNewInstance(design);
+                        _objectInstantiatingGenerator.Generate(design);
                     })
                     .Variable;
             }

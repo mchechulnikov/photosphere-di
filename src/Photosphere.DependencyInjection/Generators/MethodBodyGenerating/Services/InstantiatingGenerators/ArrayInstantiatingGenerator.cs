@@ -1,10 +1,10 @@
 using System.Linq;
 
-namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strategies
+namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.InstantiatingGenerators
 {
-    internal class EnumerableProvidingGeneratingStrategy : GeneratingStrategyBase, IEnumerableProvidingGeneratingStrategy
+    internal class ArrayInstantiatingGenerator : IArrayInstantiatingGenerator
     {
-        protected override void GenerateInstantiating(GeneratingDesign design)
+        public void Generate(GeneratingDesign design)
         {
             var parameters = design.ObjectGraph.Children.Select(og => og.GeneratingStrategy.Generate(new GeneratingDesign
             {

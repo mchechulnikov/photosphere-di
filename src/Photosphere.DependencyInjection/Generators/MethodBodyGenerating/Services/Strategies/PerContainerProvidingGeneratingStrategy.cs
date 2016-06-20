@@ -1,21 +1,22 @@
+using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.InstantiatingGenerators;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 
-namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strategies
+namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.Strategies
 {
     internal class PerContainerProvidingGeneratingStrategy : GeneratingStrategyBase, IPerContainerProvidingGeneratingStrategy
     {
         private readonly IScopeKeeper _scopeKeeper;
-        private readonly IntantiationGeneratingStrategy _intantiationGeneratingStrategy;
+        private readonly IObjectInstantiatingGenerator _objectInstantiatingGenerator;
 
         public PerContainerProvidingGeneratingStrategy(
             IScopeKeeper scopeKeeper,
-            IntantiationGeneratingStrategy intantiationGeneratingStrategy)
+            IObjectInstantiatingGenerator objectInstantiatingGenerator)
         {
             _scopeKeeper = scopeKeeper;
-            _intantiationGeneratingStrategy = intantiationGeneratingStrategy;
+            _objectInstantiatingGenerator = objectInstantiatingGenerator;
         }
 
-        protected override void GenerateInstantiating(GeneratingDesign design)
+        protected override void GenerateDependencyProviding(GeneratingDesign design)
         {
             var scope = _scopeKeeper.PerContainerScope;
             int instanceIndex;
@@ -32,7 +33,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strate
                 .LoadArrayRefElementTo(instanceVariable, instanceIndex)
                 .If().IsNull(instanceVariable)
                 .BeginBranch()
-                    .Action(() => _intantiationGeneratingStrategy.GenerateNewInstance(design))
+                    .Action(() => _objectInstantiatingGenerator.Generate(design))
                     .PopFromStackTo(instanceVariable)
                     .LoadArgumentToStack(0)
                     .SetArrayRefElement(instanceIndex, instanceVariable)

@@ -1,6 +1,8 @@
 ﻿using Photosphere.DependencyInjection.Generators;
 using Photosphere.DependencyInjection.Generators.MethodBodyGenerating;
-using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strategies;
+using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services;
+using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.InstantiatingGenerators;
+using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.Strategies;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Registrations.Services;
@@ -20,12 +22,13 @@ namespace Photosphere.DependencyInjection.InnerStructure
             var assembliesProvider = new AssembliesProvider();
             var compositionRootProvider = new CompositionRootProvider(assembliesProvider);
 
-            var instantiationGeneratingStrategy = new IntantiationGeneratingStrategy();
+            var objectInstantiatingGenerator = new ObjectInstantiatingGenerator();
+            var arrayInstantiatingGenerator = new ArrayInstantiatingGenerator();
             var generatingStrategyProvider = new GeneratingStrategyProvider(
-                instantiationGeneratingStrategy,
-                new PerRequestProvidingGeneratingStrategy(scopeKeeper, instantiationGeneratingStrategy),
-                new PerContainerProvidingGeneratingStrategy(scopeKeeper, instantiationGeneratingStrategy),
-                new EnumerableProvidingGeneratingStrategy()
+                new IntantiationProvidingGeneratingStrategy(objectInstantiatingGenerator), 
+                new PerRequestProvidingGeneratingStrategy(scopeKeeper, objectInstantiatingGenerator),
+                new PerContainerProvidingGeneratingStrategy(scopeKeeper, objectInstantiatingGenerator),
+                new EnumerableProvidingGeneratingStrategy(arrayInstantiatingGenerator)
             );
 
             var objectGraphProvider = new ObjectGraphProvider(registry, generatingStrategyProvider);

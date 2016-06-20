@@ -1,6 +1,6 @@
 ﻿using System.Reflection.Emit;
 
-namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strategies
+namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.Strategies
 {
     internal interface IGeneratingStrategy
     {

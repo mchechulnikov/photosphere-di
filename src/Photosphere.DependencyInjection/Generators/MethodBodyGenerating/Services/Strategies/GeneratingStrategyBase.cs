@@ -1,6 +1,6 @@
 using System.Reflection.Emit;
 
-namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strategies
+namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.Strategies
 {
     internal abstract class GeneratingStrategyBase : IGeneratingStrategy
     {
@@ -8,10 +8,10 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strate
         {
             return design.Designer
                 .DeclareVariable(design.ObjectGraph.ReturnType)
-                .AssignTo(v => GenerateInstantiating(design))
+                .AssignTo(v => GenerateDependencyProviding(design))
                 .Variable;
         }
 
-        protected abstract void GenerateInstantiating(GeneratingDesign design);
+        protected abstract void GenerateDependencyProviding(GeneratingDesign design);
     }
 }
