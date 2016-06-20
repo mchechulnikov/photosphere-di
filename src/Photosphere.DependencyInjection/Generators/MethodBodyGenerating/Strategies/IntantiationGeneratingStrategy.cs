@@ -4,6 +4,11 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strate
 {
     internal class IntantiationGeneratingStrategy : GeneratingStrategyBase, IIntantiationGeneratingStrategy
     {
+        public void GenerateNewInstance(GeneratingDesign design)
+        {
+            GenerateInstantiating(design);
+        }
+
         protected override void GenerateInstantiating(GeneratingDesign design)
         {
             var parameters = design.ObjectGraph.Children.Select(og => og.GeneratingStrategy.Generate(new GeneratingDesign

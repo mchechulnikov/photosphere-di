@@ -15,30 +15,30 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strate
             _intantiationGeneratingStrategy = intantiationGeneratingStrategy;
         }
 
-        protected override void GenerateInstantiating(GeneratingDesign generatingDesign)
+        protected override void GenerateInstantiating(GeneratingDesign design)
         {
             var scope = _scopeKeeper.PerContainerScope;
             int instanceIndex;
-            if (!scope.AvailableInstancesIndexes.TryGetValue(generatingDesign.ObjectGraph.ImplementationType, out instanceIndex))
+            if (!scope.AvailableInstancesIndexes.TryGetValue(design.ObjectGraph.ImplementationType, out instanceIndex))
             {
                 instanceIndex = scope.AvailableInstancesIndexes.Count;
-                scope.AvailableInstancesIndexes.Add(generatingDesign.ObjectGraph.ImplementationType, instanceIndex);
+                scope.AvailableInstancesIndexes.Add(design.ObjectGraph.ImplementationType, instanceIndex);
             }
 
-            var instanceVariable = generatingDesign.Designer.DeclareVariable<object>().Variable;
+            var instanceVariable = design.Designer.DeclareVariable<object>().Variable;
 
-            generatingDesign.Designer
+            design.Designer
                 .LoadArgumentToStack(0)
                 .LoadArrayRefElementTo(instanceVariable, instanceIndex)
                 .If().IsNull(instanceVariable)
                 .BeginBranch()
-                .Action(() => _intantiationGeneratingStrategy.Generate(generatingDesign))
-                .PopFromStackTo(instanceVariable)
-                .LoadArgumentToStack(0)
-                .SetArrayRefElement(instanceIndex, instanceVariable)
+                    .Action(() => _intantiationGeneratingStrategy.GenerateNewInstance(design))
+                    .PopFromStackTo(instanceVariable)
+                    .LoadArgumentToStack(0)
+                    .SetArrayRefElement(instanceIndex, instanceVariable)
                 .EndBranch()
                 .PushToStack(instanceVariable)
-                .CastToClass(generatingDesign.ObjectGraph.ImplementationType);
+                .CastToClass(design.ObjectGraph.ImplementationType);
         }
     }
 }

@@ -16,22 +16,22 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strate
             _intantiationGeneratingStrategy = intantiationGeneratingStrategy;
         }
 
-        protected override void GenerateInstantiating(GeneratingDesign generatingDesign)
+        protected override void GenerateInstantiating(GeneratingDesign design)
         {
             var scope = _scopeKeeper.PerRequestScope;
             LocalBuilder instanceVariable;
-            if (!scope.AvailableInstancesVariables.TryGetValue(generatingDesign.ObjectGraph.ImplementationType, out instanceVariable))
+            if (!scope.AvailableInstancesVariables.TryGetValue(design.ObjectGraph.ImplementationType, out instanceVariable))
             {
-                instanceVariable = generatingDesign.Designer
-                    .DeclareVariable(generatingDesign.ObjectGraph.ImplementationType)
+                instanceVariable = design.Designer
+                    .DeclareVariable(design.ObjectGraph.ImplementationType)
                     .AssignTo(v =>
                     {
-                        scope.Add(generatingDesign.ObjectGraph.ImplementationType, v);
-                        _intantiationGeneratingStrategy.Generate(generatingDesign);
+                        scope.Add(design.ObjectGraph.ImplementationType, v);
+                        _intantiationGeneratingStrategy.GenerateNewInstance(design);
                     })
                     .Variable;
             }
-            generatingDesign.Designer.PushToStack(instanceVariable);
+            design.Designer.PushToStack(instanceVariable);
         }
     }
 }
