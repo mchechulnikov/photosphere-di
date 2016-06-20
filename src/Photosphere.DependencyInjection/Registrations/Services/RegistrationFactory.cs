@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Photosphere.DependencyInjection.Extensions;
-using Photosphere.DependencyInjection.Generators;
+using Photosphere.DependencyInjection.Generation;
 using Photosphere.DependencyInjection.Lifetimes;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
@@ -10,9 +10,9 @@ namespace Photosphere.DependencyInjection.Registrations.Services
 {
     internal class RegistrationFactory : IRegistrationFactory
     {
-        private readonly IInstantiateMethodGenerator _methodGenerator;
+        private readonly IInstanceProvidingMethodGenerator _methodGenerator;
 
-        public RegistrationFactory(IInstantiateMethodGenerator methodGenerator)
+        public RegistrationFactory(IInstanceProvidingMethodGenerator methodGenerator)
         {
             _methodGenerator = methodGenerator;
         }

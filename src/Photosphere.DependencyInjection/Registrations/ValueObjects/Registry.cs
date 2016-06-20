@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Photosphere.DependencyInjection.Generators.ObjectGraphs.Exceptions;
+using Photosphere.DependencyInjection.Generation.ObjectGraphs.Exceptions;
 
 namespace Photosphere.DependencyInjection.Registrations.ValueObjects
 {

@@ -1,9 +1,9 @@
-﻿using Photosphere.DependencyInjection.Generators;
-using Photosphere.DependencyInjection.Generators.MethodBodyGenerating;
-using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services;
-using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.InstantiatingGenerators;
-using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.Strategies;
-using Photosphere.DependencyInjection.Generators.ObjectGraphs;
+﻿using Photosphere.DependencyInjection.Generation;
+using Photosphere.DependencyInjection.Generation.MethodBodyGenerating;
+using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Services;
+using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Services.GeneratingStrategies;
+using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Services.InstantiatingGenerators;
+using Photosphere.DependencyInjection.Generation.ObjectGraphs;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Registrations.Services;
 using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots;
@@ -32,8 +32,8 @@ namespace Photosphere.DependencyInjection.InnerStructure
             );
 
             var objectGraphProvider = new ObjectGraphProvider(registry, generatingStrategyProvider);
-            var instantiateMethodBodyGenerator = new InstantiateMethodBodyGenerator();
-            var instantiateMethodGenerator = new InstantiateMethodGenerator(objectGraphProvider, instantiateMethodBodyGenerator);
+            var instantiateMethodBodyGenerator = new InstanceProvidingMethodBodyGenerator();
+            var instantiateMethodGenerator = new InstanceProvidingMethodGenerator(objectGraphProvider, instantiateMethodBodyGenerator);
 
             var registrationFactory = new RegistrationFactory(instantiateMethodGenerator);
             var registrator = new Registrator(registry, registrationFactory);

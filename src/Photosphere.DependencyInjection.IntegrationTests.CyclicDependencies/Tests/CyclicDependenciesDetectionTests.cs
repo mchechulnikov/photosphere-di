@@ -1,4 +1,4 @@
-﻿using Photosphere.DependencyInjection.Generators.ObjectGraphs.Exceptions;
+﻿using Photosphere.DependencyInjection.Generation.ObjectGraphs.Exceptions;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.IntegrationTests.CyclicDependencies.Tests
