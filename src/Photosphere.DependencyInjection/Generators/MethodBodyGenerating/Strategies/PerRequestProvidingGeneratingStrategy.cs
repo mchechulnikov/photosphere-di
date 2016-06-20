@@ -3,7 +3,7 @@ using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 
 namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strategies
 {
-    internal class PerRequestProvidingGeneratingStrategy : IPerRequestProvidingGeneratingStrategy
+    internal class PerRequestProvidingGeneratingStrategy : GeneratingStrategyBase, IPerRequestProvidingGeneratingStrategy
     {
         private readonly IScopeKeeper _scopeKeeper;
         private readonly IntantiationGeneratingStrategy _intantiationGeneratingStrategy;
@@ -16,15 +16,7 @@ namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strate
             _intantiationGeneratingStrategy = intantiationGeneratingStrategy;
         }
 
-        public LocalBuilder Generate(GeneratingDesign design)
-        {
-            return design.Designer
-                .DeclareVariable(design.ObjectGraph.ReturnType)
-                .AssignTo(v => GenerateInstantiating(design))
-                .Variable;
-        }
-
-        private void GenerateInstantiating(GeneratingDesign generatingDesign)
+        protected override void GenerateInstantiating(GeneratingDesign generatingDesign)
         {
             var scope = _scopeKeeper.PerRequestScope;
             LocalBuilder instanceVariable;

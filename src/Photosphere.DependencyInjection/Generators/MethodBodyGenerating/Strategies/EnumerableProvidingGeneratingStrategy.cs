@@ -1,19 +1,10 @@
 using System.Linq;
-using System.Reflection.Emit;
 
 namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Strategies
 {
-    internal class EnumerableProvidingGeneratingStrategy : IEnumerableProvidingGeneratingStrategy
+    internal class EnumerableProvidingGeneratingStrategy : GeneratingStrategyBase, IEnumerableProvidingGeneratingStrategy
     {
-        public LocalBuilder Generate(GeneratingDesign design)
-        {
-            return design.Designer
-                .DeclareVariable(design.ObjectGraph.ReturnType)
-                .AssignTo(v => GenerateInstantiating(design))
-                .Variable;
-        }
-
-        private void GenerateInstantiating(GeneratingDesign design)
+        protected override void GenerateInstantiating(GeneratingDesign design)
         {
             var parameters = design.ObjectGraph.Children.Select(og => og.GeneratingStrategy.Generate(new GeneratingDesign
             {
