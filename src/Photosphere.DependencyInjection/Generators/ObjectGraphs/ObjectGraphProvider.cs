@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Photosphere.DependencyInjection.Extensions;
-using Photosphere.DependencyInjection.Generators.MethodBodyGenerating;
 using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects;
 using Photosphere.DependencyInjection.Generators.ObjectGraphs.Exceptions;
@@ -29,8 +28,12 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             var children = registration.IsEnumerable
                 ? GetChildrenForEnumerable(serviceType, alreadyProvidedTypes, registration.ImplementationTypes)
                 : GetChildren(serviceType, alreadyProvidedTypes, constructor);
-            return new ObjectGraph(registration, constructor, children)
+            return new ObjectGraph
             {
+                ReturnType = registration.ServiceType,
+                ImplementationType = registration.DirectImplementationType,
+                Constructor = constructor,
+                Children = children ?? new List<IObjectGraph>(),
                 GeneratingStrategy = _generatingStrategyProvider.Provide(registration)
             };
         }

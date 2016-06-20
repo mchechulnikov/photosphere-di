@@ -2,31 +2,18 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.Strategies;
-using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObjects
 {
     internal class ObjectGraph : IObjectGraph
     {
-        private readonly IRegistration _registration;
+        public Type ReturnType { get; set; }
 
-        public ObjectGraph(
-            IRegistration registration,
-            ConstructorInfo constructor,
-            IReadOnlyList<IObjectGraph> children = null)
-        {
-            _registration = registration;
-            Constructor = constructor;
-            Children = children ?? new List<IObjectGraph>();
-        }
+        public Type ImplementationType { get; set; }
 
-        public Type ReturnType => _registration.ServiceType;
+        public ConstructorInfo Constructor { get; set; }
 
-        public Type ImplementationType => _registration.DirectImplementationType;
-
-        public ConstructorInfo Constructor { get; }
-
-        public IReadOnlyList<IObjectGraph> Children { get; }
+        public IReadOnlyList<IObjectGraph> Children { get; set; }
 
         public IGeneratingStrategy GeneratingStrategy { get; set; }
     }
