@@ -3,7 +3,7 @@ using Photosphere.DependencyInjection.Generators.ObjectGraphs.DataTransferObject
 
 namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating
 {
-    internal class GeneratingDesign
+    internal struct GeneratingDesign
     {
         public ControlFlowDesigner Designer { get; set; }
 

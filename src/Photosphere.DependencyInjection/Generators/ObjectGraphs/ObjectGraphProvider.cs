@@ -15,7 +15,9 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
         private readonly IRegistry _registry;
         private readonly IGeneratingStrategyProvider _generatingStrategyProvider;
 
-        public ObjectGraphProvider(IRegistry registry, IGeneratingStrategyProvider generatingStrategyProvider)
+        public ObjectGraphProvider(
+            IRegistry registry,
+            IGeneratingStrategyProvider generatingStrategyProvider)
         {
             _registry = registry;
             _generatingStrategyProvider = generatingStrategyProvider;
@@ -27,13 +29,13 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             var constructor = registration.DirectImplementationType.GetFirstPublicConstructor();
             var children = registration.IsEnumerable
                 ? GetChildrenForEnumerable(serviceType, alreadyProvidedTypes, registration.ImplementationTypes)
-                : GetChildren(serviceType, alreadyProvidedTypes, constructor);
+                : GetChildObjectGraphs(serviceType, alreadyProvidedTypes, constructor);
             return new ObjectGraph
             {
                 ReturnType = registration.ServiceType,
                 ImplementationType = registration.DirectImplementationType,
                 Constructor = constructor,
-                Children = children ?? new List<IObjectGraph>(),
+                Children = children,
                 GeneratingStrategy = _generatingStrategyProvider.Provide(registration)
             };
         }
@@ -41,24 +43,23 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
         private IReadOnlyList<IObjectGraph> GetChildrenForEnumerable(Type serviceType, ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> implTypes)
         {
             alreadyProvidedTypes = MarkTypeAsProcessed(serviceType, alreadyProvidedTypes);
-            return GetChildren(alreadyProvidedTypes, implTypes);
+            return GetChildObjectGraphs(alreadyProvidedTypes, implTypes);
         }
 
-        private IReadOnlyList<IObjectGraph> GetChildren(Type serviceType, ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor)
+        private IReadOnlyList<IObjectGraph> GetChildObjectGraphs(Type serviceType, ISet<Type> alreadyProvidedTypes, ConstructorInfo constructor)
         {
             alreadyProvidedTypes = MarkTypeAsProcessed(serviceType, alreadyProvidedTypes);
 
-            var parametersTypes = GetParametersTypes(constructor);
-            if (parametersTypes.IsEmpty())
-            {
-                return new List<ObjectGraph>();
-            }
-            return GetChildren(alreadyProvidedTypes, parametersTypes);
+            var parametersTypes = constructor.GetParametersTypes();
+            return GetChildObjectGraphs(alreadyProvidedTypes, parametersTypes);
         }
 
-        private IReadOnlyList<IObjectGraph> GetChildren(ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> parametersTypes)
+        private IReadOnlyList<IObjectGraph> GetChildObjectGraphs(ISet<Type> alreadyProvidedTypes, IReadOnlyCollection<Type> parametersTypes)
         {
-            CheckForCircleDependency(parametersTypes, alreadyProvidedTypes);
+            if (!parametersTypes.IsEmpty())
+            {
+                CheckForCircleDependency(parametersTypes, alreadyProvidedTypes);
+            }
             var result = new List<IObjectGraph>();
             foreach (var paramServiceType in parametersTypes)
             {
@@ -77,11 +78,6 @@ namespace Photosphere.DependencyInjection.Generators.ObjectGraphs
             }
             alreadyProvidedTypes.Add(serviceType);
             return alreadyProvidedTypes;
-        }
-
-        private static IReadOnlyList<Type> GetParametersTypes(ConstructorInfo constructor)
-        {
-            return constructor.GetParameters().Select(p => p.ParameterType).ToList();
         }
 
         private static void CheckForCircleDependency(IEnumerable<Type> parametersTypes, ICollection<Type> alreadyProvidedTypes)

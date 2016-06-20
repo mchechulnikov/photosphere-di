@@ -1,4 +1,7 @@
 ﻿namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.InstantiatingGenerators
 {
-    internal interface IObjectInstantiatingGenerator : IInstantiatingGenerator {}
+    internal interface IInstantiatingGenerator
+    {
+        void Generate(GeneratingDesign design);
+    }
 }

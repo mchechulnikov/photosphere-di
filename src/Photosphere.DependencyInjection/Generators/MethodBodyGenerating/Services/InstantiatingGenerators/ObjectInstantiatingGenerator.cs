@@ -1,16 +1,10 @@
-﻿using System.Linq;
-
-namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.InstantiatingGenerators
+﻿namespace Photosphere.DependencyInjection.Generators.MethodBodyGenerating.Services.InstantiatingGenerators
 {
-    internal class ObjectInstantiatingGenerator : IObjectInstantiatingGenerator
+    internal class ObjectInstantiatingGenerator : InstantiatingGeneratorBase, IObjectInstantiatingGenerator
     {
         public void Generate(GeneratingDesign design)
         {
-            var parameters = design.ObjectGraph.Children.Select(og => og.GeneratingStrategy.Generate(new GeneratingDesign
-            {
-                Designer = design.Designer,
-                ObjectGraph = og
-            })).ToList();
+            var parameters = GenerateForSubGraphs(design);
             design.Designer.CreateNewObject(design.ObjectGraph.Constructor, parameters);
         }
     }

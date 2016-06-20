@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Extensions\ConstructorInfoExtensions.cs" />
     <Compile Include="Extensions\EnumerableOfTypeExtensions.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Builders\ArrayBuilder.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Builders\ControlFlowDesigner.cs" />
@@ -55,6 +56,8 @@
     <Compile Include="Generators\MethodBodyGenerating\GeneratingDesign.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Services\GeneratingStrategyProvider.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Services\IGeneratingStrategyProvider.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Services\InstantiatingGenerators\IInstantiatingGenerator.cs" />
+    <Compile Include="Generators\MethodBodyGenerating\Services\InstantiatingGenerators\InstantiatingGeneratorBase.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Services\Strategies\EnumerableProvidingGeneratingStrategy.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Services\Strategies\GeneratingStrategyBase.cs" />
     <Compile Include="Generators\MethodBodyGenerating\Services\Strategies\IEnumerableProvidingGeneratingStrategy.cs" />
