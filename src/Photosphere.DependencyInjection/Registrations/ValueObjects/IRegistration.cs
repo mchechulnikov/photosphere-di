@@ -12,7 +12,7 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
 
         IReadOnlyCollection<Type> ImplementationTypes { get; }
 
-        Delegate InstantiateFunction { get; }
+        Delegate InstanceProvidingFunction { get; }
 
         bool IsEnumerable { get; }
 

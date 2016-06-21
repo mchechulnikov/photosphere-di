@@ -1,5 +1,6 @@
 using System.Reflection.Emit;
 using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Services.InstantiatingGenerators;
+using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.ValueObjects;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 
 namespace Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Services.GeneratingStrategies

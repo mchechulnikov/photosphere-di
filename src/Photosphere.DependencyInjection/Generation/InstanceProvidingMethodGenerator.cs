@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Generation.MethodBodyGenerating;
 using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Designers;
+using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.ValueObjects;
 using Photosphere.DependencyInjection.Generation.ObjectGraphs;
 
 namespace Photosphere.DependencyInjection.Generation

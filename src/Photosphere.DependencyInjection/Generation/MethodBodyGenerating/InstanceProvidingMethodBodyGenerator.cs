@@ -1,4 +1,6 @@
-﻿namespace Photosphere.DependencyInjection.Generation.MethodBodyGenerating
+﻿using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.ValueObjects;
+
+namespace Photosphere.DependencyInjection.Generation.MethodBodyGenerating
 {
     internal class InstanceProvidingMethodBodyGenerator : IInstanceProvidingMethodBodyGenerator
     {

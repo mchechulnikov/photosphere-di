@@ -1,4 +1,5 @@
 using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Services.InstantiatingGenerators;
+using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Services.GeneratingStrategies
 {

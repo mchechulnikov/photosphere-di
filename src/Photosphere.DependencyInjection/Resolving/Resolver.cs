@@ -29,7 +29,7 @@ namespace Photosphere.DependencyInjection.Resolving
         private T Get<T>()
         {
             var registration = _registry[typeof(T)];
-            var instantiateFunction = (Func<object[], T>) registration.InstantiateFunction;
+            var instantiateFunction = (Func<object[], T>) registration.InstanceProvidingFunction;
             return instantiateFunction.Invoke(_scopeKeeper.PerContainerScope.AvailableInstances);
         }
     }

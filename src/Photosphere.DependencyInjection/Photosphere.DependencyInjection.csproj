@@ -53,7 +53,7 @@
     <Compile Include="Generation\MethodBodyGenerating\Designers\ControlFlowDesigner.cs" />
     <Compile Include="Generation\MethodBodyGenerating\Designers\IfStatementDesigner.cs" />
     <Compile Include="Generation\MethodBodyGenerating\Designers\VariableDesigner.cs" />
-    <Compile Include="Generation\MethodBodyGenerating\GeneratingDesign.cs" />
+    <Compile Include="Generation\MethodBodyGenerating\ValueObjects\GeneratingDesign.cs" />
     <Compile Include="Generation\MethodBodyGenerating\Services\GeneratingStrategyProvider.cs" />
     <Compile Include="Generation\MethodBodyGenerating\Services\IGeneratingStrategyProvider.cs" />
     <Compile Include="Generation\MethodBodyGenerating\Services\InstantiatingGenerators\IInstantiatingGenerator.cs" />

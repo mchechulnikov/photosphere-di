@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Services.InstantiatingGenerators
 {

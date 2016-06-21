@@ -6,12 +6,12 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
 {
     internal class Registration : IRegistration
     {
-        private readonly Func<Delegate> _generateInstatiationFunction;
+        private readonly Func<Delegate> _generateInstanceProvidingFunction;
 
         public Registration(
-            Func<Delegate> generateInstatiationFunction)
+            Func<Delegate> generateInstanceProvidingFunction)
         {
-            _generateInstatiationFunction = generateInstatiationFunction;
+            _generateInstanceProvidingFunction = generateInstanceProvidingFunction;
         }
 
         public Type ServiceType { get; set; }
@@ -20,7 +20,7 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
 
         public IReadOnlyCollection<Type> ImplementationTypes { get; set; }
 
-        public Delegate InstantiateFunction { get; private set; }
+        public Delegate InstanceProvidingFunction { get; private set; }
 
         public Lifetime Lifetime { get; set; }
 
@@ -28,7 +28,7 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
 
         public void GenerateInstantiateFunction()
         {
-            InstantiateFunction = _generateInstatiationFunction();
+            InstanceProvidingFunction = _generateInstanceProvidingFunction();
         }
     }
 }
