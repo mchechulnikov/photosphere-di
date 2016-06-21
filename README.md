@@ -4,6 +4,7 @@ Simplest dependency injection framework based on emitting CIL code.
 ## Status
 [![Windows build Status](https://ci.appveyor.com/api/projects/status/github/sunloving/photosphere-di?retina=true&svg=true)](https://ci.appveyor.com/project/sunloving/photosphere-di)
 [![NuGet](https://img.shields.io/nuget/v/Photosphere.DependencyInjection.svg)](https://www.nuget.org/packages/Photosphere.DependencyInjection/)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/sunloving/photosphere-di/blob/master/LICENSE)
 
 ## Install via NuGet
 ```
@@ -115,9 +116,6 @@ using (var container = new DependencyContainer())
   // Objects that resolved here will beсome unreacheble outside this scope 
 }
 ```
-
-## License
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 
 ## Other Photosphere projects
 * [Photosphere.Mapping](https://github.com/sunloving/photosphere-mapping)
