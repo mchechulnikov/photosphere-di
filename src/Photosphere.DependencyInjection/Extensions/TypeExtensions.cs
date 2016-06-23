@@ -40,15 +40,6 @@ namespace Photosphere.DependencyInjection.Extensions
             return type.Assembly.GetAllDerivedTypesOf(type).Where(t => t != null);
         }
 
-        public static Type GetFirstImplementationType(this Type type)
-        {
-            if (!type.IsAbstract && !type.IsInterface)
-            {
-                return type;
-            }
-            return type.Assembly.GetFirstOrDefaultImplementationTypeOf(type);
-        }
-
         public static ConstructorInfo GetFirstPublicConstructor(this Type type)
         {
             return
