@@ -21,6 +21,11 @@ namespace Photosphere.DependencyInjection.Resolving
             return Get<TService>();
         }
 
+        public object GetInstance(Type type)
+        {
+            return Get(type);
+        }
+
         public IEnumerable<TService> GetAllInstances<TService>()
         {
             return Get<IEnumerable<TService>>();
@@ -30,6 +35,13 @@ namespace Photosphere.DependencyInjection.Resolving
         {
             var registration = _registry[typeof(T)];
             var instantiateFunction = (Func<object[], T>) registration.InstanceProvidingFunction;
+            return instantiateFunction.Invoke(_scopeKeeper.PerContainerScope.AvailableInstances);
+        }
+
+        private object Get(Type type)
+        {
+            var registration = _registry[type];
+            var instantiateFunction = (Func<object[], object>) registration.InstanceProvidingFunction;
             return instantiateFunction.Invoke(_scopeKeeper.PerContainerScope.AvailableInstances);
         }
     }

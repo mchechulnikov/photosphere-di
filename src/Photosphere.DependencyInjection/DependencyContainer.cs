@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Photosphere.DependencyInjection.InnerStructure;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Resolving;
@@ -22,6 +23,11 @@ namespace Photosphere.DependencyInjection
         public TService GetInstance<TService>()
         {
             return _resolver.GetInstance<TService>();
+        }
+
+        public object GetInstance(Type type)
+        {
+            return _resolver.GetInstance(type);
         }
 
         public IEnumerable<TService> GetAllInstances<TService>()

@@ -7,6 +7,8 @@ namespace Photosphere.DependencyInjection
     {
         T GetInstance<T>();
 
+        object GetInstance(Type type);
+
         IEnumerable<TService> GetAllInstances<TService>();
     }
 }

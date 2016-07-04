@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Photosphere.DependencyInjection.xUnit</id>
+    <version>0.0.0.0</version>
+    <authors>Maxim Chechulnikov</authors>
+    <description>Simple dependency injection framework based on emitting CIL code. Extension for xUnit.</description>
+    <language>en-US</language>
+    <projectUrl>https://github.com/sunloving/photosphere-di</projectUrl>
+    <licenseUrl>https://github.com/sunloving/photosphere-di/blob/master/LICENSE</licenseUrl>
+  </metadata>
+  <files>
+    <file src="bin\Release\*.dll" target="lib" />
+  </files>
+</package>
