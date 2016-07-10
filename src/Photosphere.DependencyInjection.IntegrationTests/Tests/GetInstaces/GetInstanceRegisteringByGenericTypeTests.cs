@@ -32,6 +32,14 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstaces
         }
 
         [Fact]
+        internal void GetInstance_ByEnumerableForGenericInterface_ExpectedCount()
+        {
+            var container = new DependencyContainer();
+            var result = container.GetAllInstances<IGenericService<Bar>>().Count();
+            Assert.Equal(2, result);
+        }
+
+        [Fact]
         internal void GetInstance_ByEnumerableForGenericClass_ExpectedCount()
         {
             var container = new DependencyContainer();
