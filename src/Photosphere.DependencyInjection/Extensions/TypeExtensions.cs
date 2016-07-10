@@ -7,9 +7,29 @@ namespace Photosphere.DependencyInjection.Extensions
 {
     internal static class TypeExtensions
     {
-        public static bool IsInstantiatibleClass(this Type type)
+        public static Type GetBaseType(this Type type, string name)
         {
-            return !type.IsAbstract && !type.IsInterface;
+            while (true)
+            {
+                var baseType = type.BaseType;
+                if (baseType == typeof(object) || baseType == null)
+                {
+                    return null;
+                }
+                if (baseType.Name == name)
+                {
+                    return baseType;
+                }
+                type = baseType;
+            }
+        }
+
+        public static bool IsInstantiatibleUserDefinedClass(this Type type)
+        {
+            return
+                !type.IsAbstract
+                && !type.IsInterface
+                && !type.IsGenericType;
         }
 
         public static bool IsImplements<TInterface>(this Type type)
@@ -55,8 +75,36 @@ namespace Photosphere.DependencyInjection.Extensions
         public static string GetFormattedName(this Type type)
         {
             return type.IsGenericType
-                ? type.Name + "`" + string.Join("`", type.GenericTypeArguments.Select(x => x.Name).ToArray())
+                ? type.Name + "`" + String.Join("`", type.GenericTypeArguments.Select(x => x.Name).ToArray())
                 : type.Name;
+        }
+
+        public static bool IsAssignableFromGenericType(this Type genericType, Type givenType)
+        {
+            if (givenType == null || genericType == null)
+            {
+                return false;
+            }
+
+            return givenType == genericType
+              || givenType.MapsToGenericTypeDefinition(genericType)
+              || givenType.HasInterfaceThatMapsToGenericTypeDefinition(genericType)
+              || genericType.IsAssignableFromGenericType(givenType.BaseType);
+        }
+
+        private static bool HasInterfaceThatMapsToGenericTypeDefinition(this Type givenType, Type genericType)
+        {
+            return givenType
+              .GetInterfaces()
+              .Where(it => it.IsGenericType)
+              .Any(it => it.GetGenericTypeDefinition() == genericType);
+        }
+
+        private static bool MapsToGenericTypeDefinition(this Type givenType, Type genericType)
+        {
+            return genericType.IsGenericTypeDefinition
+              && givenType.IsGenericType
+              && givenType.GetGenericTypeDefinition() == genericType;
         }
     }
 }

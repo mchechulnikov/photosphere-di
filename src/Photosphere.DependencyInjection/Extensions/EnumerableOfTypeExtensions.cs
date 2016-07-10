@@ -8,7 +8,7 @@ namespace Photosphere.DependencyInjection.Extensions
     {
         public static IEnumerable<Type> GetTypesThatImplements(this IEnumerable<Type> filteredTypes, Type type)
         {
-            return filteredTypes.Where(t => t.IsInstantiatibleClass() && type.IsAssignableFrom(t));
+            return filteredTypes.Where(t => t.IsInstantiatibleUserDefinedClass() && type.IsAssignableFrom(t));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Photosphere.DependencyInjection.Lifetimes;
+﻿using System;
+using Photosphere.DependencyInjection.Lifetimes;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Registrations.Services
@@ -18,7 +19,13 @@ namespace Photosphere.DependencyInjection.Registrations.Services
 
         public IRegistrator Register<TService>(Lifetime lifetime = Lifetime.PerRequest)
         {
-            var registrations = _registrationFactory.Get<TService>(lifetime);
+            Register(typeof(TService), lifetime);
+            return this;
+        }
+
+        public IRegistrator Register(Type setviceType, Lifetime lifetime = Lifetime.PerRequest)
+        {
+            var registrations = _registrationFactory.Get(setviceType, lifetime);
             _registry.Add(registrations);
             return this;
         }

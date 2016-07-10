@@ -29,5 +29,10 @@ namespace Photosphere.DependencyInjection.Extensions
         {
             return enumerable.Count() > 1;
         }
+
+        public static bool HasOneElement<T>(this IEnumerable<T> enumerable)
+        {
+            return !enumerable.HasSeveralElements();
+        }
     }
 }

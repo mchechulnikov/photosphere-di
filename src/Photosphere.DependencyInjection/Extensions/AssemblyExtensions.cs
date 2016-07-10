@@ -5,11 +5,30 @@ using System.Reflection;
 
 namespace Photosphere.DependencyInjection.Extensions
 {
-    public static class AssemblyExtensions
+    internal static class AssemblyExtensions
     {
         public static IEnumerable<Type> GetAllDerivedTypesOf(this Assembly assembly, Type serviceType)
         {
-            return assembly.GetTypes().Where(serviceType.IsAssignableFrom);
+            return serviceType.IsGenericType
+                ? AllDerivedTypesOfGeneric(assembly, serviceType)
+                : assembly.GetTypes().Where(serviceType.IsAssignableFrom);
+        }
+
+        private static IEnumerable<Type> AllDerivedTypesOfGeneric(Assembly assembly, Type serviceType)
+        {
+            var result = new List<Type>();
+
+            var genericDerivedTypes = assembly.GetTypes().Where(serviceType.IsAssignableFromGenericType).ToHashSet();
+            result.AddRange(genericDerivedTypes);
+
+            var collection = genericDerivedTypes
+                .Select(gdt => serviceType.IsInterface
+                    ? gdt.GetInterface(serviceType.Name)
+                    : gdt.GetBaseType(serviceType.Name))
+                .Where(gbt => gbt != null && gbt.IsConstructedGenericType);
+            result.AddRange(collection);
+
+            return result;
         }
     }
 }

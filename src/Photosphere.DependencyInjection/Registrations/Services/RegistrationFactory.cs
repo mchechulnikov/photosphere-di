@@ -17,22 +17,23 @@ namespace Photosphere.DependencyInjection.Registrations.Services
             _methodGenerator = methodGenerator;
         }
 
-        public IEnumerable<IRegistration> Get<TService>(Lifetime lifetime)
+        public IEnumerable<IRegistration> Get(Type serviceType, Lifetime lifetime)
         {
-            var derivedTypes = typeof(TService).GetAllDerivedTypes().ToHashSet();
-            foreach (var serviceType in derivedTypes)
+            var derivedTypes = serviceType.GetAllDerivedTypes().ToHashSet();
+            foreach (var derivedType in derivedTypes)
             {
-                var implementationTypes = derivedTypes.GetTypesThatImplements(serviceType).ToHashSet();
+                var implementationTypes = derivedTypes.GetTypesThatImplements(derivedType).ToHashSet();
                 if (implementationTypes.IsNullOrEmpty())
                 {
                     continue;
                 }
-                yield return GetRegistration(lifetime, serviceType, implementationTypes);
-                if (implementationTypes.HasSeveralElements())
+                yield return GetRegistration(lifetime, derivedType, implementationTypes);
+                if (implementationTypes.HasOneElement())
                 {
-                    yield return GetRegistration(lifetime, serviceType, implementationTypes, typeof(IEnumerable<>));
-                    yield return GetRegistration(lifetime, serviceType, implementationTypes, typeof(IReadOnlyCollection<>));
+                    continue;
                 }
+                yield return GetRegistration(lifetime, derivedType, implementationTypes, typeof(IEnumerable<>));
+                yield return GetRegistration(lifetime, derivedType, implementationTypes, typeof(IReadOnlyCollection<>));
             }
         }
 
