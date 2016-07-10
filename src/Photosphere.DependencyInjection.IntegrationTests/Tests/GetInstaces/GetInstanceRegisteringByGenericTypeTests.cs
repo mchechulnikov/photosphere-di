@@ -31,15 +31,12 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstaces
             Assert.NotNull(result);
         }
 
-        //[Fact]
-        //internal void GetInstance_ByEnumerableForGenericClass_ExpectedCount()
-        //{
-        //    var container = new DependencyContainer();
-
-        //    var enumerable = container.GetInstance(typeof(GenericServiceClass<>));
-        //    var result = ((ICollection) enumerable).Count;
-
-        //    Assert.Equal(3, result);
-        //}
+        [Fact]
+        internal void GetInstance_ByEnumerableForGenericClass_ExpectedCount()
+        {
+            var container = new DependencyContainer();
+            var result = container.GetAllInstances<GenericServiceClass<Bar>>().Count();
+            Assert.Equal(2, result);
+        }
     }
 }
