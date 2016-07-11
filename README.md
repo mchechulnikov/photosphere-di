@@ -109,6 +109,20 @@ class Bar
 ```
 Instead `IEnumerable` can be used `IReadOnlyCollection` that can be preffered for more clean OOP style.
 
+### Generic registration
+You can register generic service
+``` C#
+registrator.Register(typeof(IGenericService<>))
+```
+and receive constructed type
+``` C#
+var foo = container.GetInstance<IGenericService<IFoo>>();
+```
+or receive multiple constructed type
+``` C#
+var bars = container.GetAllInstances<IGenericService<Bar>>();
+```
+
 ### Disposable
 ``` C#
 using (var container = new DependencyContainer())
