@@ -94,6 +94,7 @@
     <Compile Include="Lifetimes\Scopes\PerRequestScope.cs" />
     <Compile Include="Lifetimes\Scopes\Services\IScopeKeeper.cs" />
     <Compile Include="Lifetimes\Scopes\Services\ScopeKeeper.cs" />
+    <Compile Include="Registrations\Attributes\CompositionRootAttribute.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\AssembliesProvider.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\IAssembliesProvider.cs" />
     <Compile Include="Registrations\Services\Exceptions\SeveralCompositionRootsWasFoundException.cs" />
@@ -122,7 +123,9 @@
   <ItemGroup>
     <None Include="Photosphere.DependencyInjection.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Registrations\Attributes\Exceptions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
