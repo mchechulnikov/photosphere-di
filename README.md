@@ -1,5 +1,5 @@
 # Photosphere.DependencyInjection
-Simplest dependency injection framework based on emitting CIL code.
+Simple dependency injection framework based on emitting CIL code.
 
 ## Status
 [![Windows build Status](https://ci.appveyor.com/api/projects/status/github/sunloving/photosphere-di?retina=true&svg=true)](https://ci.appveyor.com/project/sunloving/photosphere-di)
