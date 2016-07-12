@@ -29,6 +29,16 @@ internal class CompositionRoot : ICompositionRoot
 }
 ```
 
+#### Hint composition root type
+``` C#
+[assembly: CompositionRoot(typeof(FooCompositionRoot))]
+```
+#### Light container setup directly into attributes
+``` C#
+[assembly: RegisterDependencies(typeof(IService))]
+[assembly: RegisterDependencies(typeof(IFoo), Lifetime.AlwaysNew)]
+```
+
 ### Facilitate low coupling
 Service can be registered just by interface: search of implementation is carried out in the registration process. It reduce horrible registration mappings that bring only redundant references through a code.<br/>
 Just use `Register<TService>` method:
@@ -121,16 +131,6 @@ var foo = container.GetInstance<IGenericService<IFoo>>();
 or receive multiple constructed type
 ``` C#
 var bars = container.GetAllInstances<IGenericService<Bar>>();
-```
-
-### Hint composition root type
-``` C#
-[assembly: CompositionRoot(typeof(FooCompositionRoot))]
-```
-### Light container setup directly into attributes
-``` C#
-[assembly: RegisterDependencies(typeof(IService))]
-[assembly: RegisterDependencies(typeof(IFoo), Lifetime.AlwaysNew)]
 ```
 
 ### Disposable
