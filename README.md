@@ -1,5 +1,5 @@
 # Photosphere.DependencyInjection
-Simple dependency injection framework based on emitting IL code at service registration time.
+Simple .NET dependency injection framework based on emitting IL code at service registration time.
 
 ## Status
 [![Windows build Status](https://ci.appveyor.com/api/projects/status/github/sunloving/photosphere-di?retina=true&svg=true)](https://ci.appveyor.com/project/sunloving/photosphere-di)
