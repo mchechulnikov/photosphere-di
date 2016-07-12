@@ -38,18 +38,6 @@ namespace Photosphere.DependencyInjection.Extensions
             return type.IsImplements(interfaceType);
         }
 
-        public static bool IsImplements(this Type type, Type serviceType)
-        {
-            if (!serviceType.IsInterface)
-            {
-                throw new ArgumentException($"Type `{serviceType.Name}` must be interface");
-            }
-            return
-                type.GetInterfaces().Any(it => it == serviceType)
-                && !type.IsAbstract
-                && !type.IsInterface;
-        }
-
         public static object GetNewInstance(this Type type)
         {
             return Activator.CreateInstance(type);
@@ -90,6 +78,35 @@ namespace Photosphere.DependencyInjection.Extensions
               || givenType.MapsToGenericTypeDefinition(genericType)
               || givenType.HasInterfaceThatMapsToGenericTypeDefinition(genericType)
               || genericType.IsAssignableFromGenericType(givenType.BaseType);
+        }
+
+        public static bool IsAttribute(this Type type)
+        {
+            while (true)
+            {
+                var baseType = type.BaseType;
+                if (baseType == typeof(object) || baseType == null)
+                {
+                    return false;
+                }
+                if (baseType == typeof(Attribute))
+                {
+                    return true;
+                }
+                type = baseType;
+            }
+        }
+
+        private static bool IsImplements(this Type type, Type serviceType)
+        {
+            if (!serviceType.IsInterface)
+            {
+                throw new ArgumentException($"Type `{serviceType.Name}` must be interface");
+            }
+            return
+                type.GetInterfaces().Any(it => it == serviceType)
+                && !type.IsAbstract
+                && !type.IsInterface;
         }
 
         private static bool HasInterfaceThatMapsToGenericTypeDefinition(this Type givenType, Type genericType)

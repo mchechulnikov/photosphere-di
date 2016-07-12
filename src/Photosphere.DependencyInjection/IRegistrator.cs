@@ -7,6 +7,10 @@ namespace Photosphere.DependencyInjection
     {
         IRegistrator Register<TService>(Lifetime lifetime = Lifetime.PerRequest);
 
-        IRegistrator Register(Type setviceType, Lifetime lifetime = Lifetime.PerRequest);
+        IRegistrator Register(Type serviceType, Lifetime lifetime = Lifetime.PerRequest);
+
+        IRegistrator RegisterBy<TAttribute>(Lifetime lifetime = Lifetime.PerRequest) where TAttribute : Attribute;
+
+        IRegistrator RegisterBy(Type attributeType, Lifetime lifetime = Lifetime.PerRequest);
     }
 }

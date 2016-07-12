@@ -117,6 +117,7 @@
     <Compile Include="TestObjects\Objects\PerRequestDependencies.cs" />
     <Compile Include="Tests\GetInstace\GetInstanceRegisteringByClassTests.cs" />
     <Compile Include="Tests\GetInstace\GetInstanceRegisteringByCommonInterfaceTests.cs" />
+    <Compile Include="Tests\GetInstace\GetInstanceRegisteringTypesMarkedByAttributesTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

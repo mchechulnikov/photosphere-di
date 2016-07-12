@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\ConstructorInfoExtensions.cs" />
     <Compile Include="Extensions\EnumerableOfTypeExtensions.cs" />
     <Compile Include="Generation\MethodBodyGenerating\Designers\ArrayDesigner.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Lifetimes\Scopes\Services\ScopeKeeper.cs" />
     <Compile Include="Registrations\Attributes\CompositionRootAttribute.cs" />
     <Compile Include="Registrations\Attributes\RegisterDependenciesAttribute.cs" />
+    <Compile Include="Registrations\Attributes\RegisterDependenciesBy.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\AssembliesProvider.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\IAssembliesProvider.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\ServiceCompositionRoots\DefaultCompositionRoot.cs" />
