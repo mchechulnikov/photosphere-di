@@ -15,7 +15,7 @@ namespace Photosphere.DependencyInjection.Registrations.Attributes
 
         private static void Validate(Type type)
         {
-            if (type.GetInterfaces().Contains(typeof(ICompositionRoot)))
+            if (!type.GetInterfaces().Contains(typeof(ICompositionRoot)))
             {
                 throw new ArgumentException($"Provided type `{type.FullName}` not implements {nameof(ICompositionRoot)}");
             }
