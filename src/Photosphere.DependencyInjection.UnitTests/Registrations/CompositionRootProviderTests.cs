@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Moq;
+using Photosphere.DependencyInjection.Registrations.Attributes;
 using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots;
 using Photosphere.DependencyInjection.Registrations.Services.Exceptions;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
@@ -20,6 +22,7 @@ namespace Photosphere.DependencyInjection.UnitTests.Registrations
             var assemblyWrapper = new Mock<IAssemblyWrapper>().GetInstance(mock =>
             {
                 mock.Setup(p => p.Types).Returns(() => new[] { typeof(IFoo), typeof(FirstCompositionRoot) });
+                mock.Setup(p => p.GetAttributes<CompositionRootAttribute>()).Returns(() => new List<CompositionRootAttribute>());
             });
             var assembliesProvider = new Mock<IAssembliesProvider>().GetInstance(mock =>
             {
@@ -39,6 +42,7 @@ namespace Photosphere.DependencyInjection.UnitTests.Registrations
             {
                 mock.Setup(p => p.FullName).Returns(() => AssemblyName);
                 mock.Setup(p => p.Types).Returns(() => new[] { typeof(FirstCompositionRoot), typeof(SecondCompositionRoot) });
+                mock.Setup(p => p.GetAttributes<CompositionRootAttribute>()).Returns(() => new List<CompositionRootAttribute>());
             });
             var assembliesProvider = new Mock<IAssembliesProvider>().GetInstance(mock =>
             {

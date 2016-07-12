@@ -8,5 +8,7 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
         string FullName { get; }
 
         IEnumerable<Type> Types { get; }
+
+        IReadOnlyCollection<TAttribute> GetAttributes<TAttribute>() where TAttribute : Attribute;
     }
 }

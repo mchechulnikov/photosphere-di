@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Photosphere.DependencyInjection.Extensions;
+using Photosphere.DependencyInjection.Registrations.Attributes;
+using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots.ServiceCompositionRoots;
 using Photosphere.DependencyInjection.Registrations.Services.Exceptions;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
@@ -24,27 +26,44 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
 
         private static ICompositionRoot GetCompositionRoot(IAssemblyWrapper assembly)
         {
-            return (ICompositionRoot) GetSingleImplementationTypeOf<ICompositionRoot>(assembly)?.GetNewInstance();
+            var compositionRootType = GetImplementationTypeOfCompositionRoot(assembly);
+            if (compositionRootType != null)
+            {
+                return (ICompositionRoot) compositionRootType.GetNewInstance();
+            }
+
+            var registerAttributes = assembly.GetAttributes<RegisterDependenciesAttribute>();
+            if (registerAttributes.IsEmpty())
+            {
+                return null;
+            }
+            var serviceTypes = registerAttributes.Select(a => a.ServiceType);
+            return new DefaultCompositionRoot(serviceTypes);
         }
 
-        private static Type GetSingleImplementationTypeOf<TService>(IAssemblyWrapper assembly)
+        private static Type GetImplementationTypeOfCompositionRoot(IAssemblyWrapper assembly)
         {
-            var compositionRootTypes = GetCompositionRootTypes<TService>(assembly);
-            CheckTypes(assembly, compositionRootTypes.ToList());
-            return compositionRootTypes.FirstOrDefault();
-        }
+            var compositionRootAttributes = assembly.GetAttributes<CompositionRootAttribute>();
+            if (compositionRootAttributes.Any())
+            {
+                if (!compositionRootAttributes.HasSeveralElements())
+                {
+                    return compositionRootAttributes.Single().CompositionRootType;
+                }
+                throw new SeveralCompositionRootsWasFoundException(assembly, compositionRootAttributes.Select(t => t.CompositionRootType));
+            }
 
-        private static IList<Type> GetCompositionRootTypes<TService>(IAssemblyWrapper assembly)
-        {
-            return assembly.Types.Where(t => t.IsImplements<TService>()).ToList();
-        }
-
-        private static void CheckTypes(IAssemblyWrapper assembly, IReadOnlyList<Type> compositionRootTypes)
-        {
-            if (compositionRootTypes.Count() > 1)
+            var compositionRootTypes = GetCompositionRootTypes(assembly);
+            if (compositionRootTypes.HasSeveralElements())
             {
                 throw new SeveralCompositionRootsWasFoundException(assembly, compositionRootTypes);
             }
+            return compositionRootTypes.SingleOrDefault();
+        }
+
+        private static IReadOnlyCollection<Type> GetCompositionRootTypes(IAssemblyWrapper assembly)
+        {
+            return assembly.Types.Where(t => t.IsImplements<ICompositionRoot>()).ToList();
         }
     }
 }

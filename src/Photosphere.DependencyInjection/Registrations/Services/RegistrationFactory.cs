@@ -28,7 +28,7 @@ namespace Photosphere.DependencyInjection.Registrations.Services
                     continue;
                 }
                 yield return GetRegistration(lifetime, derivedType, implementationTypes);
-                if (implementationTypes.HasOneElement())
+                if (implementationTypes.HasNonSeveralElements())
                 {
                     continue;
                 }

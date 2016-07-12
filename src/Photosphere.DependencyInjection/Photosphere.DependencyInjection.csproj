@@ -95,10 +95,11 @@
     <Compile Include="Lifetimes\Scopes\Services\IScopeKeeper.cs" />
     <Compile Include="Lifetimes\Scopes\Services\ScopeKeeper.cs" />
     <Compile Include="Registrations\Attributes\CompositionRootAttribute.cs" />
-    <Compile Include="Registrations\Attributes\RegisterDependencyAttribute.cs" />
+    <Compile Include="Registrations\Attributes\RegisterDependenciesAttribute.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\AssembliesProvider.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\IAssembliesProvider.cs" />
-    <Compile Include="Registrations\Services\Exceptions\SeveralCompositionRootsWasFoundException.cs" />
+    <Compile Include="Registrations\Services\CompositionRoots\ServiceCompositionRoots\DefaultCompositionRoot.cs" />
+    <Compile Include="Registrations\Services\CompositionRoots\Exceptions\SeveralCompositionRootsWasFoundException.cs" />
     <Compile Include="Registrations\Services\Exceptions\TypeNotImplementsServiceTypeException.cs" />
     <Compile Include="Registrations\Services\CompositionRoots\CompositionRootProvider.cs" />
     <Compile Include="Registrations\Services\IRegistrationFactory.cs" />

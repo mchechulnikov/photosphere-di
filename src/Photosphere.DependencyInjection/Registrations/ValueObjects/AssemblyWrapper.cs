@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Photosphere.DependencyInjection.Extensions;
 
 namespace Photosphere.DependencyInjection.Registrations.ValueObjects
 {
@@ -16,5 +18,10 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
         public string FullName => _assembly.FullName;
 
         public IEnumerable<Type> Types => _assembly.GetTypes();
+
+        public IReadOnlyCollection<TAttribute> GetAttributes<TAttribute>() where TAttribute : Attribute
+        {
+            return _assembly.GetCustomAttributes(typeof(TAttribute)).Select(a => (TAttribute) a).ToHashSet();
+        }
     }
 }
