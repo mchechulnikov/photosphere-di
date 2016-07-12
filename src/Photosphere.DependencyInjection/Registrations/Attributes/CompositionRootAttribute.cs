@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace Photosphere.DependencyInjection.Registrations.Attributes
 {
+    [AttributeUsage(AttributeTargets.Assembly)]
     public class CompositionRootAttribute : Attribute
     {
         public CompositionRootAttribute(Type compositionRootType)

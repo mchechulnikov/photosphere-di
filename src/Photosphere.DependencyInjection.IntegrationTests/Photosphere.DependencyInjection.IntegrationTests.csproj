@@ -91,11 +91,11 @@
     <Compile Include="TestObjects\Objects\Service12.cs" />
     <Compile Include="TestObjects\Objects\Service21.cs" />
     <Compile Include="TestObjects\Objects\Service22.cs" />
-    <Compile Include="Tests\GetInstaces\GetInstanceReadOnlyCollectionResolvingTests.cs" />
-    <Compile Include="Tests\GetInstaces\GetInstanceEnumerableResolvingTests.cs" />
+    <Compile Include="Tests\GetInstace\GetInstanceReadOnlyCollectionResolvingTests.cs" />
+    <Compile Include="Tests\GetInstace\GetInstanceEnumerableResolvingTests.cs" />
     <Compile Include="Tests\GetAllInstancesTests.cs" />
-    <Compile Include="Tests\GetInstaces\GetInstanceRegisteringByGenericTypeTests.cs" />
-    <Compile Include="Tests\GetInstaces\GetInstanceTests.cs" />
+    <Compile Include="Tests\GetInstace\GetInstanceRegisteringByGenericTypeTests.cs" />
+    <Compile Include="Tests\GetInstace\GetInstanceTests.cs" />
     <Compile Include="Tests\LifetimeTests\AlwaysNewLifetimeTests.cs" />
     <Compile Include="Tests\LifetimeTests\MixedLifetimesPerContainerTests.cs" />
     <Compile Include="Tests\LifetimeTests\MixedLifetimesPerRequestTests.cs" />
@@ -115,8 +115,8 @@
     <Compile Include="TestObjects\Objects\IPerRequestDependencies.cs" />
     <Compile Include="TestObjects\Objects\AlwaysNewDependencies.cs" />
     <Compile Include="TestObjects\Objects\PerRequestDependencies.cs" />
-    <Compile Include="Tests\GetInstaces\GetInstanceRegisteringByClassTests.cs" />
-    <Compile Include="Tests\GetInstaces\GetInstanceRegisteringByCommonInterfaceTests.cs" />
+    <Compile Include="Tests\GetInstace\GetInstanceRegisteringByClassTests.cs" />
+    <Compile Include="Tests\GetInstace\GetInstanceRegisteringByCommonInterfaceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

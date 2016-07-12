@@ -46,14 +46,10 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
             var compositionRootAttributes = assembly.GetAttributes<CompositionRootAttribute>();
             if (compositionRootAttributes.Any())
             {
-                if (!compositionRootAttributes.HasSeveralElements())
-                {
-                    return compositionRootAttributes.Single().CompositionRootType;
-                }
-                throw new SeveralCompositionRootsWasFoundException(assembly, compositionRootAttributes.Select(t => t.CompositionRootType));
+                return compositionRootAttributes.Single().CompositionRootType;
             }
 
-            var compositionRootTypes = GetCompositionRootTypes(assembly);
+            var compositionRootTypes = SearchCompositionRootTypes(assembly);
             if (compositionRootTypes.HasSeveralElements())
             {
                 throw new SeveralCompositionRootsWasFoundException(assembly, compositionRootTypes);
@@ -61,7 +57,7 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
             return compositionRootTypes.SingleOrDefault();
         }
 
-        private static IReadOnlyCollection<Type> GetCompositionRootTypes(IAssemblyWrapper assembly)
+        private static IReadOnlyCollection<Type> SearchCompositionRootTypes(IAssemblyWrapper assembly)
         {
             return assembly.Types.Where(t => t.IsImplements<ICompositionRoot>()).ToList();
         }

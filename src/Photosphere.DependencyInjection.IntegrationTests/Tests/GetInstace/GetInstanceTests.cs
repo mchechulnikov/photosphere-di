@@ -2,7 +2,7 @@
 using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects;
 using Xunit;
 
-namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstaces
+namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstace
 {
     public class GetInstanceTests
     {

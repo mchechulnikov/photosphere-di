@@ -106,37 +106,6 @@ namespace Photosphere.DependencyInjection.UnitTests.Registrations
         }
 
         [Fact]
-        internal void Provide_OneAssemblyWithSeveralCompositionRootsSpecifiedByAttribute_Exception()
-        {
-            var assemblyWrapper = new Mock<IAssemblyWrapper>().GetInstance(mock =>
-            {
-                mock.Setup(p => p.FullName).Returns(() => AssemblyName);
-                mock
-                    .Setup(p => p.GetAttributes<CompositionRootAttribute>())
-                    .Returns(() => new List<CompositionRootAttribute>
-                    {
-                        new CompositionRootAttribute(typeof(FirstCompositionRoot)),
-                        new CompositionRootAttribute(typeof(SecondCompositionRoot))
-                    });
-            });
-            var assembliesProvider = GetMockedAssemblyProvider(assemblyWrapper);
-            var provider = new CompositionRootProvider(assembliesProvider);
-
-            try
-            {
-                provider.Provide().IdleEnumerate();
-            }
-            catch (SeveralCompositionRootsWasFoundException exception)
-            {
-                Assert.True(
-                    exception.Message.Contains(AssemblyName)
-                    && exception.Message.Contains(typeof(SecondCompositionRoot).FullName)
-                    && exception.Message.Contains(typeof(SecondCompositionRoot).FullName)
-                );
-            }
-        }
-
-        [Fact]
         internal void Provide_OneAssemblyWithSeveralRegisteredTypes_DefaultCompositionRoot()
         {
             var assemblyWrapper = new Mock<IAssemblyWrapper>().GetInstance(mock =>
