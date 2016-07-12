@@ -123,6 +123,16 @@ or receive multiple constructed type
 var bars = container.GetAllInstances<IGenericService<Bar>>();
 ```
 
+### Hint composition root type
+``` C#
+[assembly: CompositionRoot(typeof(FooCompositionRoot))]
+```
+### Light container setup directly into attributes
+``` C#
+[assembly: RegisterDependencies(typeof(IService))]
+[assembly: RegisterDependencies(typeof(IFoo), Lifetime.AlwaysNew)]
+```
+
 ### Disposable
 ``` C#
 using (var container = new DependencyContainer())
