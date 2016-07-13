@@ -39,10 +39,12 @@ namespace Photosphere.DependencyInjection.Registrations.Services
 
         public IRegistrator RegisterBy(Type attributeType, Lifetime lifetime = Lifetime.PerRequest)
         {
-            foreach (var serviceType in attributeType.GetMarkedTypes())
+            if (!attributeType.IsAttribute())
             {
-                Register(serviceType, lifetime);
+                throw new ArgumentException($"`{attributeType.FullName}` is not attribute");
             }
+            var registrations = _registrationFactory.GetByAttribute(attributeType, lifetime);
+            _registry.Add(registrations);
             return this;
         }
     }

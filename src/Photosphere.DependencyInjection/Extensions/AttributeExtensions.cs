@@ -3,20 +3,16 @@ using System.Collections.Generic;
 
 namespace Photosphere.DependencyInjection.Extensions
 {
-    public static class AttributeExtensions
+    internal static class AttributeExtensions
     {
-        public static IEnumerable<Type> GetMarkedTypes(this Type attributeType)
+        public static IReadOnlyCollection<Type> GetMarkedTypes(this Type attributeType)
         {
-            Validate(attributeType);
-            return attributeType.Assembly.GetAllTypesMarkedByAttribute(attributeType);
+            return attributeType.Assembly.GetAllTypesMarkedByAttribute(attributeType).ToHashSet();
         }
 
-        private static void Validate(Type attributeType)
+        public static bool IsInheritedAttribute(this Type attributeType)
         {
-            if (!attributeType.IsAttribute())
-            {
-                throw new ArgumentException($"`{attributeType.FullName}` is not attribute");
-            }
+            return attributeType.GetAttributeUsage().Inherited;
         }
     }
 }

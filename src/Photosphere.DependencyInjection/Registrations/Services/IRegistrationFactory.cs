@@ -8,5 +8,7 @@ namespace Photosphere.DependencyInjection.Registrations.Services
     internal interface IRegistrationFactory
     {
         IEnumerable<IRegistration> Get(Type serviceType, Lifetime lifetime);
+
+        IEnumerable<IRegistration> GetByAttribute(Type attributeType, Lifetime lifetime);
     }
 }

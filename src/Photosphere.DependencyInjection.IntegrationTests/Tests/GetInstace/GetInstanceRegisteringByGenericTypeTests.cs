@@ -10,7 +10,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstace
         internal void GetInstance_ByInterfaceForGenericInterface_NotNull()
         {
             var container = new DependencyContainer();
-            var result = container.GetInstance<IGenericService<IFoo>>();
+            var result = container.GetInstance<IGenericService<IFooForGeneric>>();
             Assert.NotNull(result);
         }
 
@@ -18,7 +18,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstace
         internal void GetInstance_ByClassForGenericInterface_NotNull()
         {
             var container = new DependencyContainer();
-            var result = container.GetInstance<IGenericService<Foo>>();
+            var result = container.GetInstance<IGenericService<FooForGeneric>>();
             Assert.NotNull(result);
         }
 
@@ -26,7 +26,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstace
         internal void GetInstance_ByClassForGenericClass_NotNull()
         {
             var container = new DependencyContainer();
-            var result = container.GetInstance<GenericServiceClass<IFoo>>();
+            var result = container.GetInstance<GenericServiceClass<IFooForGeneric>>();
             Assert.NotNull(result);
         }
 
@@ -34,7 +34,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstace
         internal void GetInstance_ByEnumerableForGenericInterface_ExpectedCount()
         {
             var container = new DependencyContainer();
-            var result = container.GetAllInstances<IGenericService<Bar>>().Count();
+            var result = container.GetAllInstances<IGenericService<BarForGeneric>>().Count();
             Assert.Equal(2, result);
         }
 
@@ -42,7 +42,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstace
         internal void GetInstance_ByEnumerableForGenericClass_ExpectedCount()
         {
             var container = new DependencyContainer();
-            var result = container.GetAllInstances<GenericServiceClass<Bar>>().Count();
+            var result = container.GetAllInstances<GenericServiceClass<BarForGeneric>>().Count();
             Assert.Equal(2, result);
         }
     }

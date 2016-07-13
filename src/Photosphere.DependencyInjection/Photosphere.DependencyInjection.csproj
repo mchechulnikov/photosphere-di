@@ -50,6 +50,7 @@
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\ConstructorInfoExtensions.cs" />
     <Compile Include="Extensions\EnumerableOfTypeExtensions.cs" />
+    <Compile Include="Extensions\MemberInfoExtensions.cs" />
     <Compile Include="Generation\MethodBodyGenerating\Designers\ArrayDesigner.cs" />
     <Compile Include="Generation\MethodBodyGenerating\Designers\ControlFlowDesigner.cs" />
     <Compile Include="Generation\MethodBodyGenerating\Designers\IfStatementDesigner.cs" />

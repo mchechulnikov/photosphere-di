@@ -1,4 +1,5 @@
 ﻿using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects;
+using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects.ByAttributes;
 using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects.Generic;
 using Photosphere.DependencyInjection.Lifetimes;
 
@@ -31,7 +32,9 @@ namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.Compositi
                 
                 .Register(typeof(IGenericService<>))
 
-                .Register(typeof(GenericServiceClass<>));
+                .Register(typeof(GenericServiceClass<>))
+                
+                .RegisterBy<TestRegisteringAttribute>();
         }
     }
 }

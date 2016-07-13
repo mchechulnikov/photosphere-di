@@ -24,6 +24,11 @@ namespace Photosphere.DependencyInjection.Extensions
             }
         }
 
+        public static bool IsInstantiatible(this Type type)
+        {
+            return !type.IsAbstract && !type.IsInterface;
+        }
+
         public static bool IsInstantiatibleUserDefinedClass(this Type type)
         {
             return

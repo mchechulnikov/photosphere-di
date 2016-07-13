@@ -53,17 +53,22 @@
   <ItemGroup>
     <Compile Include="Extensions\GenericObjectExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="TestObjects\Objects\ByAttributes\Bar2ForAttribute.cs" />
+    <Compile Include="TestObjects\Objects\ByAttributes\BarForAttribute.cs" />
+    <Compile Include="TestObjects\Objects\ByAttributes\FooForAttribute.cs" />
+    <Compile Include="TestObjects\Objects\ByAttributes\IFooForAttribute.cs" />
+    <Compile Include="TestObjects\Objects\ByAttributes\TestRegisteringAttribute.cs" />
     <Compile Include="TestObjects\Objects\EnumerableDependencyFoo.cs" />
-    <Compile Include="TestObjects\Objects\Generic\Bar.cs" />
-    <Compile Include="TestObjects\Objects\Generic\Foo.cs" />
+    <Compile Include="TestObjects\Objects\Generic\BarForGeneric.cs" />
+    <Compile Include="TestObjects\Objects\Generic\FooForGeneric.cs" />
     <Compile Include="TestObjects\Objects\Generic\GenericServiceByBar1.cs" />
     <Compile Include="TestObjects\Objects\Generic\GenericServiceByBar2.cs" />
     <Compile Include="TestObjects\Objects\Generic\GenericServiceClass.cs" />
     <Compile Include="TestObjects\Objects\Generic\GenericServiceDerivedClass.cs" />
     <Compile Include="TestObjects\Objects\Generic\GenericServiceDerivedClassBar1.cs" />
     <Compile Include="TestObjects\Objects\Generic\GenericServiceDerivedClassBar2.cs" />
-    <Compile Include="TestObjects\Objects\Generic\IBar.cs" />
-    <Compile Include="TestObjects\Objects\Generic\IFoo.cs" />
+    <Compile Include="TestObjects\Objects\Generic\IBarForGeneric.cs" />
+    <Compile Include="TestObjects\Objects\Generic\IFooForGeneric.cs" />
     <Compile Include="TestObjects\Objects\Generic\GenericServiceByFooClass.cs" />
     <Compile Include="TestObjects\Objects\IEnumerableDependencyFoo.cs" />
     <Compile Include="TestObjects\Objects\Generic\IGenericService.cs" />

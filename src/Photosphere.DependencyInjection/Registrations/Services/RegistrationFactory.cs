@@ -12,7 +12,8 @@ namespace Photosphere.DependencyInjection.Registrations.Services
     {
         private readonly IInstanceProvidingMethodGenerator _methodGenerator;
 
-        public RegistrationFactory(IInstanceProvidingMethodGenerator methodGenerator)
+        public RegistrationFactory(
+            IInstanceProvidingMethodGenerator methodGenerator)
         {
             _methodGenerator = methodGenerator;
         }
@@ -20,20 +21,38 @@ namespace Photosphere.DependencyInjection.Registrations.Services
         public IEnumerable<IRegistration> Get(Type serviceType, Lifetime lifetime)
         {
             var derivedTypes = serviceType.GetAllDerivedTypes().ToHashSet();
-            foreach (var derivedType in derivedTypes)
+            return GetRegistrations(lifetime, derivedTypes);
+        }
+
+        public IEnumerable<IRegistration> GetByAttribute(Type attributeType, Lifetime lifetime)
+        {
+            var markedTypes = attributeType.GetMarkedTypes();
+            var servicesTypes =
+                markedTypes
+                .Where(t => t.IsInterface)
+                .SelectMany(t => t.GetAllDerivedTypes())
+                .Union(markedTypes)
+                .ToHashSet();
+
+            return GetRegistrations(lifetime, servicesTypes).ToList();
+        }
+
+        private IEnumerable<IRegistration> GetRegistrations(Lifetime lifetime, ISet<Type> servicesTypes)
+        {
+            foreach (var serviceType in servicesTypes)
             {
-                var implementationTypes = derivedTypes.GetTypesThatImplements(derivedType).ToHashSet();
+                var implementationTypes = servicesTypes.GetTypesThatImplements(serviceType).ToHashSet();
                 if (implementationTypes.IsNullOrEmpty())
                 {
                     continue;
                 }
-                yield return GetRegistration(lifetime, derivedType, implementationTypes);
+                yield return GetRegistration(lifetime, serviceType, implementationTypes);
                 if (implementationTypes.HasNonSeveralElements())
                 {
                     continue;
                 }
-                yield return GetRegistration(lifetime, derivedType, implementationTypes, typeof(IEnumerable<>));
-                yield return GetRegistration(lifetime, derivedType, implementationTypes, typeof(IReadOnlyCollection<>));
+                yield return GetRegistration(lifetime, serviceType, implementationTypes, typeof(IEnumerable<>));
+                yield return GetRegistration(lifetime, serviceType, implementationTypes, typeof(IReadOnlyCollection<>));
             }
         }
 
@@ -50,7 +69,7 @@ namespace Photosphere.DependencyInjection.Registrations.Services
             else
             {
                 serviceType = originalServiceType;
-                directImplementationType = implementationTypes.First();
+                directImplementationType = originalServiceType.IsInstantiatible() ? originalServiceType : implementationTypes.First();
             }
             return new Registration(() => _methodGenerator.Generate(serviceType))
             {

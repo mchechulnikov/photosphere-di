@@ -1,4 +1,4 @@
 ﻿namespace Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects.Generic
 {
-    internal class Bar : IBar {}
+    internal class BarForGeneric : IBarForGeneric {}
 }
