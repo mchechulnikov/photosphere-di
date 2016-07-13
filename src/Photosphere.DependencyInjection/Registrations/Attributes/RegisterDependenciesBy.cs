@@ -6,13 +6,13 @@ namespace Photosphere.DependencyInjection.Registrations.Attributes
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
     public class RegisterDependenciesByAttribute : Attribute
     {
-        public RegisterDependenciesByAttribute(Type targetAttributeType, Lifetime lifetime = Lifetime.PerRequest)
+        public RegisterDependenciesByAttribute(Type registrationAttributeType, Lifetime lifetime = Lifetime.PerRequest)
         {
-            TargetAttributeType = targetAttributeType;
+            RegistrationAttributeType = registrationAttributeType;
             Lifetime = lifetime;
         }
 
-        public Type TargetAttributeType { get; }
+        public Type RegistrationAttributeType { get; }
 
         public Lifetime Lifetime { get; }
     }

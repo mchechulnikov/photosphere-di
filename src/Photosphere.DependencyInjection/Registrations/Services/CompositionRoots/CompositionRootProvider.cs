@@ -32,13 +32,15 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
                 return (ICompositionRoot) compositionRootType.GetNewInstance();
             }
 
-            var registerAttributes = assembly.GetAttributes<RegisterDependenciesAttribute>();
-            if (registerAttributes.IsEmpty())
+            var serviceTypes = assembly.GetAttributes<RegisterDependenciesAttribute>().Select(a => a.ServiceType).ToList();
+            var targetAttributesTypes = assembly.GetAttributes<RegisterDependenciesByAttribute>().Select(a => a.RegistrationAttributeType).ToList();
+
+            if (serviceTypes.IsEmpty() && targetAttributesTypes.IsEmpty())
             {
                 return null;
             }
-            var serviceTypes = registerAttributes.Select(a => a.ServiceType);
-            return new DefaultCompositionRoot(serviceTypes);
+
+            return new DefaultCompositionRoot(serviceTypes, targetAttributesTypes);
         }
 
         private static Type GetImplementationTypeOfCompositionRoot(IAssemblyWrapper assembly)

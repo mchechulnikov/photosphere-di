@@ -119,6 +119,12 @@ namespace Photosphere.DependencyInjection.UnitTests.Registrations
                     {
                         new RegisterDependenciesAttribute(typeof(IFoo))
                     });
+                mock
+                    .Setup(p => p.GetAttributes<RegisterDependenciesByAttribute>())
+                    .Returns(() => new List<RegisterDependenciesByAttribute>
+                    {
+                        new RegisterDependenciesByAttribute(typeof(IFoo))
+                    });
             });
             var assembliesProvider = GetMockedAssemblyProvider(assemblyWrapper);
             var provider = new CompositionRootProvider(assembliesProvider);
@@ -139,6 +145,9 @@ namespace Photosphere.DependencyInjection.UnitTests.Registrations
                 mock
                     .Setup(p => p.GetAttributes<RegisterDependenciesAttribute>())
                     .Returns(() => new List<RegisterDependenciesAttribute>());
+                mock
+                    .Setup(p => p.GetAttributes<RegisterDependenciesByAttribute>())
+                    .Returns(() => new List<RegisterDependenciesByAttribute>());
             });
             var assembliesProvider = GetMockedAssemblyProvider(assemblyWrapper);
             var provider = new CompositionRootProvider(assembliesProvider);

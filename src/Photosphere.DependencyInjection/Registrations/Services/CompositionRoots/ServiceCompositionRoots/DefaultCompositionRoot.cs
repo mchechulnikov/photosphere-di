@@ -6,10 +6,14 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
     internal class DefaultCompositionRoot : ICompositionRoot
     {
         private readonly IEnumerable<Type> _serviceTypes;
+        private readonly IEnumerable<Type> _registrationAttributesTypes;
 
-        public DefaultCompositionRoot(IEnumerable<Type> serviceTypes)
+        public DefaultCompositionRoot(
+            IEnumerable<Type> serviceTypes,
+            IEnumerable<Type> registrationAttributesTypes)
         {
-            _serviceTypes = serviceTypes;
+            _serviceTypes = serviceTypes ?? new List<Type>();
+            _registrationAttributesTypes = registrationAttributesTypes ?? new List<Type>();
         }
 
         public void Compose(IRegistrator registrator)
@@ -17,6 +21,10 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
             foreach (var serviceType in _serviceTypes)
             {
                 registrator.Register(serviceType);
+            }
+            foreach (var attribute in _registrationAttributesTypes)
+            {
+                registrator.RegisterBy(attribute);
             }
         }
     }
