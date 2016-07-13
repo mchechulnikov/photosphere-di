@@ -65,6 +65,31 @@ registrator.Register<IService>();
 var foo = registrator.GetInstance<IFoo>();
 var bar = registrator.GetInstance<Bar>();
 ```
+### Type registration by attribute on base type
+If you don't want to register by interface or base type you can use your own custom attribute for it.
+``` C#
+class ServiceAttribute : Attribute {}
+```
+``` C#
+[Service]
+class Foo {}
+
+class Bar : Foo {}
+```
+Registration
+``` C#
+registrator.RegisterBy<ServiceAttribute>();
+```
+or
+``` C#
+[assembly: RegisterDependenciesBy(typeof(ServiceAttribute))]
+```
+Providing
+``` C#
+var foo = container.GetInstance<Foo>();
+var bar = container.GetInstance<Bar>();
+```
+This attribute can be applyed to interfaces too.
 
 ### Object graph analysis performed at registration time
 Detects and denies cycles and not registered dependencies while service registration.
