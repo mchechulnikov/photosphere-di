@@ -28,13 +28,11 @@ internal class CompositionRoot : ICompositionRoot
   }
 }
 ```
-
-#### You can hint composition root type for more faster container initialization
+You can hint composition root type for more faster container initialization
 ``` C#
 [assembly: CompositionRoot(typeof(FooCompositionRoot))]
 ```
-
-#### Light container setup directly into attributes (instead `CompositionRoot`)
+Light container setup directly into attributes (instead `CompositionRoot`)
 ``` C#
 [assembly: RegisterDependencies(typeof(IService))]
 [assembly: RegisterDependencies(typeof(IFoo), Lifetime.AlwaysNew)]
