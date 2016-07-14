@@ -12,6 +12,19 @@ PM> Install-Package Photosphere.DependencyInjection
 ```
 
 ## Features
+* [Fast resolving](https://github.com/sunloving/photosphere-di#fast-resolving)
+* [Preferred declarative style](https://github.com/sunloving/photosphere-di#preferred-declarative-style)
+* [Facilitate low coupling](https://github.com/sunloving/photosphere-di#facilitate-low-coupling)
+* [Registering all descendants by common interface](https://github.com/sunloving/photosphere-di#registering-all-descendants-by-common-interface)
+* [Type registration by attribute on base type](https://github.com/sunloving/photosphere-di#type-registration-by-attribute-on-base-type)
+* [Object graph analysis performed at registration time](https://github.com/sunloving/photosphere-di#object-graph-analysis-performed-at-registration-time)
+* [Control over objects life](https://github.com/sunloving/photosphere-di#control-over-objects-life)
+* [Easy to use](https://github.com/sunloving/photosphere-di#easy-to-use)
+* [Collections injecting](https://github.com/sunloving/photosphere-di#collections-injecting)
+* [Generic registration](https://github.com/sunloving/photosphere-di#generic-registration)
+* [Disposable](https://github.com/sunloving/photosphere-di#disposable)
+* [Integrations](https://github.com/sunloving/photosphere-di#integrations)
+
 ### Fast resolving
 This container based on building dynamic methods (using `System.Reflection.Emit`) for every registered service. It is very speeds up the resolving of dependencies when requested.
 
@@ -165,5 +178,5 @@ using (var container = new DependencyContainer())
 }
 ```
 
-## Integrations
+### Integrations
 * [Photosphere.DependencyInjection.xUnit](https://github.com/sunloving/photosphere-di-xunit)
