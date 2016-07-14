@@ -48,9 +48,9 @@ namespace Photosphere.DependencyInjection.Extensions
             return Activator.CreateInstance(type);
         }
 
-        public static IEnumerable<Type> GetAllDerivedTypes(this Type type)
+        public static IEnumerable<Type> GetAllDerivedTypesFrom(this Type type, Assembly assembly)
         {
-            return type.Assembly.GetAllDerivedTypesOf(type).Where(t => t != null);
+            return assembly.GetAllDerivedTypesOf(type).Where(t => t != null);
         }
 
         public static ConstructorInfo GetFirstPublicConstructor(this Type type)

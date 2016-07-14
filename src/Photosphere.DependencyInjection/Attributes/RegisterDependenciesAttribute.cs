@@ -1,7 +1,7 @@
 ﻿using System;
 using Photosphere.DependencyInjection.Lifetimes;
 
-namespace Photosphere.DependencyInjection.Registrations.Attributes
+namespace Photosphere.DependencyInjection.Attributes
 {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
     public class RegisterDependenciesAttribute : Attribute

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Generation;
 using Photosphere.DependencyInjection.Lifetimes;
@@ -18,19 +19,19 @@ namespace Photosphere.DependencyInjection.Registrations.Services
             _methodGenerator = methodGenerator;
         }
 
-        public IEnumerable<IRegistration> Get(Type serviceType, Lifetime lifetime)
+        public IEnumerable<IRegistration> Get(Type serviceType, Assembly assembly, Lifetime lifetime)
         {
-            var derivedTypes = serviceType.GetAllDerivedTypes().ToHashSet();
+            var derivedTypes = serviceType.GetAllDerivedTypesFrom(assembly).ToHashSet();
             return GetRegistrations(lifetime, derivedTypes);
         }
 
-        public IEnumerable<IRegistration> GetByAttribute(Type attributeType, Lifetime lifetime)
+        public IEnumerable<IRegistration> GetByAttribute(Type attributeType, Assembly assembly, Lifetime lifetime)
         {
             var markedTypes = attributeType.GetMarkedTypes();
             var servicesTypes =
                 markedTypes
                 .Where(t => t.IsInterface)
-                .SelectMany(t => t.GetAllDerivedTypes())
+                .SelectMany(t => t.GetAllDerivedTypesFrom(assembly))
                 .Union(markedTypes)
                 .ToHashSet();
 

@@ -1,5 +1,5 @@
+using Photosphere.DependencyInjection.Attributes;
 using Photosphere.DependencyInjection.IntegrationTests.RegisterByAttribute.TestObjects;
-using Photosphere.DependencyInjection.Registrations.Attributes;
 using Xunit;
 
 [assembly: RegisterDependenciesBy(typeof(TestRegisterAttribute))]

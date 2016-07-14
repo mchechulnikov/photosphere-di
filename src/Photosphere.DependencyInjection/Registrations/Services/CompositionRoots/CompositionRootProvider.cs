@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Photosphere.DependencyInjection.Attributes;
 using Photosphere.DependencyInjection.Extensions;
-using Photosphere.DependencyInjection.Registrations.Attributes;
+using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots.Exceptions;
 using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots.ServiceCompositionRoots;
-using Photosphere.DependencyInjection.Registrations.Services.Exceptions;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
 namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoots
@@ -40,7 +40,7 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
                 return null;
             }
 
-            return new DefaultCompositionRoot(serviceTypes, targetAttributesTypes);
+            return new DefaultCompositionRoot(serviceTypes, targetAttributesTypes, assembly.Assembly);
         }
 
         private static Type GetImplementationTypeOfCompositionRoot(IAssemblyWrapper assembly)

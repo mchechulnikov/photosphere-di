@@ -1,6 +1,6 @@
-﻿using Photosphere.DependencyInjection.IntegrationTests.RegisterByAttribute.TestObjects;
+﻿using Photosphere.DependencyInjection.Attributes;
+using Photosphere.DependencyInjection.IntegrationTests.RegisterByAttribute.TestObjects;
 using Photosphere.DependencyInjection.Lifetimes;
-using Photosphere.DependencyInjection.Registrations.Attributes;
 using Xunit;
 
 [assembly: RegisterDependencies(typeof(Foo))]

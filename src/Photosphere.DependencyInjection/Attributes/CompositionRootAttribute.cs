@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Photosphere.DependencyInjection.Registrations.Attributes
+namespace Photosphere.DependencyInjection.Attributes
 {
     [AttributeUsage(AttributeTargets.Assembly)]
     public class CompositionRootAttribute : Attribute

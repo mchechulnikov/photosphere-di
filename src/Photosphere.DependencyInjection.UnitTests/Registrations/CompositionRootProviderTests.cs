@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Moq;
-using Photosphere.DependencyInjection.Registrations.Attributes;
+using Photosphere.DependencyInjection.Attributes;
 using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots;
+using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots.Exceptions;
 using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots.ServiceCompositionRoots;
 using Photosphere.DependencyInjection.Registrations.Services.Exceptions;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;

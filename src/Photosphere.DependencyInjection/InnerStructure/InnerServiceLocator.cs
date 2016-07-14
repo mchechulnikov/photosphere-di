@@ -19,8 +19,6 @@ namespace Photosphere.DependencyInjection.InnerStructure
             var registry = new Registry();
             var scopeKeeper = new ScopeKeeper();
             var resolver = new Resolver(registry, scopeKeeper);
-            var assembliesProvider = new AssembliesProvider();
-            var compositionRootProvider = new CompositionRootProvider(assembliesProvider);
 
             var objectInstantiatingGenerator = new ObjectInstantiatingGenerator();
             var arrayInstantiatingGenerator = new ArrayInstantiatingGenerator();
@@ -36,8 +34,12 @@ namespace Photosphere.DependencyInjection.InnerStructure
             var instantiateMethodGenerator = new InstanceProvidingMethodGenerator(objectGraphProvider, instantiateMethodBodyGenerator);
 
             var registrationFactory = new RegistrationFactory(instantiateMethodGenerator);
-            var registrator = new Registrator(registry, registrationFactory);
-            var registryInitializer = new RegistryInitializer(compositionRootProvider, registrator, registry, scopeKeeper);
+
+            var compositionRootProvider = new CompositionRootProvider(new AssembliesProvider());
+            var registratorProvider = new RegistratorProvider(new AssemblyBoundedRegistrator(registry, registrationFactory));
+            var dependenciesCompositor = new DependenciesCompositor(compositionRootProvider, registratorProvider);
+            var registrySaturator = new RegistrySaturator(registry, scopeKeeper);
+            var registryInitializer = new RegistryInitializer(dependenciesCompositor, registrySaturator);
 
             ScopeKeeper = scopeKeeper;
             Resolver = resolver;

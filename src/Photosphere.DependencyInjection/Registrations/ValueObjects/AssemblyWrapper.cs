@@ -8,20 +8,20 @@ namespace Photosphere.DependencyInjection.Registrations.ValueObjects
 {
     internal class AssemblyWrapper : IAssemblyWrapper
     {
-        private readonly Assembly _assembly;
-
         public AssemblyWrapper(Assembly assembly)
         {
-            _assembly = assembly;
+            Assembly = assembly;
         }
 
-        public string FullName => _assembly.FullName;
+        public Assembly Assembly { get; }
 
-        public IEnumerable<Type> Types => _assembly.GetTypes();
+        public string FullName => Assembly.FullName;
+
+        public IEnumerable<Type> Types => Assembly.GetTypes();
 
         public IReadOnlyCollection<TAttribute> GetAttributes<TAttribute>() where TAttribute : Attribute
         {
-            return _assembly.GetCustomAttributes(typeof(TAttribute)).Select(a => (TAttribute) a).ToHashSet();
+            return Assembly.GetCustomAttributes(typeof(TAttribute)).Select(a => (TAttribute) a).ToHashSet();
         }
     }
 }

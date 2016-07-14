@@ -1,49 +1,22 @@
-using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
-using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots;
-using Photosphere.DependencyInjection.Registrations.ValueObjects;
-
 namespace Photosphere.DependencyInjection.Registrations.Services
 {
     internal class RegistryInitializer : IRegistryInitializer
     {
-        private readonly ICompositionRootProvider _compositionRootProvider;
-        private readonly IRegistrator _registrator;
-        private readonly IRegistry _registry;
-        private readonly IScopeKeeper _scopeKeeper;
+        private readonly IDependenciesCompositor _dependenciesCompositor;
+        private readonly IRegistrySaturator _registrySaturator;
 
         public RegistryInitializer(
-            ICompositionRootProvider compositionRootProvider,
-            IRegistrator registrator,
-            IRegistry registry,
-            IScopeKeeper scopeKeeper)
+            IDependenciesCompositor dependenciesCompositor,
+            IRegistrySaturator registrySaturator)
         {
-            _compositionRootProvider = compositionRootProvider;
-            _registrator = registrator;
-            _registry = registry;
-            _scopeKeeper = scopeKeeper;
+            _dependenciesCompositor = dependenciesCompositor;
+            _registrySaturator = registrySaturator;
         }
 
         public void Initialize()
         {
-            ComposeDependencies();
-            SetupRegistry();
-        }
-
-        private void ComposeDependencies()
-        {
-            foreach (var compositionRoot in _compositionRootProvider.Provide())
-            {
-                compositionRoot.Compose(_registrator);
-            }
-        }
-
-        private void SetupRegistry()
-        {
-            foreach (var registration in _registry)
-            {
-                _scopeKeeper.StartNewPerRequestScope();
-                registration.GenerateInstantiateFunction();
-            }
+            _dependenciesCompositor.Compose();
+            _registrySaturator.Saturate();
         }
     }
 }

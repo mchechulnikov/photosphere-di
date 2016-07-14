@@ -1,5 +1,5 @@
-﻿using Photosphere.DependencyInjection.IntegrationTests.RootAttributeRegistration.TestObjects;
-using Photosphere.DependencyInjection.Registrations.Attributes;
+﻿using Photosphere.DependencyInjection.Attributes;
+using Photosphere.DependencyInjection.IntegrationTests.RootAttributeRegistration.TestObjects;
 using Xunit;
 
 [assembly: CompositionRoot(typeof(FooCompositionRoot))]

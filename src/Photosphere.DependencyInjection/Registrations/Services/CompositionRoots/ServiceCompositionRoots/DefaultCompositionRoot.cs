@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoots.ServiceCompositionRoots
 {
@@ -10,11 +11,15 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
 
         public DefaultCompositionRoot(
             IEnumerable<Type> serviceTypes,
-            IEnumerable<Type> registrationAttributesTypes)
+            IEnumerable<Type> registrationAttributesTypes,
+            Assembly targetAssembly)
         {
             _serviceTypes = serviceTypes ?? new List<Type>();
             _registrationAttributesTypes = registrationAttributesTypes ?? new List<Type>();
+            TargetAssembly = targetAssembly;
         }
+
+        public Assembly TargetAssembly { get; }
 
         public void Compose(IRegistrator registrator)
         {

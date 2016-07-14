@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 
-namespace Photosphere.DependencyInjection.Registrations.Services.Exceptions
+namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoots.Exceptions
 {
     internal class SeveralCompositionRootsWasFoundException : Exception
     {
