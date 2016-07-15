@@ -58,44 +58,8 @@
     <Compile Include="TestObjects\Objects\ByAttributes\FooForAttribute.cs" />
     <Compile Include="TestObjects\Objects\ByAttributes\IFooForAttribute.cs" />
     <Compile Include="TestObjects\Objects\ByAttributes\TestRegisteringAttribute.cs" />
-    <Compile Include="TestObjects\Objects\EnumerableDependencyFoo.cs" />
-    <Compile Include="TestObjects\Objects\Generic\BarForGeneric.cs" />
-    <Compile Include="TestObjects\Objects\Generic\FooForGeneric.cs" />
-    <Compile Include="TestObjects\Objects\Generic\GenericServiceByBar1.cs" />
-    <Compile Include="TestObjects\Objects\Generic\GenericServiceByBar2.cs" />
-    <Compile Include="TestObjects\Objects\Generic\GenericServiceClass.cs" />
-    <Compile Include="TestObjects\Objects\Generic\GenericServiceDerivedClass.cs" />
-    <Compile Include="TestObjects\Objects\Generic\GenericServiceDerivedClassBar1.cs" />
-    <Compile Include="TestObjects\Objects\Generic\GenericServiceDerivedClassBar2.cs" />
-    <Compile Include="TestObjects\Objects\Generic\IBarForGeneric.cs" />
-    <Compile Include="TestObjects\Objects\Generic\IFooForGeneric.cs" />
-    <Compile Include="TestObjects\Objects\Generic\GenericServiceByFooClass.cs" />
-    <Compile Include="TestObjects\Objects\IEnumerableDependencyFoo.cs" />
-    <Compile Include="TestObjects\Objects\Generic\IGenericService.cs" />
-    <Compile Include="TestObjects\Objects\Generic\GenericServiceByFooInterface.cs" />
-    <Compile Include="TestObjects\Objects\IMixedLifetimesPerContainerDependencies.cs" />
-    <Compile Include="TestObjects\Objects\IMixedLifetimesPerRequestDependencies.cs" />
-    <Compile Include="TestObjects\Objects\IPerContainerBar.cs" />
-    <Compile Include="TestObjects\Objects\IPerContainerDependencies.cs" />
-    <Compile Include="TestObjects\Objects\IPerContainerFoo.cs" />
-    <Compile Include="TestObjects\Objects\IReadOnlyCollectionDependencyFoo.cs" />
-    <Compile Include="TestObjects\Objects\IService.cs" />
-    <Compile Include="TestObjects\Objects\IService1.cs" />
-    <Compile Include="TestObjects\Objects\IService11.cs" />
-    <Compile Include="TestObjects\Objects\IService12.cs" />
-    <Compile Include="TestObjects\Objects\IService2.cs" />
-    <Compile Include="TestObjects\Objects\IService21.cs" />
-    <Compile Include="TestObjects\Objects\IService22.cs" />
-    <Compile Include="TestObjects\Objects\MixedLifetimesPerContainerDependencies.cs" />
-    <Compile Include="TestObjects\Objects\MixedLifetimesPerRequestDependencies.cs" />
-    <Compile Include="TestObjects\Objects\PerContainerBar.cs" />
-    <Compile Include="TestObjects\Objects\PerContainerDependencies.cs" />
-    <Compile Include="TestObjects\Objects\PerContainerFoo.cs" />
-    <Compile Include="TestObjects\Objects\ReadOnlyCollectionDependencyFoo.cs" />
-    <Compile Include="TestObjects\Objects\Service11.cs" />
-    <Compile Include="TestObjects\Objects\Service12.cs" />
-    <Compile Include="TestObjects\Objects\Service21.cs" />
-    <Compile Include="TestObjects\Objects\Service22.cs" />
+    <Compile Include="Tests\CompositionRootAttributeRegistrationTests.cs" />
+    <Compile Include="Tests\CyclicDependenciesDetectionTests.cs" />
     <Compile Include="Tests\GetInstace\GetInstanceReadOnlyCollectionResolvingTests.cs" />
     <Compile Include="Tests\GetInstace\GetInstanceEnumerableResolvingTests.cs" />
     <Compile Include="Tests\GetAllInstancesTests.cs" />
@@ -108,26 +72,44 @@
     <Compile Include="Tests\LifetimeTests\PerRequestLifetimeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestObjects\CompositionRoots\MainTestCompositionRoot.cs" />
-    <Compile Include="TestObjects\Objects\AlwaysNewBar.cs" />
-    <Compile Include="TestObjects\Objects\AlwaysNewFoo.cs" />
-    <Compile Include="TestObjects\Objects\IAlwaysNewBar.cs" />
-    <Compile Include="TestObjects\Objects\IAlwaysNewFoo.cs" />
-    <Compile Include="TestObjects\Objects\IAlwaysNewDependencies.cs" />
-    <Compile Include="TestObjects\Objects\PerRequestBar.cs" />
-    <Compile Include="TestObjects\Objects\PerRequestFoo.cs" />
-    <Compile Include="TestObjects\Objects\IPerRequestBar.cs" />
-    <Compile Include="TestObjects\Objects\IPerRequestFoo.cs" />
-    <Compile Include="TestObjects\Objects\IPerRequestDependencies.cs" />
-    <Compile Include="TestObjects\Objects\AlwaysNewDependencies.cs" />
-    <Compile Include="TestObjects\Objects\PerRequestDependencies.cs" />
     <Compile Include="Tests\GetInstace\GetInstanceRegisteringByClassTests.cs" />
     <Compile Include="Tests\GetInstace\GetInstanceRegisteringByCommonInterfaceTests.cs" />
     <Compile Include="Tests\GetInstace\GetInstanceRegisteringTypesMarkedByAttributesTests.cs" />
+    <Compile Include="Tests\Attributes\RegisterByAttributeByAttributeTests.cs" />
+    <Compile Include="Tests\Attributes\RegisterByAttributeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.CommonInterface\Photosphere.DependencyInjection.TestAssembly.CommonInterface.csproj">
+      <Project>{D368BD42-62D4-4BD6-956B-5DE230F42F05}</Project>
+      <Name>Photosphere.DependencyInjection.TestAssembly.CommonInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.Cycles\Photosphere.DependencyInjection.TestAssembly.Cycles.csproj">
+      <Project>{aada01af-ae4e-444c-8606-0ecc59b22078}</Project>
+      <Name>Photosphere.DependencyInjection.TestAssembly.Cycles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.Enumerable\Photosphere.DependencyInjection.TestAssembly.Enumerable.csproj">
+      <Project>{f12dbeb8-75d8-47c9-9ec0-5c7d8eab9306}</Project>
+      <Name>Photosphere.DependencyInjection.TestAssembly.Enumerable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.Generic\Photosphere.DependencyInjection.TestAssembly.Generic.csproj">
+      <Project>{401b3c35-433c-49fa-a0c8-72d976001866}</Project>
+      <Name>Photosphere.DependencyInjection.TestAssembly.Generic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.Lifetimes\Photosphere.DependencyInjection.TestAssembly.Lifetimes.csproj">
+      <Project>{24c419ad-90eb-4b5c-a5d1-77fe3ec3353f}</Project>
+      <Name>Photosphere.DependencyInjection.TestAssembly.Lifetimes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute\Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute.csproj">
+      <Project>{e7a1f87f-8e3a-43b8-96c4-8390f21fce97}</Project>
+      <Name>Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration\Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration.csproj">
+      <Project>{d952b171-04c4-4ed2-91d9-f7a2c039e356}</Project>
+      <Name>Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Photosphere.DependencyInjection\Photosphere.DependencyInjection.csproj">
       <Project>{452E8E26-5885-4E8D-9E56-8F08BF1198DD}</Project>
       <Name>Photosphere.DependencyInjection</Name>

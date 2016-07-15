@@ -9,11 +9,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.IntegrationTests", "Photosphere.DependencyInjection.IntegrationTests\Photosphere.DependencyInjection.IntegrationTests.csproj", "{15F04CA5-4C9F-4DA0-93D9-CA8798D62FC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.IntegrationTests.CyclicDependencies", "Photosphere.DependencyInjection.IntegrationTests.CyclicDependencies\Photosphere.DependencyInjection.IntegrationTests.CyclicDependencies.csproj", "{2F55D7C5-4648-47E6-ADBC-016D89BA05FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.Cycles", "Photosphere.DependencyInjection.TestAssembly.Cycles\Photosphere.DependencyInjection.TestAssembly.Cycles.csproj", "{AADA01AF-AE4E-444C-8606-0ECC59B22078}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.IntegrationTests.RootAttributeRegistration", "Photosphere.DependencyInjection.IntegrationTests.RootAttributeRegistration\Photosphere.DependencyInjection.IntegrationTests.RootAttributeRegistration.csproj", "{9046E2A4-3BDD-42C0-A735-590FD54ACBB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration", "Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration\Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration.csproj", "{D952B171-04C4-4ED2-91D9-F7A2C039E356}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.IntegrationTests.RegisterByAttribute", "Photosphere.DependencyInjection.IntegrationTests.RegisterByAttribute\Photosphere.DependencyInjection.IntegrationTests.RegisterByAttribute.csproj", "{8740FD7B-C3B3-4FD2-B933-86BFAC2B4635}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute", "Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute\Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute.csproj", "{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.Lifetimes", "Photosphere.DependencyInjection.TestAssembly.Lifetimes\Photosphere.DependencyInjection.TestAssembly.Lifetimes.csproj", "{24C419AD-90EB-4B5C-A5D1-77FE3EC3353F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.Generic", "Photosphere.DependencyInjection.TestAssembly.Generic\Photosphere.DependencyInjection.TestAssembly.Generic.csproj", "{401B3C35-433C-49FA-A0C8-72D976001866}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.CommonInterface", "Photosphere.DependencyInjection.TestAssembly.CommonInterface\Photosphere.DependencyInjection.TestAssembly.CommonInterface.csproj", "{D368BD42-62D4-4BD6-956B-5DE230F42F05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.Enumerable", "Photosphere.DependencyInjection.TestAssembly.Enumerable\Photosphere.DependencyInjection.TestAssembly.Enumerable.csproj", "{F12DBEB8-75D8-47C9-9EC0-5C7D8EAB9306}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,18 +41,34 @@ Global
 		{15F04CA5-4C9F-4DA0-93D9-CA8798D62FC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15F04CA5-4C9F-4DA0-93D9-CA8798D62FC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15F04CA5-4C9F-4DA0-93D9-CA8798D62FC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F55D7C5-4648-47E6-ADBC-016D89BA05FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F55D7C5-4648-47E6-ADBC-016D89BA05FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F55D7C5-4648-47E6-ADBC-016D89BA05FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F55D7C5-4648-47E6-ADBC-016D89BA05FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9046E2A4-3BDD-42C0-A735-590FD54ACBB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9046E2A4-3BDD-42C0-A735-590FD54ACBB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9046E2A4-3BDD-42C0-A735-590FD54ACBB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9046E2A4-3BDD-42C0-A735-590FD54ACBB7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8740FD7B-C3B3-4FD2-B933-86BFAC2B4635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8740FD7B-C3B3-4FD2-B933-86BFAC2B4635}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8740FD7B-C3B3-4FD2-B933-86BFAC2B4635}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8740FD7B-C3B3-4FD2-B933-86BFAC2B4635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AADA01AF-AE4E-444C-8606-0ECC59B22078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AADA01AF-AE4E-444C-8606-0ECC59B22078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AADA01AF-AE4E-444C-8606-0ECC59B22078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AADA01AF-AE4E-444C-8606-0ECC59B22078}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D952B171-04C4-4ED2-91D9-F7A2C039E356}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D952B171-04C4-4ED2-91D9-F7A2C039E356}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D952B171-04C4-4ED2-91D9-F7A2C039E356}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D952B171-04C4-4ED2-91D9-F7A2C039E356}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24C419AD-90EB-4B5C-A5D1-77FE3EC3353F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24C419AD-90EB-4B5C-A5D1-77FE3EC3353F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24C419AD-90EB-4B5C-A5D1-77FE3EC3353F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24C419AD-90EB-4B5C-A5D1-77FE3EC3353F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{401B3C35-433C-49FA-A0C8-72D976001866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{401B3C35-433C-49FA-A0C8-72D976001866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{401B3C35-433C-49FA-A0C8-72D976001866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{401B3C35-433C-49FA-A0C8-72D976001866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D368BD42-62D4-4BD6-956B-5DE230F42F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D368BD42-62D4-4BD6-956B-5DE230F42F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D368BD42-62D4-4BD6-956B-5DE230F42F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D368BD42-62D4-4BD6-956B-5DE230F42F05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F12DBEB8-75D8-47C9-9EC0-5C7D8EAB9306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F12DBEB8-75D8-47C9-9EC0-5C7D8EAB9306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F12DBEB8-75D8-47C9-9EC0-5C7D8EAB9306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F12DBEB8-75D8-47C9-9EC0-5C7D8EAB9306}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

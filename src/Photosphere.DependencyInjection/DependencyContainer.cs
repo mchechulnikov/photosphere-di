@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Photosphere.DependencyInjection.InnerStructure;
 using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
 using Photosphere.DependencyInjection.Resolving;
@@ -11,14 +12,17 @@ namespace Photosphere.DependencyInjection
         private readonly IScopeKeeper _scopeKeeper;
         private readonly IResolver _resolver;
 
-        public DependencyContainer()
+        public DependencyContainer(IContainerConfiguration configuration = null)
         {
-            var serviceLocator = new InnerServiceLocator();
+            var serviceLocator = InnerServiceLocator.New(configuration);
             _scopeKeeper = serviceLocator.ScopeKeeper;
             _resolver = serviceLocator.Resolver;
 
             serviceLocator.RegistryInitializer.Initialize();
         }
+
+        public DependencyContainer(params Assembly[] assemblies)
+            : this(new ContainerConfiguration(assemblies)) {}
 
         public TService GetInstance<TService>()
         {

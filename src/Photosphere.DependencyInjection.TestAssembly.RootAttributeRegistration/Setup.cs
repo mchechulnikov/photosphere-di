@@ -1,0 +1,4 @@
+﻿using Photosphere.DependencyInjection.Attributes;
+using Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration;
+
+[assembly: CompositionRoot(typeof(RootAttributeRegistrationTestCompositionRoot))]

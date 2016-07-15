@@ -1,15 +1,18 @@
 ﻿using System.Linq;
-using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects;
+using System.Reflection;
+using Photosphere.DependencyInjection.TestAssembly.CommonInterface.TestObjects;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.IntegrationTests.Tests
 {
     public class GetAllInstancesTests
     {
+        private readonly Assembly _targetAssembly = typeof(IService).Assembly;
+
         [Fact]
         internal void GetAllInstances_EnumerableBySecondLevelInterface_NotNull()
         {
-            var container = new DependencyContainer();
+            var container = new DependencyContainer(_targetAssembly);
 
             var result = container.GetAllInstances<IService>();
 
@@ -19,7 +22,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests
         [Fact]
         internal void GetAllInstances_EnumerableBySecondLevelInterface_NotEmpty()
         {
-            var container = new DependencyContainer();
+            var container = new DependencyContainer(_targetAssembly);
 
             var result = container.GetAllInstances<IService>();
 
@@ -29,7 +32,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests
         [Fact]
         internal void GetAllInstances_EnumerableBySecondLevelInterface_ExpectedInstancesTypes()
         {
-            var container = new DependencyContainer();
+            var container = new DependencyContainer(_targetAssembly);
 
             var result = container.GetAllInstances<IService>().ToList();
 

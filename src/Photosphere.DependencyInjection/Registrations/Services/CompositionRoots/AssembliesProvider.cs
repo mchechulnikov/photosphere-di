@@ -8,14 +8,24 @@ namespace Photosphere.DependencyInjection.Registrations.Services.CompositionRoot
 {
     internal class AssembliesProvider : IAssembliesProvider
     {
+        private readonly IContainerConfiguration _configuration;
+
+        public AssembliesProvider(IContainerConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public IEnumerable<IAssemblyWrapper> Provide()
         {
-            return
-                AppDomain
-                .CurrentDomain
-                .GetAssemblies()
-                .Where(NotThisAssembly)
-                .Select(a => new AssemblyWrapper(a));
+            var assemblies = _configuration == null
+                ? AppDomain.CurrentDomain.GetAssemblies()
+                : _configuration.TargetAssemblies;
+            return FilterAndWrap(assemblies);
+        }
+
+        private static IEnumerable<IAssemblyWrapper> FilterAndWrap(IEnumerable<Assembly> assemblies)
+        {
+            return assemblies.Where(NotThisAssembly).Select(a => new AssemblyWrapper(a));
         }
 
         private static bool NotThisAssembly(Assembly a)

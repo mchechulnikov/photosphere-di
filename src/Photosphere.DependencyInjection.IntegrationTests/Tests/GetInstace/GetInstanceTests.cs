@@ -1,15 +1,18 @@
-﻿using Photosphere.DependencyInjection.IntegrationTests.Extensions;
-using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects;
+﻿using System.Reflection;
+using Photosphere.DependencyInjection.IntegrationTests.Extensions;
+using Photosphere.DependencyInjection.TestAssembly.Lifetimes.TestObjects;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstace
 {
     public class GetInstanceTests
     {
+        private readonly Assembly _targetAssembly = typeof(IPerRequestFoo).Assembly;
+
         [Fact]
         internal void GetInstance_ByInterface_NotNull()
         {
-            var container = new DependencyContainer();
+            var container = new DependencyContainer(_targetAssembly);
 
             var result = container.GetInstance<IPerRequestFoo>();
 
@@ -19,7 +22,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstace
         [Fact]
         internal void GetInstance_ByInterface_SingleImplementation()
         {
-            var container = new DependencyContainer();
+            var container = new DependencyContainer(_targetAssembly);
 
             var result = container.GetInstance<IPerRequestFoo>();
 
@@ -29,7 +32,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstace
         [Fact]
         internal void GetInstance_WithDependencies_NotNull()
         {
-            var container = new DependencyContainer();
+            var container = new DependencyContainer(_targetAssembly);
 
             var result = container.GetInstance<IPerRequestDependencies>();
 
@@ -39,7 +42,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstace
         [Fact]
         internal void GetInstance_WithDependencies_SingleImplementation()
         {
-            var container = new DependencyContainer();
+            var container = new DependencyContainer(_targetAssembly);
 
             var result = container.GetInstance<IPerRequestDependencies>();
 
@@ -49,7 +52,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.GetInstace
         [Fact]
         internal void GetInstance_WithDependencies_DependenciesNotNull()
         {
-            var container = new DependencyContainer();
+            var container = new DependencyContainer(_targetAssembly);
 
             var result = (PerRequestDependencies) container.GetInstance<IPerRequestDependencies>();
 

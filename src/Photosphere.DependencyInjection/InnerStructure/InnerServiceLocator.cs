@@ -14,7 +14,7 @@ namespace Photosphere.DependencyInjection.InnerStructure
 {
     internal class InnerServiceLocator
     {
-        public InnerServiceLocator()
+        private InnerServiceLocator(IContainerConfiguration configuration)
         {
             var registry = new Registry();
             var scopeKeeper = new ScopeKeeper();
@@ -35,7 +35,7 @@ namespace Photosphere.DependencyInjection.InnerStructure
 
             var registrationFactory = new RegistrationFactory(instantiateMethodGenerator);
 
-            var compositionRootProvider = new CompositionRootProvider(new AssembliesProvider());
+            var compositionRootProvider = new CompositionRootProvider(new AssembliesProvider(configuration));
             var registratorProvider = new RegistratorProvider(new AssemblyBoundedRegistrator(registry, registrationFactory));
             var dependenciesCompositor = new DependenciesCompositor(compositionRootProvider, registratorProvider);
             var registrySaturator = new RegistrySaturator(registry, scopeKeeper);
@@ -44,6 +44,11 @@ namespace Photosphere.DependencyInjection.InnerStructure
             ScopeKeeper = scopeKeeper;
             Resolver = resolver;
             RegistryInitializer = registryInitializer;
+        }
+
+        public static InnerServiceLocator New(IContainerConfiguration configuration = null)
+        {
+            return new InnerServiceLocator(configuration);
         }
 
         public IScopeKeeper ScopeKeeper { get; }

@@ -1,14 +1,17 @@
-﻿using Photosphere.DependencyInjection.IntegrationTests.TestObjects.Objects;
+﻿using System.Reflection;
+using Photosphere.DependencyInjection.TestAssembly.Lifetimes.TestObjects;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.IntegrationTests.Tests.LifetimeTests
 {
     public class PerContainerLifetimeTests
     {
+        private readonly Assembly _targetAssembly = typeof(IPerContainerFoo).Assembly;
+
         [Fact]
         internal void GetInstance_SameDependenciesInDifferentRequests_Object()
         {
-            var container = new DependencyContainer();
+            var container = new DependencyContainer(_targetAssembly);
 
             var foo1 = container.GetInstance<IPerContainerFoo>();
             var foo2 = container.GetInstance<IPerContainerFoo>();
@@ -19,7 +22,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.LifetimeTests
         [Fact]
         internal void GetInstance_SameDependenciesWithInnerDependenciesOnVariousTreeNodes_SameObject()
         {
-            var container = new DependencyContainer();
+            var container = new DependencyContainer(_targetAssembly);
 
             var bar1 = container.GetInstance<IPerContainerBar>();
             var bar2 = container.GetInstance<IPerContainerBar>();
@@ -30,7 +33,7 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Tests.LifetimeTests
         [Fact]
         internal void GetInstance_SameDependenciesOnVariousTreeNodes_SameObject()
         {
-            var container = new DependencyContainer();
+            var container = new DependencyContainer(_targetAssembly);
 
             var serviceWithDependencies = container.GetInstance<IPerContainerDependencies>();
             var foo1 = serviceWithDependencies.PerContainerFoo;

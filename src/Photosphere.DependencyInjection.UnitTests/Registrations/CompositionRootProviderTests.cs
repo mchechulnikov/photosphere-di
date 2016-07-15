@@ -5,7 +5,6 @@ using Photosphere.DependencyInjection.Attributes;
 using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots;
 using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots.Exceptions;
 using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots.ServiceCompositionRoots;
-using Photosphere.DependencyInjection.Registrations.Services.Exceptions;
 using Photosphere.DependencyInjection.Registrations.ValueObjects;
 using Photosphere.DependencyInjection.UnitTests.TestObjects.CompositionRoots;
 using Photosphere.DependencyInjection.UnitTests.TestObjects.Objects;
