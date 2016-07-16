@@ -1,13 +1,17 @@
-﻿using Photosphere.DependencyInjection.Generation;
-using Photosphere.DependencyInjection.Generation.MethodBodyGenerating;
-using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Services;
-using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Services.GeneratingStrategies;
-using Photosphere.DependencyInjection.Generation.MethodBodyGenerating.Services.InstantiatingGenerators;
-using Photosphere.DependencyInjection.Generation.ObjectGraphs;
-using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
-using Photosphere.DependencyInjection.Registrations.Services;
-using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots;
-using Photosphere.DependencyInjection.Registrations.ValueObjects;
+﻿using Photosphere.DependencyInjection.Initialization;
+using Photosphere.DependencyInjection.Initialization.Analysis.Assemblies;
+using Photosphere.DependencyInjection.Initialization.Analysis.Composition;
+using Photosphere.DependencyInjection.Initialization.Analysis.Composition.CompositionRoots;
+using Photosphere.DependencyInjection.Initialization.Registrations;
+using Photosphere.DependencyInjection.Initialization.Registrations.ValueObjects;
+using Photosphere.DependencyInjection.Initialization.Saturation;
+using Photosphere.DependencyInjection.Initialization.Saturation.Generation;
+using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating;
+using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.Services;
+using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.Services.GeneratingStrategies;
+using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.Services.InstantiatingGenerators;
+using Photosphere.DependencyInjection.Initialization.Saturation.Generation.ObjectGraphs;
+using Photosphere.DependencyInjection.LifetimeManagement;
 using Photosphere.DependencyInjection.Resolving;
 
 namespace Photosphere.DependencyInjection.InnerStructure

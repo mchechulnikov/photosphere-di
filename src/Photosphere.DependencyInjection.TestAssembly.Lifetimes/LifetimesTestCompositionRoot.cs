@@ -1,5 +1,4 @@
-﻿using Photosphere.DependencyInjection.Lifetimes;
-using Photosphere.DependencyInjection.TestAssembly.Lifetimes.TestObjects;
+﻿using Photosphere.DependencyInjection.TestAssembly.Lifetimes.TestObjects;
 
 namespace Photosphere.DependencyInjection.TestAssembly.Lifetimes
 {

@@ -9,10 +9,5 @@ namespace Photosphere.DependencyInjection.Extensions
         {
             return attributeType.Assembly.GetAllTypesMarkedByAttribute(attributeType).ToHashSet();
         }
-
-        public static bool IsInheritedAttribute(this Type attributeType)
-        {
-            return attributeType.GetAttributeUsage().Inherited;
-        }
     }
 }

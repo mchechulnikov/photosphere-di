@@ -1,5 +1,4 @@
 ﻿using System;
-using Photosphere.DependencyInjection.Lifetimes;
 
 namespace Photosphere.DependencyInjection.Attributes
 {

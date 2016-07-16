@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Photosphere.DependencyInjection.TestAssembly.Enumerable.TestObjects;
 using Xunit;
 

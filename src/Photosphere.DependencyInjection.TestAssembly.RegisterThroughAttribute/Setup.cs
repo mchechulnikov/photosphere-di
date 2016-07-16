@@ -1,5 +1,5 @@
-﻿using Photosphere.DependencyInjection.Attributes;
-using Photosphere.DependencyInjection.Lifetimes;
+﻿using Photosphere.DependencyInjection;
+using Photosphere.DependencyInjection.Attributes;
 using Photosphere.DependencyInjection.TestAssembly.RegisterThroughAttribute;
 
 [assembly: RegisterDependencies(typeof(Foo))]

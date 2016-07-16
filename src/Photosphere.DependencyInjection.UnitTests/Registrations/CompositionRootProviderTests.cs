@@ -2,10 +2,11 @@
 using System.Linq;
 using Moq;
 using Photosphere.DependencyInjection.Attributes;
-using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots;
-using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots.Exceptions;
-using Photosphere.DependencyInjection.Registrations.Services.CompositionRoots.ServiceCompositionRoots;
-using Photosphere.DependencyInjection.Registrations.ValueObjects;
+using Photosphere.DependencyInjection.Initialization.Analysis.Assemblies;
+using Photosphere.DependencyInjection.Initialization.Analysis.Composition.CompositionRoots;
+using Photosphere.DependencyInjection.Initialization.Analysis.Composition.CompositionRoots.Exceptions;
+using Photosphere.DependencyInjection.Initialization.Analysis.Composition.CompositionRoots.ServiceCompositionRoots;
+using Photosphere.DependencyInjection.SystemExtends.Reflection;
 using Photosphere.DependencyInjection.UnitTests.TestObjects.CompositionRoots;
 using Photosphere.DependencyInjection.UnitTests.TestObjects.Objects;
 using Photosphere.DependencyInjection.UnitTests.TestUtils.Extensions;

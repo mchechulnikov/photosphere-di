@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
-using Photosphere.DependencyInjection.Registrations.ValueObjects;
+using Photosphere.DependencyInjection.Initialization.Registrations.ValueObjects;
+using Photosphere.DependencyInjection.LifetimeManagement;
 
 namespace Photosphere.DependencyInjection.Resolving
 {

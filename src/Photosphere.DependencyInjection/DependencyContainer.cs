@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Photosphere.DependencyInjection.InnerStructure;
-using Photosphere.DependencyInjection.Lifetimes.Scopes.Services;
+using Photosphere.DependencyInjection.LifetimeManagement;
 using Photosphere.DependencyInjection.Resolving;
 
 namespace Photosphere.DependencyInjection
