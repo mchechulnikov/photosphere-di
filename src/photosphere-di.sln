@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration", "Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration\Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration.csproj", "{D952B171-04C4-4ED2-91D9-F7A2C039E356}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute", "Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute\Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute.csproj", "{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.Lifetimes", "Photosphere.DependencyInjection.TestAssembly.Lifetimes\Photosphere.DependencyInjection.TestAssembly.Lifetimes.csproj", "{24C419AD-90EB-4B5C-A5D1-77FE3EC3353F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.Generic", "Photosphere.DependencyInjection.TestAssembly.Generic\Photosphere.DependencyInjection.TestAssembly.Generic.csproj", "{401B3C35-433C-49FA-A0C8-72D976001866}"
@@ -22,6 +20,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.CommonInterface", "Photosphere.DependencyInjection.TestAssembly.CommonInterface\Photosphere.DependencyInjection.TestAssembly.CommonInterface.csproj", "{D368BD42-62D4-4BD6-956B-5DE230F42F05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.Enumerable", "Photosphere.DependencyInjection.TestAssembly.Enumerable\Photosphere.DependencyInjection.TestAssembly.Enumerable.csproj", "{F12DBEB8-75D8-47C9-9EC0-5C7D8EAB9306}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.RegisterThroughAttribute", "Photosphere.DependencyInjection.TestAssembly.RegisterThroughAttribute\Photosphere.DependencyInjection.TestAssembly.RegisterThroughAttribute.csproj", "{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute", "Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute\Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute.csproj", "{CD1E869B-2DBA-4823-860A-35E07174E99F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestAssemblies", "TestAssemblies", "{0A04C4C0-0D50-4179-965C-B72A6A041A58}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E952F7F1-0525-4923-A6DB-896C9A1B3212}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +55,6 @@ Global
 		{D952B171-04C4-4ED2-91D9-F7A2C039E356}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D952B171-04C4-4ED2-91D9-F7A2C039E356}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D952B171-04C4-4ED2-91D9-F7A2C039E356}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Release|Any CPU.Build.0 = Release|Any CPU
 		{24C419AD-90EB-4B5C-A5D1-77FE3EC3353F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{24C419AD-90EB-4B5C-A5D1-77FE3EC3353F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24C419AD-90EB-4B5C-A5D1-77FE3EC3353F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,8 +71,28 @@ Global
 		{F12DBEB8-75D8-47C9-9EC0-5C7D8EAB9306}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F12DBEB8-75D8-47C9-9EC0-5C7D8EAB9306}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F12DBEB8-75D8-47C9-9EC0-5C7D8EAB9306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD1E869B-2DBA-4823-860A-35E07174E99F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD1E869B-2DBA-4823-860A-35E07174E99F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD1E869B-2DBA-4823-860A-35E07174E99F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD1E869B-2DBA-4823-860A-35E07174E99F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C} = {E952F7F1-0525-4923-A6DB-896C9A1B3212}
+		{15F04CA5-4C9F-4DA0-93D9-CA8798D62FC6} = {E952F7F1-0525-4923-A6DB-896C9A1B3212}
+		{AADA01AF-AE4E-444C-8606-0ECC59B22078} = {0A04C4C0-0D50-4179-965C-B72A6A041A58}
+		{D952B171-04C4-4ED2-91D9-F7A2C039E356} = {0A04C4C0-0D50-4179-965C-B72A6A041A58}
+		{24C419AD-90EB-4B5C-A5D1-77FE3EC3353F} = {0A04C4C0-0D50-4179-965C-B72A6A041A58}
+		{401B3C35-433C-49FA-A0C8-72D976001866} = {0A04C4C0-0D50-4179-965C-B72A6A041A58}
+		{D368BD42-62D4-4BD6-956B-5DE230F42F05} = {0A04C4C0-0D50-4179-965C-B72A6A041A58}
+		{F12DBEB8-75D8-47C9-9EC0-5C7D8EAB9306} = {0A04C4C0-0D50-4179-965C-B72A6A041A58}
+		{E7A1F87F-8E3A-43B8-96C4-8390F21FCE97} = {0A04C4C0-0D50-4179-965C-B72A6A041A58}
+		{CD1E869B-2DBA-4823-860A-35E07174E99F} = {0A04C4C0-0D50-4179-965C-B72A6A041A58}
 	EndGlobalSection
 EndGlobal

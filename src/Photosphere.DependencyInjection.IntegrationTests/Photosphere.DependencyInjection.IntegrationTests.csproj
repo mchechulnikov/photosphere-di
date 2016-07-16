@@ -51,32 +51,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\GenericObjectExtensions.cs" />
-    <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="TestObjects\Objects\ByAttributes\Bar2ForAttribute.cs" />
-    <Compile Include="TestObjects\Objects\ByAttributes\BarForAttribute.cs" />
-    <Compile Include="TestObjects\Objects\ByAttributes\FooForAttribute.cs" />
-    <Compile Include="TestObjects\Objects\ByAttributes\IFooForAttribute.cs" />
-    <Compile Include="TestObjects\Objects\ByAttributes\TestRegisteringAttribute.cs" />
-    <Compile Include="Tests\CompositionRootAttributeRegistrationTests.cs" />
-    <Compile Include="Tests\CyclicDependenciesDetectionTests.cs" />
-    <Compile Include="Tests\GetInstace\GetInstanceReadOnlyCollectionResolvingTests.cs" />
-    <Compile Include="Tests\GetInstace\GetInstanceEnumerableResolvingTests.cs" />
-    <Compile Include="Tests\GetAllInstancesTests.cs" />
-    <Compile Include="Tests\GetInstace\GetInstanceRegisteringByGenericTypeTests.cs" />
-    <Compile Include="Tests\GetInstace\GetInstanceTests.cs" />
-    <Compile Include="Tests\LifetimeTests\AlwaysNewLifetimeTests.cs" />
-    <Compile Include="Tests\LifetimeTests\MixedLifetimesPerContainerTests.cs" />
-    <Compile Include="Tests\LifetimeTests\MixedLifetimesPerRequestTests.cs" />
-    <Compile Include="Tests\LifetimeTests\PerContainerLifetimeTests.cs" />
-    <Compile Include="Tests\LifetimeTests\PerRequestLifetimeTests.cs" />
+    <Compile Include="IntegrationTestsBase.cs" />
+    <Compile Include="Registration\GetInstanceRegistrationByCompositionRootAttributeTests.cs" />
+    <Compile Include="Analysis\GetInstanceCyclicDependenciesDetectionTests.cs" />
+    <Compile Include="Resolve\GetInstanceResolveReadOnlyCollectionTests.cs" />
+    <Compile Include="Resolve\GetInstanceResolveEnumerableTests.cs" />
+    <Compile Include="Resolve\GetAllInstancesTests.cs" />
+    <Compile Include="Registration\GetInstanceRegistrationByGenericTypeTests.cs" />
+    <Compile Include="Main\GetInstanceTests.cs" />
+    <Compile Include="LifetimeTests\GetInstanceAlwaysNewLifetimeTests.cs" />
+    <Compile Include="LifetimeTests\GetInstanceMixedLifetimesPerContainerTests.cs" />
+    <Compile Include="LifetimeTests\GetInstanceMixedLifetimesPerRequestTests.cs" />
+    <Compile Include="LifetimeTests\GetInstancePerContainerLifetimeTests.cs" />
+    <Compile Include="LifetimeTests\GetInstancePerRequestLifetimeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestObjects\CompositionRoots\MainTestCompositionRoot.cs" />
-    <Compile Include="Tests\GetInstace\GetInstanceRegisteringByClassTests.cs" />
-    <Compile Include="Tests\GetInstace\GetInstanceRegisteringByCommonInterfaceTests.cs" />
-    <Compile Include="Tests\GetInstace\GetInstanceRegisteringTypesMarkedByAttributesTests.cs" />
-    <Compile Include="Tests\Attributes\RegisterByAttributeByAttributeTests.cs" />
-    <Compile Include="Tests\Attributes\RegisterByAttributeTests.cs" />
+    <Compile Include="Registration\GetInstanceRegistrationByClassTests.cs" />
+    <Compile Include="Registration\GetInstanceRegistrationByCommonInterfaceTests.cs" />
+    <Compile Include="Registration\GetInstanceRegistrationTypesMarkedByAttributesTests.cs" />
+    <Compile Include="Registration\GetInstanceRegistrationByAttributeByAttributeTests.cs" />
+    <Compile Include="Registration\GetInstanceRegistrationByAttributeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -103,8 +96,12 @@
       <Name>Photosphere.DependencyInjection.TestAssembly.Lifetimes</Name>
     </ProjectReference>
     <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute\Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute.csproj">
-      <Project>{e7a1f87f-8e3a-43b8-96c4-8390f21fce97}</Project>
+      <Project>{cd1e869b-2dba-4823-860a-35e07174e99f}</Project>
       <Name>Photosphere.DependencyInjection.TestAssembly.RegisterByAttribute</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.RegisterThroughAttribute\Photosphere.DependencyInjection.TestAssembly.RegisterThroughAttribute.csproj">
+      <Project>{e7a1f87f-8e3a-43b8-96c4-8390f21fce97}</Project>
+      <Name>Photosphere.DependencyInjection.TestAssembly.RegisterThroughAttribute</Name>
     </ProjectReference>
     <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration\Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration.csproj">
       <Project>{d952b171-04c4-4ed2-91d9-f7a2c039e356}</Project>
