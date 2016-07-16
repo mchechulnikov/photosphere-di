@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace Photosphere.DependencyInjection.LifetimeManagement.Scopes
 {
@@ -7,6 +7,6 @@ namespace Photosphere.DependencyInjection.LifetimeManagement.Scopes
     {
         object[] AvailableInstances { get; }
 
-        IDictionary<Type, int> AvailableInstancesIndexes { get; }
+        ConcurrentDictionary<Type, int> AvailableInstancesIndexes { get; }
     }
 }

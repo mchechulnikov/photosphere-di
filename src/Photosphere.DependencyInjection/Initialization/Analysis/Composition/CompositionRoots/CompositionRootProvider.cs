@@ -19,10 +19,10 @@ namespace Photosphere.DependencyInjection.Initialization.Analysis.Composition.Co
             _assembliesProvider = assembliesProvider;
         }
 
-        public IEnumerable<ICompositionRoot> Provide()
+        public IReadOnlyCollection<ICompositionRoot> Provide()
         {
             var assemblies = _assembliesProvider.Provide().ToList();
-            return assemblies.Select(GetCompositionRoot).NotNull();
+            return assemblies.Select(GetCompositionRoot).NotNull().ToList();
         }
 
         private static ICompositionRoot GetCompositionRoot(IAssemblyWrapper assembly)

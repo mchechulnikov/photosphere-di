@@ -1,6 +1,8 @@
+using System;
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.Services.InstantiatingGenerators;
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.ValueObjects;
 using Photosphere.DependencyInjection.LifetimeManagement;
+using Photosphere.DependencyInjection.LifetimeManagement.Scopes;
 
 namespace Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.Services.GeneratingStrategies
 {
@@ -19,14 +21,7 @@ namespace Photosphere.DependencyInjection.Initialization.Saturation.Generation.M
 
         protected override void GenerateDependencyProviding(GeneratingDesign design)
         {
-            var scope = _scopeKeeper.PerContainerScope;
-            int instanceIndex;
-            if (!scope.AvailableInstancesIndexes.TryGetValue(design.ObjectGraph.ImplementationType, out instanceIndex))
-            {
-                instanceIndex = scope.AvailableInstancesIndexes.Count;
-                scope.AvailableInstancesIndexes.Add(design.ObjectGraph.ImplementationType, instanceIndex);
-            }
-
+            var instanceIndex = GetInstanceIndex(design.ObjectGraph.ImplementationType);
             var instanceVariable = design.Designer.DeclareVariable<object>().Variable;
 
             design.Designer
@@ -41,6 +36,19 @@ namespace Photosphere.DependencyInjection.Initialization.Saturation.Generation.M
                 .EndBranch()
                 .PushToStack(instanceVariable)
                 .CastToClass(design.ObjectGraph.ImplementationType);
+        }
+
+        private int GetInstanceIndex(Type implementationType)
+        {
+            var scope = _scopeKeeper.PerContainerScope;
+            int instanceIndex;
+            if (scope.AvailableInstancesIndexes.TryGetValue(implementationType, out instanceIndex))
+            {
+                return instanceIndex;
+            }
+            instanceIndex = scope.AvailableInstancesIndexes.Count;
+            scope.AvailableInstancesIndexes.AddOrUpdate(implementationType, t => instanceIndex, (t, v) => v);
+            return instanceIndex;
         }
     }
 }

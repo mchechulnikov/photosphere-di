@@ -4,6 +4,6 @@ namespace Photosphere.DependencyInjection.Initialization.Analysis.Composition.Co
 {
     internal interface ICompositionRootProvider
     {
-        IEnumerable<ICompositionRoot> Provide();
+        IReadOnlyCollection<ICompositionRoot> Provide();
     }
 }

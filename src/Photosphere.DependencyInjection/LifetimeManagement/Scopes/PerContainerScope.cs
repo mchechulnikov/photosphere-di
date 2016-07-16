@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 
 namespace Photosphere.DependencyInjection.LifetimeManagement.Scopes
 {
@@ -15,7 +14,7 @@ namespace Photosphere.DependencyInjection.LifetimeManagement.Scopes
 
         public object[] AvailableInstances => _availableServices ?? (_availableServices = new object[AvailableInstancesIndexes.Count]);
 
-        public IDictionary<Type, int> AvailableInstancesIndexes { get; private set; }
+        public ConcurrentDictionary<Type, int> AvailableInstancesIndexes { get; private set; }
 
         public void Dispose()
         {

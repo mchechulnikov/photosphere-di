@@ -10,5 +10,7 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations.ValueObje
         bool Contains(Type serviceType);
 
         IRegistration this[Type serviceType] { get; }
+
+        int Count { get; }
     }
 }

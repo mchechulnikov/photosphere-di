@@ -1,3 +1,4 @@
+using System;
 using Photosphere.DependencyInjection.Initialization.Analysis.Composition;
 using Photosphere.DependencyInjection.Initialization.Saturation;
 
@@ -18,8 +19,15 @@ namespace Photosphere.DependencyInjection.Initialization
 
         public void Initialize()
         {
-            _dependenciesCompositor.Compose();
-            _registrySaturator.Saturate();
+            try
+            {
+                _dependenciesCompositor.Compose();
+                _registrySaturator.Saturate();
+            }
+            catch (AggregateException aggregateException)
+            {
+                throw aggregateException.InnerException;
+            }
         }
     }
 }

@@ -41,6 +41,8 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations.ValueObje
             }
         }
 
+        public int Count => _dictionary.Count;
+
         public IEnumerator<IRegistration> GetEnumerator()
         {
             return _dictionary.Values.GetEnumerator();

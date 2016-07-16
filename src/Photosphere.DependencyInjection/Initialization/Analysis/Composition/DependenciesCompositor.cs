@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
+using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Initialization.Analysis.Composition.CompositionRoots;
 using Photosphere.DependencyInjection.Initialization.Analysis.Composition.CompositionRoots.ServiceCompositionRoots;
 using Photosphere.DependencyInjection.Initialization.Registrations;
@@ -20,12 +22,15 @@ namespace Photosphere.DependencyInjection.Initialization.Analysis.Composition
 
         public void Compose()
         {
-            foreach (var compositionRoot in _compositionRootProvider.Provide())
-            {
-                var compositionRootAssembly = GetCompositionRoot(compositionRoot);
-                var registrator = _registratorProvider.Provide(compositionRootAssembly);
-                compositionRoot.Compose(registrator);
-            }
+            var compositionRoots = _compositionRootProvider.Provide();
+            compositionRoots.ParallelProceed(compositionRoots.Count, Compose);
+        }
+
+        private void Compose(ICompositionRoot compositionRoot)
+        {
+            var compositionRootAssembly = GetCompositionRoot(compositionRoot);
+            var registrator = _registratorProvider.Provide(compositionRootAssembly);
+            compositionRoot.Compose(registrator);
         }
 
         private static Assembly GetCompositionRoot(ICompositionRoot compositionRoot)

@@ -1,4 +1,5 @@
-﻿using Photosphere.DependencyInjection.Initialization.Registrations.ValueObjects;
+﻿using Photosphere.DependencyInjection.Extensions;
+using Photosphere.DependencyInjection.Initialization.Registrations.ValueObjects;
 using Photosphere.DependencyInjection.LifetimeManagement;
 
 namespace Photosphere.DependencyInjection.Initialization.Saturation
@@ -16,11 +17,13 @@ namespace Photosphere.DependencyInjection.Initialization.Saturation
 
         public void Saturate()
         {
-            foreach (var registration in _registry)
-            {
-                _scopeKeeper.StartNewPerRequestScope();
-                registration.GenerateInstantiateFunction();
-            }
+            _registry.ParallelProceed(_registry.Count, Saturate);
+        }
+
+        private void Saturate(IRegistration registration)
+        {
+            _scopeKeeper.StartNewPerRequestScope();
+            registration.GenerateInstantiateFunction();
         }
     }
 }
