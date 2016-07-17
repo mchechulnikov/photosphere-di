@@ -40,12 +40,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\RegisterInterceptorAttribute.cs" />
     <Compile Include="ContainerConfiguration.cs" />
     <Compile Include="Extensions\ParallelEnumerableExtensions.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\ConstructorInfoExtensions.cs" />
     <Compile Include="Extensions\EnumerableOfTypeExtensions.cs" />
+    <Compile Include="Initialization\Registrations\IInterceptorRegistrator.cs" />
+    <Compile Include="Initialization\Registrations\InterceptorRegistrator.cs" />
     <Compile Include="Initialization\Saturation\Generation\MethodBodyGenerating\Designers\ArrayDesigner.cs" />
     <Compile Include="Initialization\Saturation\Generation\MethodBodyGenerating\Designers\ControlFlowDesigner.cs" />
     <Compile Include="Initialization\Saturation\Generation\MethodBodyGenerating\Designers\IfStatementDesigner.cs" />
@@ -84,6 +87,12 @@
     <Compile Include="IDependencyContainer.cs" />
     <Compile Include="IContainerConfiguration.cs" />
     <Compile Include="InnerStructure\InnerServiceLocator.cs" />
+    <Compile Include="Interception\Context\IMethodArgument.cs" />
+    <Compile Include="Interception\Context\DataTransferObjects\MethodArgument.cs" />
+    <Compile Include="Interception\Context\DataTransferObjects\MethodInvocationContext.cs" />
+    <Compile Include="Interception\Context\Services\IMethodContextProvider.cs" />
+    <Compile Include="Interception\IMethodInterceptor.cs" />
+    <Compile Include="Interception\Context\IMethodInvocationContext.cs" />
     <Compile Include="LifetimeManagement\Scopes\IPerContainerScope.cs" />
     <Compile Include="LifetimeManagement\Scopes\IPerRequestScope.cs" />
     <Compile Include="LifetimeManagement\Scopes\IScope.cs" />
@@ -94,7 +103,7 @@
     <Compile Include="LifetimeManagement\ScopeKeeper.cs" />
     <Compile Include="Attributes\CompositionRootAttribute.cs" />
     <Compile Include="Attributes\RegisterDependenciesAttribute.cs" />
-    <Compile Include="Attributes\RegisterDependenciesBy.cs" />
+    <Compile Include="Attributes\RegisterDependenciesByAttribute.cs" />
     <Compile Include="Initialization\Registrations\AssemblyBoundedRegistrator.cs" />
     <Compile Include="Initialization\Analysis\Assemblies\AssembliesProvider.cs" />
     <Compile Include="Initialization\Analysis\Assemblies\IAssembliesProvider.cs" />

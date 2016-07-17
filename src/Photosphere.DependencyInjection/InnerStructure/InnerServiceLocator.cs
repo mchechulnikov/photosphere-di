@@ -40,7 +40,10 @@ namespace Photosphere.DependencyInjection.InnerStructure
             var registrationFactory = new RegistrationFactory(instantiateMethodGenerator);
 
             var compositionRootProvider = new CompositionRootProvider(new AssembliesProvider(configuration));
-            var registratorProvider = new RegistratorProvider(new AssemblyBoundedRegistrator(registry, registrationFactory));
+            var registratorProvider = new RegistratorProvider(
+                new AssemblyBoundedRegistrator(registry, registrationFactory),
+                new InterceptorRegistrator()
+            );
             var dependenciesCompositor = new DependenciesCompositor(compositionRootProvider, registratorProvider);
             var registrySaturator = new RegistrySaturator(registry, scopeKeeper);
             var registryInitializer = new RegistryInitializer(dependenciesCompositor, registrySaturator);
