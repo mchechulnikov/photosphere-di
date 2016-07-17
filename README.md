@@ -50,6 +50,10 @@ Light container setup directly into attributes (instead `CompositionRoot`)
 [assembly: RegisterDependencies(typeof(IService))]
 [assembly: RegisterDependencies(typeof(IFoo), Lifetime.AlwaysNew)]
 ```
+These methods of registration are resolved as follows:
+* at the first container try to search `CompositionRootAttribute` and use it;
+* if it wasn't founded, container try to get up registration info from `RegisterDependenciesAttribute` and `RegisterDependenciesByAttribute`;
+* if these attributes wasn't founded the whole-types-search for `ICompositionRoot` implementations will be performed.
 
 ### Facilitate low coupling
 Service can be registered just by interface: search of implementation is carried out in the registration process. It reduce horrible registration mappings that bring only redundant references through a code.<br/>
