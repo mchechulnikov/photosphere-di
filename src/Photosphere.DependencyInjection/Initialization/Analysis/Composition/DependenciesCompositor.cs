@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Initialization.Analysis.Composition.CompositionRoots;
 using Photosphere.DependencyInjection.Initialization.Analysis.Composition.CompositionRoots.ServiceCompositionRoots;

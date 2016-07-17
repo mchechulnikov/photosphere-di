@@ -69,6 +69,7 @@
     <Compile Include="Registration\GetInstanceRegistrationTypesMarkedByAttributesTests.cs" />
     <Compile Include="Registration\GetInstanceRegistrationByAttributeByAttributeTests.cs" />
     <Compile Include="Registration\GetInstanceRegistrationByAttributeTests.cs" />
+    <Compile Include="Stress\StressTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -105,6 +106,10 @@
     <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration\Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration.csproj">
       <Project>{d952b171-04c4-4ed2-91d9-f7a2c039e356}</Project>
       <Name>Photosphere.DependencyInjection.TestAssembly.RootAttributeRegistration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.Stress\Photosphere.DependencyInjection.TestAssembly.Stress.csproj">
+      <Project>{9a64a9c1-f2fc-47c6-be33-bc9d88a003b0}</Project>
+      <Name>Photosphere.DependencyInjection.TestAssembly.Stress</Name>
     </ProjectReference>
     <ProjectReference Include="..\Photosphere.DependencyInjection\Photosphere.DependencyInjection.csproj">
       <Project>{452E8E26-5885-4E8D-9E56-8F08BF1198DD}</Project>

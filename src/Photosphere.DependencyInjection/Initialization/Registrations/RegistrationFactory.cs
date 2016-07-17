@@ -63,7 +63,7 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations
             if (genericWrapperType != null)
             {
                 serviceType = originalServiceType.MakeGenericWrappedBy(genericWrapperType);
-                directImplementationType = originalServiceType.MakeArrayType(implementationTypes.Count);
+                directImplementationType = originalServiceType.MakeArrayType();
                 lifetime = Lifetime.AlwaysNew;
             }
             else
