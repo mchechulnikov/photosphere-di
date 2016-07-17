@@ -2,7 +2,6 @@ using System;
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.Services.InstantiatingGenerators;
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.ValueObjects;
 using Photosphere.DependencyInjection.LifetimeManagement;
-using Photosphere.DependencyInjection.LifetimeManagement.Scopes;
 
 namespace Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.Services.GeneratingStrategies
 {
