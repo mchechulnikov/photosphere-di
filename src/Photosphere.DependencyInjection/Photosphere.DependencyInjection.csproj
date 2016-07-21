@@ -87,6 +87,7 @@
     <Compile Include="IDependencyContainer.cs" />
     <Compile Include="IContainerConfiguration.cs" />
     <Compile Include="InnerStructure\InnerServiceLocator.cs" />
+    <Compile Include="Interception\AssemblyReading\IAssemblyReader.cs" />
     <Compile Include="Interception\Context\IMethodArgument.cs" />
     <Compile Include="Interception\Context\DataTransferObjects\MethodArgument.cs" />
     <Compile Include="Interception\Context\DataTransferObjects\MethodInvocationContext.cs" />
