@@ -20,21 +20,24 @@ namespace Photosphere.DependencyInjection.Initialization.Saturation.Generation.M
 
         protected override void GenerateDependencyProviding(GeneratingDesign design)
         {
-            var instanceIndex = GetInstanceIndex(design.ObjectGraph.ImplementationType);
-            var instanceVariable = design.Designer.DeclareVariable<object>().Variable;
+            lock (this)
+            {
+                var instanceIndex = GetInstanceIndex(design.ObjectGraph.ImplementationType);
+                var instanceVariable = design.Designer.DeclareVariable<object>().Variable;
 
-            design.Designer
-                .LoadArgumentToStack(0)
-                .LoadArrayRefElementTo(instanceVariable, instanceIndex)
-                .If().IsNull(instanceVariable)
-                .BeginBranch()
+                design.Designer
+                    .LoadArgumentToStack(0)
+                    .LoadArrayRefElementTo(instanceVariable, instanceIndex)
+                    .If().IsNull(instanceVariable)
+                    .BeginBranch()
                     .Action(() => _objectInstantiatingGenerator.Generate(design))
                     .PopFromStackTo(instanceVariable)
                     .LoadArgumentToStack(0)
                     .SetArrayRefElement(instanceIndex, instanceVariable)
-                .EndBranch()
-                .PushToStack(instanceVariable)
-                .CastToClass(design.ObjectGraph.ImplementationType);
+                    .EndBranch()
+                    .PushToStack(instanceVariable)
+                    .CastToClass(design.ObjectGraph.ImplementationType);
+            }
         }
 
         private int GetInstanceIndex(Type implementationType)

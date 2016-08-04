@@ -7,9 +7,9 @@ namespace Photosphere.DependencyInjection.TestAssembly.Enumerable
         public void Compose(IRegistrator registrator)
         {
             registrator
-                .Register<IFoo>()
+                .Register<IFoo>(Lifetime.PerContainer)
                 .Register<IEnumerableDependencyFoo>()
-                .Register<IReadOnlyCollectionDependencyFoo>(Lifetime.AlwaysNew);
+                .Register<IReadOnlyCollectionDependencyFoo>(Lifetime.PerContainer);
         }
     }
 }
