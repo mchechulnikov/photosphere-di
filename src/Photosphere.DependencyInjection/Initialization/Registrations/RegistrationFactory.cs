@@ -47,10 +47,6 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations
                     continue;
                 }
                 yield return GetRegistration(lifetime, serviceType, implementationTypes);
-                if (implementationTypes.HasNonSeveralElements())
-                {
-                    continue;
-                }
                 yield return GetRegistration(lifetime, serviceType, implementationTypes, typeof(IEnumerable<>));
                 yield return GetRegistration(lifetime, serviceType, implementationTypes, typeof(IReadOnlyCollection<>));
             }
