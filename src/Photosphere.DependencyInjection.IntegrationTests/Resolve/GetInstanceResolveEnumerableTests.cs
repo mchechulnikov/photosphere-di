@@ -46,5 +46,17 @@ namespace Photosphere.DependencyInjection.IntegrationTests.Resolve
             Assert.Contains(typeof(Foo4), result.Select(x => x.GetType()));
             Assert.Contains(typeof(Foo5), result.Select(x => x.GetType()));
         }
+
+        [Fact]
+        internal void GetInstance_EnumerableByThirdLevelInterface_ExpectedInstancesTypes()
+        {
+            var result = NewContainer.GetInstance<IEnumerable<IBar>>().ToList();
+
+            Assert.Contains(typeof(Bar1), result.Select(x => x.GetType()));
+            Assert.Contains(typeof(Bar2), result.Select(x => x.GetType()));
+            Assert.Contains(typeof(Bar3), result.Select(x => x.GetType()));
+            Assert.Contains(typeof(Bar4), result.Select(x => x.GetType()));
+            Assert.Contains(typeof(Bar5), result.Select(x => x.GetType()));
+        }
     }
 }

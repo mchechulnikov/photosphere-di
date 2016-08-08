@@ -35,7 +35,10 @@ namespace Photosphere.DependencyInjection.InnerStructure
 
             var objectGraphProvider = new ObjectGraphProvider(registry, generatingStrategyProvider);
             var instantiateMethodBodyGenerator = new InstanceProvidingMethodBodyGenerator();
-            var instantiateMethodGenerator = new InstanceProvidingMethodGenerator(objectGraphProvider, instantiateMethodBodyGenerator);
+            var instantiateMethodGenerator = new InstanceProvidingMethodGenerator(
+                objectGraphProvider,
+                instantiateMethodBodyGenerator
+            );
 
             var registrationFactory = new RegistrationFactory(instantiateMethodGenerator);
 
