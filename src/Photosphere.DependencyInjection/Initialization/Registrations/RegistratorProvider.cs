@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Reflection;
 
 namespace Photosphere.DependencyInjection.Initialization.Registrations
@@ -7,7 +7,7 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations
     {
         private readonly IAssemblyBoundedRegistrator _assemblyBoundedRegistrator;
         private readonly IInterceptorRegistrator _interceptorRegistrator;
-        private readonly IDictionary<Assembly, IRegistrator> _registratorsCache;
+        private readonly ConcurrentDictionary<Assembly, IRegistrator> _registratorsCache;
 
         public RegistratorProvider(
             IAssemblyBoundedRegistrator assemblyBoundedRegistrator,
@@ -15,7 +15,7 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations
         {
             _assemblyBoundedRegistrator = assemblyBoundedRegistrator;
             _interceptorRegistrator = interceptorRegistrator;
-            _registratorsCache = new Dictionary<Assembly, IRegistrator>();
+            _registratorsCache = new ConcurrentDictionary<Assembly, IRegistrator>();
         }
 
         public IRegistrator Provide(Assembly assembly)
@@ -26,7 +26,7 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations
                 return registrator;
             }
             registrator = new Registrator(_assemblyBoundedRegistrator, _interceptorRegistrator, assembly);
-            _registratorsCache.Add(assembly, registrator);
+            _registratorsCache.AddOrUpdate(assembly, a => registrator, (a, r) => r);
             return registrator;
         }
     }
