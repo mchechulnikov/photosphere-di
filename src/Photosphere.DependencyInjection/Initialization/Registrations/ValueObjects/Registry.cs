@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation.ObjectGraphs.Exceptions;
 
 namespace Photosphere.DependencyInjection.Initialization.Registrations.ValueObjects
 {
     internal class Registry : IRegistry
     {
-        private readonly IDictionary<Type, IRegistration> _dictionary;
+        private readonly ConcurrentDictionary<Type, IRegistration> _dictionary;
 
         public Registry()
         {
@@ -19,7 +20,22 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations.ValueObje
         {
             foreach (var registration in registrations)
             {
-                _dictionary.Add(registration.ServiceType, registration);
+                _dictionary.AddOrUpdate(
+                    registration.ServiceType,
+                    t => registration,
+                    (t, r) =>
+                    {
+                        if (!t.IsGenericType)
+                        {
+                            return r;
+                        }
+                        if (t.IsEnumerable())
+                        {
+                            r.AddImplementationTypes(registration.ImplementationTypes);
+                        }
+                        return r;
+                    }
+                );
             }
         }
 

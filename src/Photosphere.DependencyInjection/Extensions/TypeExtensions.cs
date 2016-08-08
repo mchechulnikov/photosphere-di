@@ -50,7 +50,9 @@ namespace Photosphere.DependencyInjection.Extensions
 
         public static IEnumerable<Type> GetAllDerivedTypesFrom(this Type type, Assembly assembly)
         {
-            return assembly.GetAllDerivedTypesOf(type).Where(t => t != null);
+            var allDerivedTypesOf = assembly.GetAllDerivedTypesOf(type).ToHashSet();
+            allDerivedTypesOf.Add(type);
+            return allDerivedTypesOf.Where(t => t != null);
         }
 
         public static ConstructorInfo GetFirstPublicConstructor(this Type type)
@@ -127,6 +129,11 @@ namespace Photosphere.DependencyInjection.Extensions
             return genericType.IsGenericTypeDefinition
               && givenType.IsGenericType
               && givenType.GetGenericTypeDefinition() == genericType;
+        }
+
+        public static bool IsEnumerable(this Type type)
+        {
+            return type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
         }
     }
 }

@@ -18,4 +18,10 @@
     internal class Bar4 : IBar4 { }
     internal interface IBar5 : IBar { }
     internal class Bar5 : IBar5 { }
+
+    public interface IBuz {}
+    internal interface IBuz1 : IBuz {}
+    internal interface IBuz2 : IBuz {}
+    internal class Buz1 : IBuz1 {}
+    internal class Buz2 : IBuz2 {}
 }

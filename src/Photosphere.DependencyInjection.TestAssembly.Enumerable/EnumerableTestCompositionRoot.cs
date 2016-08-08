@@ -9,6 +9,7 @@ namespace Photosphere.DependencyInjection.TestAssembly.Enumerable
             registrator
                 .Register<IFoo>(Lifetime.PerContainer)
                 .Register<IBar>(Lifetime.PerContainer)
+                .Register<IBuz>(Lifetime.PerContainer)
                 .Register<IEnumerableDependencyFoo>()
                 .Register<IReadOnlyCollectionDependencyFoo>(Lifetime.PerContainer);
         }

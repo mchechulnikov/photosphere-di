@@ -12,8 +12,7 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations
     {
         private readonly IInstanceProvidingMethodGenerator _methodGenerator;
 
-        public RegistrationFactory(
-            IInstanceProvidingMethodGenerator methodGenerator)
+        public RegistrationFactory(IInstanceProvidingMethodGenerator methodGenerator)
         {
             _methodGenerator = methodGenerator;
         }
@@ -53,7 +52,10 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations
         }
 
         private Registration GetRegistration(
-            Lifetime lifetime, Type originalServiceType, IReadOnlyCollection<Type> implementationTypes, Type genericWrapperType = null)
+            Lifetime lifetime,
+            Type originalServiceType,
+            IReadOnlyCollection<Type> implementationTypes,
+            Type genericWrapperType = null)
         {
             Type serviceType, directImplementationType;
             if (genericWrapperType != null)
@@ -67,11 +69,10 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations
                 serviceType = originalServiceType;
                 directImplementationType = originalServiceType.IsInstantiatible() ? originalServiceType : implementationTypes.First();
             }
-            return new Registration(() => _methodGenerator.Generate(serviceType))
+            return new Registration(() => _methodGenerator.Generate(serviceType), implementationTypes.ToList())
             {
                 ServiceType = serviceType,
                 DirectImplementationType = directImplementationType,
-                ImplementationTypes = implementationTypes,
                 IsEnumerable = genericWrapperType != null,
                 Lifetime = lifetime
             };

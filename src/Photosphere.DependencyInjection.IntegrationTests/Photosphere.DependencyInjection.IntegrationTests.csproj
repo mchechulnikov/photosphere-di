@@ -53,6 +53,7 @@
     <Compile Include="IntegrationTestsBase.cs" />
     <Compile Include="Registration\GetInstanceRegistrationByCompositionRootAttributeTests.cs" />
     <Compile Include="Analysis\GetInstanceCyclicDependenciesDetectionTests.cs" />
+    <Compile Include="Resolve\GetInstanceResolveEnumerableCrossAssemblyTests.cs" />
     <Compile Include="Resolve\GetInstanceResolveReadOnlyCollectionTests.cs" />
     <Compile Include="Resolve\GetInstanceResolveEnumerableTests.cs" />
     <Compile Include="Resolve\GetAllInstancesTests.cs" />
@@ -82,6 +83,10 @@
     <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.Cycles\Photosphere.DependencyInjection.TestAssembly.Cycles.csproj">
       <Project>{aada01af-ae4e-444c-8606-0ecc59b22078}</Project>
       <Name>Photosphere.DependencyInjection.TestAssembly.Cycles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.Enumerable2\Photosphere.DependencyInjection.TestAssembly.Enumerable2.csproj">
+      <Project>{22a5a087-f628-4938-9647-0aa5c74bdf0d}</Project>
+      <Name>Photosphere.DependencyInjection.TestAssembly.Enumerable2</Name>
     </ProjectReference>
     <ProjectReference Include="..\Photosphere.DependencyInjection.TestAssembly.Enumerable\Photosphere.DependencyInjection.TestAssembly.Enumerable.csproj">
       <Project>{f12dbeb8-75d8-47c9-9ec0-5c7d8eab9306}</Project>

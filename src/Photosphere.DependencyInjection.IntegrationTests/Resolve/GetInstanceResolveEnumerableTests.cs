@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Photosphere.DependencyInjection.TestAssembly.Enumerable.TestObjects;
+using Photosphere.DependencyInjection.TestAssembly.Enumerable2;
 using Xunit;
 
 namespace Photosphere.DependencyInjection.IntegrationTests.Resolve

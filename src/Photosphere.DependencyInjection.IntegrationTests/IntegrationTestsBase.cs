@@ -6,12 +6,14 @@ namespace Photosphere.DependencyInjection.IntegrationTests
     {
         private readonly Type _typeFromTargetAssembly;
 
+        protected internal IntegrationTestsBase() {}
+
         protected internal IntegrationTestsBase(Type typeFromTargetAssembly)
         {
             _typeFromTargetAssembly = typeFromTargetAssembly;
         }
 
-        protected IDependencyContainer NewContainer =>
+        protected virtual IDependencyContainer NewContainer =>
             new DependencyContainer(_typeFromTargetAssembly.Assembly);
     }
 }
