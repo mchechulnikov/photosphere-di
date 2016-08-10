@@ -6,15 +6,12 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations
     internal class RegistratorProvider : IRegistratorProvider
     {
         private readonly IAssemblyBoundedRegistrator _assemblyBoundedRegistrator;
-        private readonly IInterceptorRegistrator _interceptorRegistrator;
         private readonly ConcurrentDictionary<Assembly, IRegistrator> _registratorsCache;
 
         public RegistratorProvider(
-            IAssemblyBoundedRegistrator assemblyBoundedRegistrator,
-            IInterceptorRegistrator interceptorRegistrator)
+            IAssemblyBoundedRegistrator assemblyBoundedRegistrator)
         {
             _assemblyBoundedRegistrator = assemblyBoundedRegistrator;
-            _interceptorRegistrator = interceptorRegistrator;
             _registratorsCache = new ConcurrentDictionary<Assembly, IRegistrator>();
         }
 
@@ -25,7 +22,7 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations
             {
                 return registrator;
             }
-            registrator = new Registrator(_assemblyBoundedRegistrator, _interceptorRegistrator, assembly);
+            registrator = new Registrator(_assemblyBoundedRegistrator, assembly);
             _registratorsCache.AddOrUpdate(assembly, a => registrator, (a, r) => r);
             return registrator;
         }
