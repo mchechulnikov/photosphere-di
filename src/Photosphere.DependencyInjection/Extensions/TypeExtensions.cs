@@ -51,8 +51,8 @@ namespace Photosphere.DependencyInjection.Extensions
         public static IEnumerable<Type> GetAllDerivedTypesFrom(this Type type, Assembly assembly)
         {
             var allDerivedTypesOf = assembly.GetAllDerivedTypesOf(type).ToHashSet();
-            allDerivedTypesOf.Add(type);
-            return allDerivedTypesOf.Where(t => t != null);
+            var allDerivedTypeOf2 = type.Assembly.GetAllDerivedTypesOf(type).ToHashSet();
+            return allDerivedTypesOf.Where(t => t != null).Union(allDerivedTypeOf2);
         }
 
         public static ConstructorInfo GetFirstPublicConstructor(this Type type)

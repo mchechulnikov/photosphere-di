@@ -20,4 +20,4 @@ using Photosphere.DependencyInjection.TestAssembly.Enumerable.TestObjects;
 
 [assembly: InternalsVisibleTo("Photosphere.DependencyInjection.IntegrationTests")]
 
-[assembly: RegisterDependencies(typeof(IBuz), Lifetime.PerContainer)]
+[assembly: RegisterDependencies(typeof(IBuzzy), Lifetime.PerContainer)]

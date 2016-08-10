@@ -20,23 +20,28 @@ namespace Photosphere.DependencyInjection.Initialization.Registrations.ValueObje
         {
             foreach (var registration in registrations)
             {
-                _dictionary.AddOrUpdate(
-                    registration.ServiceType,
-                    t => registration,
-                    (t, r) =>
-                    {
-                        if (!t.IsGenericType)
-                        {
-                            return r;
-                        }
-                        if (t.IsEnumerable())
-                        {
-                            r.AddImplementationTypes(registration.ImplementationTypes);
-                        }
-                        return r;
-                    }
-                );
+                Add(registration);
             }
+        }
+
+        private void Add(IRegistration newRegistration)
+        {
+            _dictionary.AddOrUpdate(
+                newRegistration.ServiceType,
+                t => newRegistration,
+                (type, registration) =>
+                {
+                    if (!type.IsGenericType)
+                    {
+                        return registration;
+                    }
+                    if (type.IsEnumerable())
+                    {
+                        registration.AddImplementationTypes(newRegistration.ImplementationTypes);
+                    }
+                    return registration;
+                }
+            );
         }
 
         public bool Contains(Type serviceType)
