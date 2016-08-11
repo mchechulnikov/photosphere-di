@@ -13,6 +13,7 @@ using Photosphere.DependencyInjection.Initialization.Saturation.Generation.Metho
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation.ObjectGraphs;
 using Photosphere.DependencyInjection.LifetimeManagement;
 using Photosphere.DependencyInjection.Resolving;
+using Photosphere.DependencyInjection.Types;
 
 namespace Photosphere.DependencyInjection.InnerStructure
 {
@@ -40,7 +41,7 @@ namespace Photosphere.DependencyInjection.InnerStructure
                 instantiateMethodBodyGenerator
             );
 
-            var registrationFactory = new RegistrationFactory(instantiateMethodGenerator);
+            var registrationFactory = new RegistrationFactory(new TypesProvider(), instantiateMethodGenerator);
 
             var compositionRootProvider = new CompositionRootProvider(new AssembliesProvider(configuration));
             var registratorProvider = new RegistratorProvider(

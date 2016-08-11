@@ -5,42 +5,48 @@ using System.Reflection;
 using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Initialization.Registrations.ValueObjects;
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation;
+using Photosphere.DependencyInjection.Types;
 
 namespace Photosphere.DependencyInjection.Initialization.Registrations
 {
     internal class RegistrationFactory : IRegistrationFactory
     {
+        private readonly ITypesProvider _typesProvider;
         private readonly IInstanceProvidingMethodGenerator _methodGenerator;
 
-        public RegistrationFactory(IInstanceProvidingMethodGenerator methodGenerator)
+        public RegistrationFactory(
+            ITypesProvider typesProvider,
+            IInstanceProvidingMethodGenerator methodGenerator)
         {
+            _typesProvider = typesProvider;
             _methodGenerator = methodGenerator;
         }
 
         public IEnumerable<IRegistration> Get(Type serviceType, Assembly assembly, Lifetime lifetime)
         {
-            var derivedTypes = serviceType.GetAllDerivedTypesFrom(assembly).ToHashSet();
+            var derivedTypes = _typesProvider.GetAllDerivedTypesFrom(serviceType, assembly);
             return GetRegistrations(lifetime, derivedTypes);
         }
 
         public IEnumerable<IRegistration> GetByAttribute(Type attributeType, Assembly assembly, Lifetime lifetime)
         {
-            var markedTypes = attributeType.GetMarkedTypes();
+            var markedTypes = _typesProvider.GetMarkedTypes(attributeType);
             var servicesTypes =
                 markedTypes
                 .Where(t => t.IsInterface)
-                .SelectMany(t => t.GetAllDerivedTypesFrom(assembly))
+                .SelectMany(t => _typesProvider.GetAllDerivedTypesFrom(t, assembly))
                 .Union(markedTypes)
                 .ToHashSet();
 
             return GetRegistrations(lifetime, servicesTypes).ToList();
         }
 
-        private IEnumerable<IRegistration> GetRegistrations(Lifetime lifetime, ISet<Type> servicesTypes)
+        private IEnumerable<IRegistration> GetRegistrations(Lifetime lifetime, IReadOnlyCollection<Type> servicesTypes)
         {
             foreach (var serviceType in servicesTypes)
             {
-                var implementationTypes = servicesTypes.GetTypesThatImplements(serviceType).ToHashSet();
+                var implementationTypes =
+                    servicesTypes.Where(t => t.IsInstantiatibleUserDefinedClass() && serviceType.IsAssignableFrom(t)).ToHashSet();
                 if (implementationTypes.IsNullOrEmpty())
                 {
                     continue;

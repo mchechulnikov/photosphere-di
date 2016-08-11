@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
 
@@ -27,20 +28,11 @@ namespace Photosphere.DependencyInjection.Extensions
         public static bool IsInstantiatible(this Type type) => !(type.IsAbstract || type.IsInterface);
 
         public static bool IsInstantiatibleUserDefinedClass(this Type type) =>
-            !type.IsAbstract
-            && !type.IsInterface
-            && !type.IsGenericType;
+            !type.IsAbstract && !type.IsInterface && !type.IsGenericType;
 
         public static bool IsImplements<TInterface>(this Type type) => type.IsImplements(typeof(TInterface));
 
         public static object GetNewInstance(this Type type) => Activator.CreateInstance(type);
-
-        public static IEnumerable<Type> GetAllDerivedTypesFrom(this Type type, Assembly assembly)
-        {
-            var allDerivedTypesOf = assembly.GetAllDerivedTypesOf(type).ToHashSet();
-            var allDerivedTypeOf2 = type.Assembly.GetAllDerivedTypesOf(type).ToHashSet();
-            return allDerivedTypesOf.Where(t => t != null).Union(allDerivedTypeOf2);
-        }
 
         public static ConstructorInfo GetFirstPublicConstructor(this Type type) =>
             type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.Default).FirstOrDefault()
@@ -67,29 +59,11 @@ namespace Photosphere.DependencyInjection.Extensions
               || genericType.IsAssignableFromGenericType(givenType.BaseType);
         }
 
-        public static bool IsAttribute(this Type type)
-        {
-            while (true)
-            {
-                var baseType = type.BaseType;
-                if (baseType == typeof(object) || baseType == null)
-                {
-                    return false;
-                }
-                if (baseType == typeof(Attribute))
-                {
-                    return true;
-                }
-                type = baseType;
-            }
-        }
+        public static bool IsAttribute(this Type type) => type.IsSubclassOf(typeof(Attribute));
 
         private static bool IsImplements(this Type type, Type serviceType)
         {
-            if (!serviceType.IsInterface)
-            {
-                throw new ArgumentException($"Type `{serviceType.Name}` must be interface");
-            }
+            Contract.Assert(serviceType.IsInterface, $"Type `{serviceType.Name}` must be interface");
             return
                 type.GetInterfaces().Any(it => it == serviceType)
                 && !type.IsAbstract

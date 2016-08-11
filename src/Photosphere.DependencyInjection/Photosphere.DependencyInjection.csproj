@@ -41,11 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContainerConfiguration.cs" />
+    <Compile Include="Extensions\AssemblyExtentions.cs" />
     <Compile Include="Extensions\ParallelEnumerableExtensions.cs" />
-    <Compile Include="Extensions\AssemblyExtensions.cs" />
-    <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\ConstructorInfoExtensions.cs" />
-    <Compile Include="Extensions\EnumerableOfTypeExtensions.cs" />
     <Compile Include="Initialization\Saturation\Generation\MethodBodyGenerating\Designers\ArrayDesigner.cs" />
     <Compile Include="Initialization\Saturation\Generation\MethodBodyGenerating\Designers\ControlFlowDesigner.cs" />
     <Compile Include="Initialization\Saturation\Generation\MethodBodyGenerating\Designers\IfStatementDesigner.cs" />
@@ -127,6 +125,9 @@
     <Compile Include="Resolving\IResolver.cs" />
     <Compile Include="Resolving\Resolver.cs" />
     <Compile Include="SystemExtends\Reflection\Emit\CilEmitter.cs" />
+    <Compile Include="Caches\StaticDictionaryCache.cs" />
+    <Compile Include="Types\ITypesProvider.cs" />
+    <Compile Include="Types\TypesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Photosphere.DependencyInjection.nuspec" />
