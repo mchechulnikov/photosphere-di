@@ -5,9 +5,7 @@ namespace Photosphere.DependencyInjection.Extensions
 {
     internal static class AttributeExtensions
     {
-        public static IReadOnlyCollection<Type> GetMarkedTypes(this Type attributeType)
-        {
-            return attributeType.Assembly.GetAllTypesMarkedByAttribute(attributeType).ToHashSet();
-        }
+        public static IReadOnlyCollection<Type> GetMarkedTypes(this Type attributeType) =>
+            attributeType.Assembly.GetAllTypesMarkedByAttribute(attributeType).ToHashSet();
     }
 }

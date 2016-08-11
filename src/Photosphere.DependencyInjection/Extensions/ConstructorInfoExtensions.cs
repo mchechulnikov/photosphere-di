@@ -7,9 +7,7 @@ namespace Photosphere.DependencyInjection.Extensions
 {
     internal static class ConstructorInfoExtensions
     {
-        public static IReadOnlyList<Type> GetParametersTypes(this ConstructorInfo constructor)
-        {
-            return constructor.GetParameters().Select(p => p.ParameterType).ToList();
-        }
+        public static IReadOnlyList<Type> GetParametersTypes(this ConstructorInfo constructor) =>
+            constructor.GetParameters().Select(p => p.ParameterType).ToList();
     }
 }

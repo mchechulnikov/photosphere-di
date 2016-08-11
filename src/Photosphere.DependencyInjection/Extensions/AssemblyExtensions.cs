@@ -7,17 +7,13 @@ namespace Photosphere.DependencyInjection.Extensions
 {
     internal static class AssemblyExtensions
     {
-        public static IEnumerable<Type> GetAllTypesMarkedByAttribute(this Assembly assembly, Type attributeType)
-        {
-            return assembly.GetTypes().Where(t => t.GetCustomAttributes(attributeType).Any());
-        }
+        public static IEnumerable<Type> GetAllTypesMarkedByAttribute(this Assembly assembly, Type attributeType) =>
+            assembly.GetTypes().Where(t => t.GetCustomAttributes(attributeType).Any());
 
-        public static IEnumerable<Type> GetAllDerivedTypesOf(this Assembly assembly, Type serviceType)
-        {
-            return serviceType.IsGenericType
+        public static IEnumerable<Type> GetAllDerivedTypesOf(this Assembly assembly, Type serviceType) =>
+            serviceType.IsGenericType
                 ? AllDerivedTypesOfGeneric(assembly, serviceType)
                 : assembly.GetTypes().Where(serviceType.IsAssignableFrom);
-        }
 
         private static IEnumerable<Type> AllDerivedTypesOfGeneric(Assembly assembly, Type serviceType)
         {
