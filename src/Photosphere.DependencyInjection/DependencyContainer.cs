@@ -19,6 +19,13 @@ namespace Photosphere.DependencyInjection
             _resolver = serviceLocator.Resolver;
 
             serviceLocator.RegistryInitializer.Initialize();
+
+            //var serviceLocator = new ServiceLocator(configuration);
+
+            //_scopeKeeper = serviceLocator.Get<IScopeKeeper>();
+            //_resolver = serviceLocator.Get<IResolver>();
+
+            //serviceLocator.Get<IRegistryInitializer>().Initialize();
         }
 
         public DependencyContainer(params Assembly[] assemblies)

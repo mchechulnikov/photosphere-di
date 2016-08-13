@@ -81,6 +81,11 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="IDependencyContainer.cs" />
     <Compile Include="IContainerConfiguration.cs" />
+    <Compile Include="ServiceLocator.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ServiceLocator.tt</DependentUpon>
+    </Compile>
     <Compile Include="InnerStructure\InnerServiceLocator.cs" />
     <Compile Include="LifetimeManagement\Scopes\IPerContainerScope.cs" />
     <Compile Include="LifetimeManagement\Scopes\IPerRequestScope.cs" />
@@ -132,7 +137,15 @@
   <ItemGroup>
     <None Include="Photosphere.DependencyInjection.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ServiceLocator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ServiceLocator.Generated.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
