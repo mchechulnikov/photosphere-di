@@ -81,7 +81,8 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="IDependencyContainer.cs" />
     <Compile Include="IContainerConfiguration.cs" />
-    <Compile Include="ServiceLocator.Generated.cs">
+    <Compile Include="InnerStructure\InnerTypesImporter.cs" />
+    <Compile Include="InnerStructure\ServiceLocator.Generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ServiceLocator.tt</DependentUpon>
@@ -138,7 +139,7 @@
     <None Include="Photosphere.DependencyInjection.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ServiceLocator.tt">
+    <Content Include="InnerStructure\ServiceLocator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ServiceLocator.Generated.cs</LastGenOutput>
     </Content>

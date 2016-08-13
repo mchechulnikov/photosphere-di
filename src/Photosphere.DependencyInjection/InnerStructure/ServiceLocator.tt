@@ -1,0 +1,95 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ output extension=".Generated.cs" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#
+string GetProjectPath()
+{
+	var currentPath = Host.ResolvePath(string.Empty);
+	var rawProjectPath = Path.Combine(currentPath, "..\\");
+	return Path.GetFullPath(rawProjectPath).Replace("\\", "\\\\");
+}
+
+string[] GetAllCsFiles() => Directory.GetFiles(GetProjectPath(), "*.cs", SearchOption.AllDirectories);
+
+string GetClassName(string content)
+{
+	var value = new Regex("class [a-zA-Z0-9]+").Match(content).Value;
+	return value == string.Empty ? null : value.Substring(6);
+}
+
+bool IsStaticClass(string content)
+{
+	var value = new Regex("static class").Match(content).Value;
+	return value != string.Empty;
+}
+
+string GetNamespace(string content)
+{
+	var value = new Regex("namespace [a-zA-Z0-9.]+").Match(content).Value;
+	return value == string.Empty ? null : value.Substring(10);
+}
+
+string[] GetBaseTypesNames(string content)
+{
+	var value = new Regex(": [a-zA-Z0-9]+").Match(content).Value;
+	return value == string.Empty
+		? null
+		: value.TrimStart(':').TrimStart().Replace(",", string.Empty).Split(' ');
+}
+
+Tuple<string, string, string[]> ParseCs(string content)
+{
+	var className = GetClassName(content);
+	if (className == null)
+	{
+		return null;
+	}
+	if (IsStaticClass(content))
+	{
+		return null;
+	}
+	var namespaceString = GetNamespace(content);
+	var baseTypesNames = GetBaseTypesNames(content);
+	return new Tuple<string, string, string[]>(className, namespaceString, baseTypesNames);
+}
+
+IReadOnlyList<Tuple<string, string, string[]>> GetTypes()
+{	
+	return
+		GetAllCsFiles()
+		.Select(File.ReadAllText)
+		.Select(ParseCs)
+		.Where(info => info != null).ToList();
+}
+#>
+using System;
+using System.Collections.Generic;
+<# foreach (var namespaceString in GetTypes().Select(t => t.Item2).Where(n => n != null).Distinct()) { #>
+using <#= namespaceString #>;
+<# } #>
+
+namespace Photosphere.DependencyInjection.InnerStructure
+{
+	internal class ServiceLocator
+	{
+		private readonly IContainerConfiguration _configuration;
+		private readonly IDictionary<Type, Type[]> _map = new Dictionary<Type, Type[]>
+		{
+<# foreach (var type in GetTypes()) { #>
+			{ typeof (<#= type.Item1 #>), null },
+<# } #>
+		};
+
+		public ServiceLocator(IContainerConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+
+		public T Get<T>() where T : class => null;
+	}
+}
