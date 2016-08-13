@@ -33,6 +33,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.TestAssembly.Enumerable2", "Photosphere.DependencyInjection.TestAssembly.Enumerable2\Photosphere.DependencyInjection.TestAssembly.Enumerable2.csproj", "{22A5A087-F628-4938-9647-0AA5C74BDF0D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{78A4E2CD-0518-4091-AB46-EF53B00F4EC8}"
+	ProjectSection(SolutionItems) = preProject
+		..\.appveyor.yml = ..\.appveyor.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
