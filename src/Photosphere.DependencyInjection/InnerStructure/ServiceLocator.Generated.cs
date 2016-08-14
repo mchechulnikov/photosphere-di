@@ -36,8 +36,9 @@ namespace Photosphere.DependencyInjection.InnerStructure
 		{
 			_configuration = configuration;
 
-			var registry = new Registry();
 			var scopeKeeper = new ScopeKeeper();
+			_map.Add(typeof (IScopeKeeper), scopeKeeper);
+			var registry = new Registry();
 			var resolver = new Resolver(registry, scopeKeeper);
 			_map.Add(typeof (IResolver), resolver);
 		}

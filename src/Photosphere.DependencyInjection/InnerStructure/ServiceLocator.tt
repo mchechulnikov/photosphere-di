@@ -7,7 +7,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#
-var dependencies = new string[] { "IResolver" };
+var dependencies = new string[] { "IResolver", "IScopeKeeper" };
 
 string GetProjectPath()
 {
@@ -161,18 +161,21 @@ foreach (var type in typesInfos.Where(x => x.Item3 != null && Contains(x.Item3, 
 		{
 			var varName = GetVariableName(parameterClassInfo.Item1);
 			paramList.Add(varName);
-			if (!alreadyActivated.Contains(varName)) 
+			if (alreadyActivated.Contains(varName)) 
 			{
-				alreadyActivated.Add(varName);
+				continue;
 			}
 #>
 			var <#= varName #> = new <#= parameterClassInfo.Item1 #>();
-<#		} #>
+<#			alreadyActivated.Add(varName);
+		} #>
 			var <#= GetVariableName(type.Item1) #> = new <#= type.Item1 #>(<#= string.Join(", ", paramList) #>);
 <#	}
 	else
-	{ #>
-			var <#= GetVariableName(type.Item1) #> = new <#= type.Item1 #>();
+	{
+		var varName = GetVariableName(type.Item1);
+		alreadyActivated.Add(varName); #>
+			var <#= varName #> = new <#= type.Item1 #>();
 <#	} #>
 			_map.Add(typeof (<#= serviceName #>), <#= GetVariableName(type.Item1) #>);
 <#
