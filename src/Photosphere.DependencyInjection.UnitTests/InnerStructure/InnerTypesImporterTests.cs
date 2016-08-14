@@ -9,7 +9,7 @@ namespace Photosphere.DependencyInjection.UnitTests.InnerStructure
         private const string TypeDefinitionExample = "public class Foo : FooBase, IFoo, IBar";
 
         [Fact]
-        internal void Test1()
+        internal void ClassRegexp()
         {
             var value = new Regex("class [a-zA-Z0-9]+").Match(TypeDefinitionExample).Value;
             var actualString = value.Substring(6);
@@ -17,7 +17,7 @@ namespace Photosphere.DependencyInjection.UnitTests.InnerStructure
         }
 
         [Fact]
-        internal void Test2()
+        internal void BaseTypesRegexp()
         {
             var expected = new[] { "FooBase", "IFoo", "IBar" };
             foreach (var s in expected)
@@ -30,7 +30,7 @@ namespace Photosphere.DependencyInjection.UnitTests.InnerStructure
         }
 
         [Fact]
-        internal void Test3()
+        internal void CtorParametersTypesCtorRegexp()
         {
             const string str = @"
                 public class Foo : FooBase, IFoo, IBar
