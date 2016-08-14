@@ -30,45 +30,7 @@ namespace Photosphere.DependencyInjection.InnerStructure
 	internal class ServiceLocator
 	{
 		private readonly IContainerConfiguration _configuration;
-		private readonly IDictionary<Type, Type[]> _map = new Dictionary<Type, Type[]>
-		{
-			{ typeof (ContainerConfiguration), null },
-			{ typeof (DependencyContainer), null },
-			{ typeof (RegistryInitializer), null },
-			{ typeof (AssembliesProvider), null },
-			{ typeof (DependenciesCompositor), null },
-			{ typeof (CompositionRootProvider), null },
-			{ typeof (SeveralCompositionRootsWasFoundException), null },
-			{ typeof (DefaultCompositionRoot), null },
-			{ typeof (AssemblyBoundedRegistrator), null },
-			{ typeof (RegistrationFactory), null },
-			{ typeof (Registrator), null },
-			{ typeof (RegistratorProvider), null },
-			{ typeof (Registration), null },
-			{ typeof (Registry), null },
-			{ typeof (RegistrySaturator), null },
-			{ typeof (InstanceProvidingMethodGenerator), null },
-			{ typeof (InstanceProvidingMethodBodyGenerator), null },
-			{ typeof (GeneratingStrategyProvider), null },
-			{ typeof (EnumerableProvidingGeneratingStrategy), null },
-			{ typeof (IntantiationProvidingGeneratingStrategy), null },
-			{ typeof (PerContainerProvidingGeneratingStrategy), null },
-			{ typeof (PerRequestProvidingGeneratingStrategy), null },
-			{ typeof (ArrayInstantiatingGenerator), null },
-			{ typeof (ObjectInstantiatingGenerator), null },
-			{ typeof (ObjectGraphProvider), null },
-			{ typeof (ObjectGraph), null },
-			{ typeof (DetectedCycleDependencyException), null },
-			{ typeof (TypeNotRegisteredException), null },
-			{ typeof (InnerServiceLocator), null },
-			{ typeof (ServiceLocator), null },
-			{ typeof (ScopeKeeper), null },
-			{ typeof (PerContainerScope), null },
-			{ typeof (PerRequestScope), null },
-			{ typeof (Resolver), null },
-			{ typeof (AssemblyWrapper), null },
-			{ typeof (TypesProvider), null },
-		};
+		private readonly IDictionary<Type, object> _map = new Dictionary<Type, object>();
 
 		public ServiceLocator(IContainerConfiguration configuration)
 		{
@@ -77,8 +39,9 @@ namespace Photosphere.DependencyInjection.InnerStructure
 			var registry = new Registry();
 			var scopeKeeper = new ScopeKeeper();
 			var resolver = new Resolver(registry, scopeKeeper);
+			_map.Add(typeof (IResolver), resolver);
 		}
 
-		public T Get<T>() where T : class => null;
+		public T Get<T>() where T : class => (T) _map[typeof(T)];
 	}
 }

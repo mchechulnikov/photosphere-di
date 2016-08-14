@@ -7,6 +7,8 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#
+var dependencies = new string[] { "IResolver" };
+
 string GetProjectPath()
 {
 	var currentPath = Host.ResolvePath(string.Empty);
@@ -117,6 +119,18 @@ Tuple<string, string, string[], string[]> GetClassInfoByBaseTypeName(
 	return types.First(x => x.Item3.Contains(baseTypeName));
 }
 
+bool Contains(string[] source, string[] target)
+{
+	foreach(var item in target)
+	{
+		if (source.Contains(item))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 #>
 using System;
 using System.Collections.Generic;
@@ -129,30 +143,43 @@ namespace Photosphere.DependencyInjection.InnerStructure
 	internal class ServiceLocator
 	{
 		private readonly IContainerConfiguration _configuration;
-		private readonly IDictionary<Type, Type[]> _map = new Dictionary<Type, Type[]>
-		{
-<# foreach (var type in typesInfos) { #>
-			{ typeof (<#= type.Item1 #>), null },
-<# } #>
-		};
+		private readonly IDictionary<Type, object> _map = new Dictionary<Type, object>();
 
 		public ServiceLocator(IContainerConfiguration configuration)
 		{
 			_configuration = configuration;
 
 <#
-foreach (var type in typesInfos.Where(x => x.Item3 != null && x.Item3.Contains("IResolver"))) {
-var paramList = new List<string>();
-foreach (var parameterClassInfo in type.Item4.Select(pt => typesInfos.First(x => x.Item3 != null && x.Item3.Contains(pt)))) {
-var varName = GetVariableName(parameterClassInfo.Item1);
-paramList.Add(varName);
+var alreadyActivated = new HashSet<string>();
+foreach (var type in typesInfos.Where(x => x.Item3 != null && Contains(x.Item3, dependencies)))
+{
+	var paramList = new List<string>();
+	var serviceName = dependencies.First(x => type.Item3.Contains(x));
+	if (type.Item4 != null)
+	{
+		foreach (var parameterClassInfo in type.Item4.Select(pt => typesInfos.First(x => x.Item3 != null && x.Item3.Contains(pt))))
+		{
+			var varName = GetVariableName(parameterClassInfo.Item1);
+			paramList.Add(varName);
+			if (!alreadyActivated.Contains(varName)) 
+			{
+				alreadyActivated.Add(varName);
+			}
 #>
 			var <#= varName #> = new <#= parameterClassInfo.Item1 #>();
-<# } #>
+<#		} #>
 			var <#= GetVariableName(type.Item1) #> = new <#= type.Item1 #>(<#= string.Join(", ", paramList) #>);
-<# } #>
+<#	}
+	else
+	{ #>
+			var <#= GetVariableName(type.Item1) #> = new <#= type.Item1 #>();
+<#	} #>
+			_map.Add(typeof (<#= serviceName #>), <#= GetVariableName(type.Item1) #>);
+<#
+}
+#>
 		}
 
-		public T Get<T>() where T : class => null;
+		public T Get<T>() where T : class => (T) _map[typeof(T)];
 	}
 }
