@@ -42,7 +42,22 @@ string[] GetBaseTypesNames(string content)
 		: value.TrimStart(':').TrimStart().Replace(",", string.Empty).Split(' ');
 }
 
-Tuple<string, string, string[]> ParseCs(string content)
+string[] GetCtorParametersTypes(string content, string className)
+{
+	var value = new Regex(className + "( )*\\(([(this) \\w=]+,*( )*)+").Match(content).Value;
+	if (value == string.Empty)
+	{
+		return null;
+	}
+	return value
+		.Replace(className + "(", string.Empty)
+        .Replace("this ", string.Empty)
+        .Split(',')
+        .Select(x => x.Trim())
+        .Select(x => x.Split(' ').First()).ToArray();
+}
+
+Tuple<string, string, string[], string[]> ParseCs(string content)
 {
 	var className = GetClassName(content);
 	if (className == null)
@@ -55,10 +70,10 @@ Tuple<string, string, string[]> ParseCs(string content)
 	}
 	var namespaceString = GetNamespace(content);
 	var baseTypesNames = GetBaseTypesNames(content);
-	return new Tuple<string, string, string[]>(className, namespaceString, baseTypesNames);
+	return new Tuple<string, string, string[], string[]>(className, namespaceString, baseTypesNames, null);
 }
 
-IReadOnlyList<Tuple<string, string, string[]>> GetTypes()
+IReadOnlyList<Tuple<string, string, string[], string[]>> GetTypes()
 {	
 	return
 		GetAllCsFiles()
