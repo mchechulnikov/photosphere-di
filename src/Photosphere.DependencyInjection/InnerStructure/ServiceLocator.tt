@@ -7,7 +7,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#
-var dependencies = new string[] { "IResolver", "IScopeKeeper" };
+var dependencies = new string[] { "IRegistryInitializer", "IResolver", "IScopeKeeper" };
 
 string GetProjectPath()
 {
@@ -132,6 +132,36 @@ bool Contains(string[] source, string[] target)
 }
 
 #>
+<#
+void Recursive(string className0, string[] parametersTypes, HashSet<string> alreadyActivatedList)
+{
+	var paramList = new List<string>();	
+	if (parametersTypes == null) 
+	{ #>
+			var <#= GetVariableName(className0) #> = new <#= className0 #>();
+<#	
+		return;
+	}
+	foreach (
+		var parameterClassInfo in parametersTypes
+			.Select(pt => typesInfos.FirstOrDefault(x => x.Item3 != null && x.Item3.Contains(pt))).Where(x => x != null)
+	)
+	{
+		var varName = GetVariableName(parameterClassInfo.Item1);
+		paramList.Add(varName);
+
+		if (alreadyActivatedList.Contains(varName)) 
+		{
+			continue;
+		}
+		alreadyActivatedList.Add(varName);
+		Recursive(parameterClassInfo.Item1, parameterClassInfo.Item4, alreadyActivatedList);
+	}
+#>
+			var <#= GetVariableName(className0) #> = new <#= className0 #>(<#= string.Join(", ", paramList) #>);
+<#
+}
+#>
 using System;
 using System.Collections.Generic;
 <# foreach (var namespaceString in typesInfos.Select(t => t.Item2).Where(n => n != null).Distinct()) { #>
@@ -142,41 +172,33 @@ namespace Photosphere.DependencyInjection.InnerStructure
 {
 	internal class ServiceLocator
 	{
-		private readonly IContainerConfiguration _configuration;
 		private readonly IDictionary<Type, object> _map = new Dictionary<Type, object>();
 
-		public ServiceLocator(IContainerConfiguration configuration)
+		public ServiceLocator(IContainerConfiguration containerConfiguration)
 		{
-			_configuration = configuration;
-
 <#
 var alreadyActivated = new HashSet<string>();
+alreadyActivated.Add("containerConfiguration");
+
 foreach (var type in typesInfos.Where(x => x.Item3 != null && Contains(x.Item3, dependencies)))
 {
-	var paramList = new List<string>();
 	var serviceName = dependencies.First(x => type.Item3.Contains(x));
 	if (type.Item4 != null)
 	{
-		foreach (var parameterClassInfo in type.Item4.Select(pt => typesInfos.First(x => x.Item3 != null && x.Item3.Contains(pt))))
-		{
-			var varName = GetVariableName(parameterClassInfo.Item1);
-			paramList.Add(varName);
-			if (alreadyActivated.Contains(varName)) 
-			{
-				continue;
-			}
-#>
-			var <#= varName #> = new <#= parameterClassInfo.Item1 #>();
-<#			alreadyActivated.Add(varName);
-		} #>
-			var <#= GetVariableName(type.Item1) #> = new <#= type.Item1 #>(<#= string.Join(", ", paramList) #>);
-<#	}
+		Recursive(type.Item1, type.Item4, alreadyActivated);
+	}
 	else
 	{
 		var varName = GetVariableName(type.Item1);
-		alreadyActivated.Add(varName); #>
+		if (!alreadyActivated.Contains(varName)) 
+		{
+#>
 			var <#= varName #> = new <#= type.Item1 #>();
-<#	} #>
+<#
+			continue;
+		}
+		alreadyActivated.Add(varName);
+	} #>
 			_map.Add(typeof (<#= serviceName #>), <#= GetVariableName(type.Item1) #>);
 <#
 }

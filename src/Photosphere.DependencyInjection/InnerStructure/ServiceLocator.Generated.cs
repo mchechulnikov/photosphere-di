@@ -29,16 +29,27 @@ namespace Photosphere.DependencyInjection.InnerStructure
 {
 	internal class ServiceLocator
 	{
-		private readonly IContainerConfiguration _configuration;
 		private readonly IDictionary<Type, object> _map = new Dictionary<Type, object>();
 
-		public ServiceLocator(IContainerConfiguration configuration)
+		public ServiceLocator(IContainerConfiguration containerConfiguration)
 		{
-			_configuration = configuration;
-
-			var scopeKeeper = new ScopeKeeper();
-			_map.Add(typeof (IScopeKeeper), scopeKeeper);
+			var assembliesProvider = new AssembliesProvider(containerConfiguration);
+			var compositionRootProvider = new CompositionRootProvider(assembliesProvider);
 			var registry = new Registry();
+			var typesProvider = new TypesProvider();
+			var generatingStrategyProvider = new GeneratingStrategyProvider(null, null, null, null);
+			var objectGraphProvider = new ObjectGraphProvider(registry, generatingStrategyProvider);
+			var instanceProvidingMethodBodyGenerator = new InstanceProvidingMethodBodyGenerator();
+			var instanceProvidingMethodGenerator = new InstanceProvidingMethodGenerator(objectGraphProvider, instanceProvidingMethodBodyGenerator);
+			var registrationFactory = new RegistrationFactory(typesProvider, instanceProvidingMethodGenerator);
+			var assemblyBoundedRegistrator = new AssemblyBoundedRegistrator(registry, registrationFactory);
+			var registratorProvider = new RegistratorProvider(assemblyBoundedRegistrator);
+			var dependenciesCompositor = new DependenciesCompositor(compositionRootProvider, registratorProvider);
+			var scopeKeeper = new ScopeKeeper();
+			var registrySaturator = new RegistrySaturator(registry, scopeKeeper);
+			var registryInitializer = new RegistryInitializer(dependenciesCompositor, registrySaturator);
+			_map.Add(typeof (IRegistryInitializer), registryInitializer);
+			_map.Add(typeof (IScopeKeeper), scopeKeeper);
 			var resolver = new Resolver(registry, scopeKeeper);
 			_map.Add(typeof (IResolver), resolver);
 		}
