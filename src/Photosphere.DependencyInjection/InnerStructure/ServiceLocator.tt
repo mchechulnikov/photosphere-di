@@ -1,5 +1,5 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
-<#@ output extension=".Generated.cs" #>
+<#@ output extension=".generated.cs" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.IO" #>
@@ -28,6 +28,12 @@ bool IsStaticClass(string content)
 	return value != string.Empty;
 }
 
+bool IsAbstractClass(string content)
+{
+	var value = new Regex("abstract class").Match(content).Value;
+	return value != string.Empty;
+}
+
 string GetNamespace(string content)
 {
 	var value = new Regex("namespace [a-zA-Z0-9.]+").Match(content).Value;
@@ -44,17 +50,24 @@ string[] GetBaseTypesNames(string content)
 
 string[] GetCtorParametersTypes(string content, string className)
 {
-	var value = new Regex(className + "( )*\\(([(this) \\w=]+,*( )*)+").Match(content).Value;
+	var value = new Regex(className + "(\\s)*\\(((\\s)*[(this) \\w=]+,*(\\s)*)+").Match(content).Value;
 	if (value == string.Empty)
 	{
 		return null;
 	}
-	return value
+	var result = value
 		.Replace(className + "(", string.Empty)
+		.Replace(")", string.Empty)
         .Replace("this ", string.Empty)
         .Split(',')
         .Select(x => x.Trim())
-        .Select(x => x.Split(' ').First()).ToArray();
+        .Select(x => x.Split(' ').First())
+		.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+	if (result.Count() == 0)
+	{
+		return null;
+	}
+	return result;
 }
 
 Tuple<string, string, string[], string[]> ParseCs(string content)
@@ -68,23 +81,46 @@ Tuple<string, string, string[], string[]> ParseCs(string content)
 	{
 		return null;
 	}
-	var namespaceString = GetNamespace(content);
+	if (IsAbstractClass(content))
+	{
+		return null;
+	}
 	var baseTypesNames = GetBaseTypesNames(content);
-	return new Tuple<string, string, string[], string[]>(className, namespaceString, baseTypesNames, null);
+	if (baseTypesNames != null && baseTypesNames.Contains("Attribute"))
+	{
+		return null;
+	}
+	return new Tuple<string, string, string[], string[]>(
+		className,
+		GetNamespace(content),
+		baseTypesNames,
+		GetCtorParametersTypes(content, className)
+	);
 }
 
-IReadOnlyList<Tuple<string, string, string[], string[]>> GetTypes()
-{	
-	return
-		GetAllCsFiles()
-		.Select(File.ReadAllText)
-		.Select(ParseCs)
-		.Where(info => info != null).ToList();
+IReadOnlyList<Tuple<string, string, string[], string[]>> GetTypes() =>
+	GetAllCsFiles()
+	.Select(File.ReadAllText)
+	.Select(ParseCs)
+	.Where(info => info != null).ToList();
+
+var typesInfos = GetTypes();
+
+string GetVariableName(string className) =>
+	char.ToLowerInvariant(className[0]) + className.Substring(1);
+
+Tuple<string, string, string[], string[]> GetClassInfoByBaseTypeName(
+	string baseTypeName,
+	IReadOnlyList<Tuple<string, string, string[], string[]>> types
+)
+{
+	return types.First(x => x.Item3.Contains(baseTypeName));
 }
+
 #>
 using System;
 using System.Collections.Generic;
-<# foreach (var namespaceString in GetTypes().Select(t => t.Item2).Where(n => n != null).Distinct()) { #>
+<# foreach (var namespaceString in typesInfos.Select(t => t.Item2).Where(n => n != null).Distinct()) { #>
 using <#= namespaceString #>;
 <# } #>
 
@@ -95,7 +131,7 @@ namespace Photosphere.DependencyInjection.InnerStructure
 		private readonly IContainerConfiguration _configuration;
 		private readonly IDictionary<Type, Type[]> _map = new Dictionary<Type, Type[]>
 		{
-<# foreach (var type in GetTypes()) { #>
+<# foreach (var type in typesInfos) { #>
 			{ typeof (<#= type.Item1 #>), null },
 <# } #>
 		};
@@ -103,6 +139,18 @@ namespace Photosphere.DependencyInjection.InnerStructure
 		public ServiceLocator(IContainerConfiguration configuration)
 		{
 			_configuration = configuration;
+
+<#
+foreach (var type in typesInfos.Where(x => x.Item3 != null && x.Item3.Contains("IResolver"))) {
+var paramList = new List<string>();
+foreach (var parameterClassInfo in type.Item4.Select(pt => typesInfos.First(x => x.Item3 != null && x.Item3.Contains(pt)))) {
+var varName = GetVariableName(parameterClassInfo.Item1);
+paramList.Add(varName);
+#>
+			var <#= varName #> = new <#= parameterClassInfo.Item1 #>();
+<# } #>
+			var <#= GetVariableName(type.Item1) #> = new <#= type.Item1 #>(<#= string.Join(", ", paramList) #>);
+<# } #>
 		}
 
 		public T Get<T>() where T : class => null;

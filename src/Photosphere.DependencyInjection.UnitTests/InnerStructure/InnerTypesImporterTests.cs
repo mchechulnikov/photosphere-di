@@ -35,12 +35,14 @@ namespace Photosphere.DependencyInjection.UnitTests.InnerStructure
             const string str = @"
                 public class Foo : FooBase, IFoo, IBar
                 {
-                  public Foo(this IBuz buz, IQiz qiz = null)
+                  public Foo(
+                    this IBuz buz,
+                    IQiz qiz = null)
                   {
                   }
                 }";
             var expected = new [] { "IBuz", "IQiz" };
-            var result = new Regex("Foo\\(([(this) \\w=]+,*( )*)+")
+            var result = new Regex("Foo(\\s)*\\(((\\s)*[(this) \\w=]+,*(\\s)*)+")
                 .Match(str).Value
                 .Replace("Foo(", string.Empty)
                 .Replace("this ", string.Empty)
@@ -51,6 +53,25 @@ namespace Photosphere.DependencyInjection.UnitTests.InnerStructure
             {
                 Assert.Contains(s, result);
             }
+        }
+
+        [Fact]
+        internal void CtorParametersTypesCtorRegexp_EmptyCtor()
+        {
+            const string str = @"
+                public class Foo : FooBase, IFoo, IBar
+                {
+                  public Foo() {}
+                }";
+            var result = new Regex("Foo(\\s)*\\(((\\s)*[(this) \\w=]+,*(\\s)*)+")
+                .Match(str).Value
+                .Replace("Foo(", string.Empty)
+                .Replace(")", string.Empty)
+                .Replace("this ", string.Empty)
+                .Split(',')
+                .Select(x => x.Trim())
+                .Select(x => x.Split(' ').First()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            Assert.Empty(result);
         }
     }
 }

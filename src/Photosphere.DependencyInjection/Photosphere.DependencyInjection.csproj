@@ -81,13 +81,12 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="IDependencyContainer.cs" />
     <Compile Include="IContainerConfiguration.cs" />
-    <Compile Include="InnerStructure\InnerTypesImporter.cs" />
-    <Compile Include="InnerStructure\ServiceLocator.Generated.cs">
+    <Compile Include="InnerStructure\InnerServiceLocator.cs" />
+    <Compile Include="InnerStructure\ServiceLocator.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ServiceLocator.tt</DependentUpon>
     </Compile>
-    <Compile Include="InnerStructure\InnerServiceLocator.cs" />
     <Compile Include="LifetimeManagement\Scopes\IPerContainerScope.cs" />
     <Compile Include="LifetimeManagement\Scopes\IPerRequestScope.cs" />
     <Compile Include="LifetimeManagement\Scopes\IScope.cs" />
@@ -141,7 +140,7 @@
   <ItemGroup>
     <Content Include="InnerStructure\ServiceLocator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ServiceLocator.Generated.cs</LastGenOutput>
+      <LastGenOutput>ServiceLocator.generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

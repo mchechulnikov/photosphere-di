@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Photosphere.DependencyInjection;
-using Photosphere.DependencyInjection.Attributes;
 using Photosphere.DependencyInjection.Initialization;
 using Photosphere.DependencyInjection.Initialization.Analysis.Assemblies;
 using Photosphere.DependencyInjection.Initialization.Analysis.Composition;
@@ -35,9 +34,6 @@ namespace Photosphere.DependencyInjection.InnerStructure
 		{
 			{ typeof (ContainerConfiguration), null },
 			{ typeof (DependencyContainer), null },
-			{ typeof (CompositionRootAttribute), null },
-			{ typeof (RegisterDependenciesAttribute), null },
-			{ typeof (RegisterDependenciesByAttribute), null },
 			{ typeof (RegistryInitializer), null },
 			{ typeof (AssembliesProvider), null },
 			{ typeof (DependenciesCompositor), null },
@@ -55,19 +51,16 @@ namespace Photosphere.DependencyInjection.InnerStructure
 			{ typeof (InstanceProvidingMethodBodyGenerator), null },
 			{ typeof (GeneratingStrategyProvider), null },
 			{ typeof (EnumerableProvidingGeneratingStrategy), null },
-			{ typeof (GeneratingStrategyBase), null },
 			{ typeof (IntantiationProvidingGeneratingStrategy), null },
 			{ typeof (PerContainerProvidingGeneratingStrategy), null },
 			{ typeof (PerRequestProvidingGeneratingStrategy), null },
 			{ typeof (ArrayInstantiatingGenerator), null },
-			{ typeof (InstantiatingGeneratorBase), null },
 			{ typeof (ObjectInstantiatingGenerator), null },
 			{ typeof (ObjectGraphProvider), null },
 			{ typeof (ObjectGraph), null },
 			{ typeof (DetectedCycleDependencyException), null },
 			{ typeof (TypeNotRegisteredException), null },
 			{ typeof (InnerServiceLocator), null },
-			{ typeof (InnerTypesImporter), null },
 			{ typeof (ServiceLocator), null },
 			{ typeof (ScopeKeeper), null },
 			{ typeof (PerContainerScope), null },
@@ -80,6 +73,10 @@ namespace Photosphere.DependencyInjection.InnerStructure
 		public ServiceLocator(IContainerConfiguration configuration)
 		{
 			_configuration = configuration;
+
+			var registry = new Registry();
+			var scopeKeeper = new ScopeKeeper();
+			var resolver = new Resolver(registry, scopeKeeper);
 		}
 
 		public T Get<T>() where T : class => null;
