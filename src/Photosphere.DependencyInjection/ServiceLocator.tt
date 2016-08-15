@@ -12,8 +12,7 @@ var dependencies = new string[] { "IRegistryInitializer", "IResolver", "IScopeKe
 string GetProjectPath()
 {
 	var currentPath = Host.ResolvePath(string.Empty);
-	var rawProjectPath = Path.Combine(currentPath, "..\\");
-	return Path.GetFullPath(rawProjectPath).Replace("\\", "\\\\");
+	return Path.GetFullPath(currentPath).Replace("\\", "\\\\");
 }
 
 string[] GetAllCsFiles() => Directory.GetFiles(GetProjectPath(), "*.cs", SearchOption.AllDirectories);
@@ -44,20 +43,28 @@ string GetNamespace(string content)
 
 string[] GetBaseTypesNames(string content)
 {
-	var value = new Regex(": [a-zA-Z0-9]+").Match(content).Value;
-	return value == string.Empty
-		? null
-		: value.TrimStart(':').TrimStart().Replace(",", string.Empty).Split(' ');
+	var value = new Regex(":\\s*([a-zA-Z0-9]+,*\\s*)+").Match(content).Value;
+	if (value == string.Empty)
+	{
+		return null;
+	}
+	var result = value.TrimStart(':').Trim().Replace(",", string.Empty);
+	if (!result.Contains(" "))
+	{
+		return new [] { result };
+	}
+	return result.Split(' ');
 }
 
 string[] GetCtorParametersTypes(string content, string className)
 {
-	var value = new Regex(className + "(\\s)*\\(((\\s)*[(this) \\w=]+,*(\\s)*)+").Match(content).Value;
+	var value = new Regex(className + "\\s*\\((\\s*[(this) \\w=]+,*\\s*)+").Match(content).Value;
 	if (value == string.Empty)
 	{
 		return null;
 	}
 	var result = value
+		.Trim()
 		.Replace(className + "(", string.Empty)
 		.Replace(")", string.Empty)
         .Replace("this ", string.Empty)
@@ -137,7 +144,8 @@ void Recursive(string className0, string[] parametersTypes, HashSet<string> alre
 {
 	var paramList = new List<string>();	
 	if (parametersTypes == null) 
-	{ #>
+	{
+#>
 			var <#= GetVariableName(className0) #> = new <#= className0 #>();
 <#	
 		return;
@@ -164,7 +172,9 @@ void Recursive(string className0, string[] parametersTypes, HashSet<string> alre
 #>
 using System;
 using System.Collections.Generic;
-<# foreach (var namespaceString in typesInfos.Select(t => t.Item2).Where(n => n != null).Distinct()) { #>
+<#
+foreach (var namespaceString in typesInfos.Select(t => t.Item2).Where(n => n != null).Distinct())
+{ #>
 using <#= namespaceString #>;
 <# } #>
 

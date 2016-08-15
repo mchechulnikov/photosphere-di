@@ -20,12 +20,12 @@ namespace Photosphere.DependencyInjection.UnitTests.InnerStructure
         internal void BaseTypesRegexp()
         {
             var expected = new[] { "FooBase", "IFoo", "IBar" };
+            var actual = new Regex(":\\s*([a-zA-Z0-9]+,*\\s*)+")
+                    .Match(TypeDefinitionExample).Value
+                    .TrimStart(':').TrimStart().Replace(",", string.Empty).Split(' ');
             foreach (var s in expected)
             {
-                Assert.Contains(s,
-                    new Regex(":( )*([a-zA-Z0-9]+(, )*)+")
-                    .Match(TypeDefinitionExample).Value
-                    .TrimStart(':').TrimStart().Replace(",", string.Empty).Split(' '));
+                Assert.Contains(s, actual);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Photosphere.DependencyInjection;
+using Photosphere.DependencyInjection.InnerStructure;
 using Photosphere.DependencyInjection.Initialization;
 using Photosphere.DependencyInjection.Initialization.Analysis.Assemblies;
 using Photosphere.DependencyInjection.Initialization.Analysis.Composition;
@@ -18,7 +19,6 @@ using Photosphere.DependencyInjection.Initialization.Saturation.Generation.Metho
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation.ObjectGraphs;
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation.ObjectGraphs.DataTransferObjects;
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation.ObjectGraphs.Exceptions;
-using Photosphere.DependencyInjection.InnerStructure;
 using Photosphere.DependencyInjection.LifetimeManagement;
 using Photosphere.DependencyInjection.LifetimeManagement.Scopes;
 using Photosphere.DependencyInjection.Resolving;
@@ -37,7 +37,14 @@ namespace Photosphere.DependencyInjection.InnerStructure
 			var compositionRootProvider = new CompositionRootProvider(assembliesProvider);
 			var registry = new Registry();
 			var typesProvider = new TypesProvider();
-			var generatingStrategyProvider = new GeneratingStrategyProvider(null, null, null, null);
+			var objectInstantiatingGenerator = new ObjectInstantiatingGenerator();
+			var intantiationProvidingGeneratingStrategy = new IntantiationProvidingGeneratingStrategy(objectInstantiatingGenerator);
+			var scopeKeeper = new ScopeKeeper();
+			var perRequestProvidingGeneratingStrategy = new PerRequestProvidingGeneratingStrategy(scopeKeeper, objectInstantiatingGenerator);
+			var perContainerProvidingGeneratingStrategy = new PerContainerProvidingGeneratingStrategy(scopeKeeper, objectInstantiatingGenerator);
+			var arrayInstantiatingGenerator = new ArrayInstantiatingGenerator();
+			var enumerableProvidingGeneratingStrategy = new EnumerableProvidingGeneratingStrategy(arrayInstantiatingGenerator);
+			var generatingStrategyProvider = new GeneratingStrategyProvider(intantiationProvidingGeneratingStrategy, perRequestProvidingGeneratingStrategy, perContainerProvidingGeneratingStrategy, enumerableProvidingGeneratingStrategy);
 			var objectGraphProvider = new ObjectGraphProvider(registry, generatingStrategyProvider);
 			var instanceProvidingMethodBodyGenerator = new InstanceProvidingMethodBodyGenerator();
 			var instanceProvidingMethodGenerator = new InstanceProvidingMethodGenerator(objectGraphProvider, instanceProvidingMethodBodyGenerator);
@@ -45,7 +52,6 @@ namespace Photosphere.DependencyInjection.InnerStructure
 			var assemblyBoundedRegistrator = new AssemblyBoundedRegistrator(registry, registrationFactory);
 			var registratorProvider = new RegistratorProvider(assemblyBoundedRegistrator);
 			var dependenciesCompositor = new DependenciesCompositor(compositionRootProvider, registratorProvider);
-			var scopeKeeper = new ScopeKeeper();
 			var registrySaturator = new RegistrySaturator(registry, scopeKeeper);
 			var registryInitializer = new RegistryInitializer(dependenciesCompositor, registrySaturator);
 			_map.Add(typeof (IRegistryInitializer), registryInitializer);
