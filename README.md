@@ -22,7 +22,6 @@ PM> Install-Package Photosphere.DependencyInjection
 * [Easy to use](https://github.com/sunloving/photosphere-di#easy-to-use)
 * [Collections injecting](https://github.com/sunloving/photosphere-di#collections-injecting)
 * [Generic registration](https://github.com/sunloving/photosphere-di#generic-registration)
-* [Disposable](https://github.com/sunloving/photosphere-di#disposable)
 * [Integrations](https://github.com/sunloving/photosphere-di#integrations)
 
 ### Fast resolving
