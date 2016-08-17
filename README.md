@@ -174,13 +174,5 @@ or receive multiple constructed type
 var bars = container.GetAllInstances<IGenericService<Bar>>();
 ```
 
-### Disposable
-``` C#
-using (var container = new DependencyContainer())
-{
-  // Objects that resolved here will beсome unreacheble outside this scope
-}
-```
-
 ### Integrations
 * [Photosphere.DependencyInjection.xUnit](https://github.com/sunloving/photosphere-di-xunit)
