@@ -25,6 +25,7 @@ using Photosphere.DependencyInjection.Resolving;
 using Photosphere.DependencyInjection.SystemExtends.Reflection;
 using Photosphere.DependencyInjection.Types;
 
+
 namespace Photosphere.DependencyInjection.InnerStructure
 {
 	internal class ServiceLocator
@@ -54,12 +55,14 @@ namespace Photosphere.DependencyInjection.InnerStructure
 			var dependenciesCompositor = new DependenciesCompositor(compositionRootProvider, registratorProvider);
 			var registrySaturator = new RegistrySaturator(registry, scopeKeeper);
 			var registryInitializer = new RegistryInitializer(dependenciesCompositor, registrySaturator);
-			_map.Add(typeof (IRegistryInitializer), registryInitializer);
-			_map.Add(typeof (IScopeKeeper), scopeKeeper);
+			_map.Add(typeof(IRegistryInitializer), registryInitializer);
+			_map.Add(typeof(IScopeKeeper), scopeKeeper);
 			var resolver = new Resolver(registry, scopeKeeper);
-			_map.Add(typeof (IResolver), resolver);
+			_map.Add(typeof(IResolver), resolver);
+
 		}
 
 		public T Get<T>() where T : class => (T) _map[typeof(T)];
 	}
 }
+

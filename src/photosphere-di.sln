@@ -38,6 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{78A4E2CD
 		..\.appveyor.yml = ..\.appveyor.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.ServiceLocating", "Photosphere.ServiceLocating\Photosphere.ServiceLocating.csproj", "{73EC53C1-1E47-4042-8A1E-D7995BD2B3D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,10 @@ Global
 		{22A5A087-F628-4938-9647-0AA5C74BDF0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22A5A087-F628-4938-9647-0AA5C74BDF0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22A5A087-F628-4938-9647-0AA5C74BDF0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73EC53C1-1E47-4042-8A1E-D7995BD2B3D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73EC53C1-1E47-4042-8A1E-D7995BD2B3D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73EC53C1-1E47-4042-8A1E-D7995BD2B3D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73EC53C1-1E47-4042-8A1E-D7995BD2B3D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

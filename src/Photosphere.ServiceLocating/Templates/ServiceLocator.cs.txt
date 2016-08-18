@@ -1,0 +1,18 @@
+using System;
+using System.Collections.Generic;
+{0}
+
+namespace Photosphere.DependencyInjection.InnerStructure
+{{
+	internal class {1}ServiceLocator
+	{{
+		private readonly IDictionary<Type, object> _map = new Dictionary<Type, object>();
+
+		public {1}ServiceLocator({2})
+		{{
+{3}
+		}}
+
+		public T Get<T>() where T : class => (T) _map[typeof(T)];
+	}}
+}}
