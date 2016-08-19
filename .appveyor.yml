@@ -44,7 +44,3 @@ deploy:
     skip_symbols: false
     symbol_server: nuget.smbsrc.net
     artifact: $(projectName).$(APPVEYOR_BUILD_VERSION).nupkg
-
-test:
-  assemblies:
-    - '*Tests.dll'
