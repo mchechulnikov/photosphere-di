@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Photosphere.DependencyInjection;
+using Photosphere.DependencyInjection.InnerStructure;
 using Photosphere.DependencyInjection.Initialization;
 using Photosphere.DependencyInjection.Initialization.Analysis.Assemblies;
 using Photosphere.DependencyInjection.Initialization.Analysis.Composition;
