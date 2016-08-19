@@ -1,20 +1,17 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ output extension=".generated.cs" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="$(SolutionDir)\Photosphere.ServiceLocating\bin\Debug\Photosphere.ServiceLocating.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)Photosphere.ServiceLocatorGeneration.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
-<#@ import namespace="Photosphere.ServiceLocating" #>
-<#
-var generator = new ServiceLocatorGenerator(
+<#@ import namespace="Photosphere.ServiceLocatorGeneration" #>
+<#= new ServiceLocatorGenerator(
 	Host.ResolvePath(string.Empty),
 
 	"IRegistryInitializer",
 	"IResolver",
 	"IScopeKeeper"
-);
-#>
-<#= generator.Generate() #>
+).Generate() #>

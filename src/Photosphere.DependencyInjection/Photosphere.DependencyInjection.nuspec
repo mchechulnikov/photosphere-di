@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>Photosphere.DependencyInjection</id>
+    <id>$(ProjectName)</id>
     <version>0.0.0.0</version>
     <authors>Maxim Chechulnikov</authors>
     <description>Simple dependency injection framework based on emitting CIL code.</description>
@@ -10,6 +10,6 @@
     <licenseUrl>https://github.com/sunloving/photosphere-di/blob/master/LICENSE</licenseUrl>
   </metadata>
   <files>
-    <file src="bin\Release\*.dll" target="lib" />
+    <file src="$(OutDir)$(ProjectName).dll" target="lib" />
   </files>
 </package>
