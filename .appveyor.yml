@@ -47,5 +47,5 @@ deploy:
 
 test:
   assemblies:
-    - 'Photosphere.DependencyInjection.UnitTests.dll'
-	- 'Photosphere.DependencyInjection.IntegrationTests.dll'
+    - Photosphere.DependencyInjection.UnitTests.dll
+	- Photosphere.DependencyInjection.IntegrationTests.dll
