@@ -10,7 +10,7 @@ namespace Photosphere.DependencyInjection.InnerStructure
 
 		public {1}ServiceLocator({2})
 		{{
-{3}
+			{3}
 		}}
 
 		public T Get<T>() where T : class => (T) _map[typeof(T)];
