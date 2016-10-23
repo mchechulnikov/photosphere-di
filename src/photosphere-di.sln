@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photosphere.DependencyInjection.UnitTests", "tests\Photosphere.DependencyInjection.UnitTests\Photosphere.DependencyInjection.UnitTests.csproj", "{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "tests\test-assemblies\TestApp\TestApp.csproj", "{A2DFAA5C-81F7-4B6B-822D-D7DCF140CCF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2DFAA5C-81F7-4B6B-822D-D7DCF140CCF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2DFAA5C-81F7-4B6B-822D-D7DCF140CCF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2DFAA5C-81F7-4B6B-822D-D7DCF140CCF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2DFAA5C-81F7-4B6B-822D-D7DCF140CCF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,5 +115,6 @@ Global
 		{9A64A9C1-F2FC-47C6-BE33-BC9D88A003B0} = {0A04C4C0-0D50-4179-965C-B72A6A041A58}
 		{15F04CA5-4C9F-4DA0-93D9-CA8798D62FC6} = {E952F7F1-0525-4923-A6DB-896C9A1B3212}
 		{1DCA2C80-93EE-4550-ACF1-BEFC95DDA60C} = {E952F7F1-0525-4923-A6DB-896C9A1B3212}
+		{A2DFAA5C-81F7-4B6B-822D-D7DCF140CCF4} = {0A04C4C0-0D50-4179-965C-B72A6A041A58}
 	EndGlobalSection
 EndGlobal

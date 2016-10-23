@@ -27,7 +27,7 @@ namespace Photosphere.DependencyInjection.Initialization.Saturation.Generation
         {
             var dynamicMethod = CreateDynamicMethod(serviceType);
             DefineParameters(dynamicMethod);
-            Generate(dynamicMethod, serviceType);
+            GenerateBody(dynamicMethod, serviceType);
             return CreateDelegate(dynamicMethod, serviceType);
         }
 
@@ -42,7 +42,7 @@ namespace Photosphere.DependencyInjection.Initialization.Saturation.Generation
             dynamicMethod.DefineParameter(1, ParameterAttributes.None, "perContainerInstances");
         }
 
-        private void Generate(DynamicMethod dynamicMethod, Type targetType)
+        private void GenerateBody(DynamicMethod dynamicMethod, Type targetType)
         {
             _methodBodyGenerator.Generate(new GeneratingDesign
             {

@@ -26,7 +26,11 @@ namespace Photosphere.DependencyInjection.Initialization
             }
             catch (AggregateException aggregateException)
             {
-                throw aggregateException.InnerException;
+                if (aggregateException.InnerException != null)
+                {
+                    throw aggregateException.InnerException;
+                }
+                throw;
             }
         }
     }
