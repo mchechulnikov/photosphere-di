@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{401B3C35-433C-49FA-A0C8-72D976001866}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestAssembly.Generic</RootNamespace>
+    <AssemblyName>TestAssembly.Generic</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GenericTestCompositionRoot.cs" />
+    <Compile Include="Generic\BarForGeneric.cs" />
+    <Compile Include="Generic\FooForGeneric.cs" />
+    <Compile Include="Generic\GenericServiceByBar1.cs" />
+    <Compile Include="Generic\GenericServiceByBar2.cs" />
+    <Compile Include="Generic\GenericServiceByFooClass.cs" />
+    <Compile Include="Generic\GenericServiceByFooInterface.cs" />
+    <Compile Include="Generic\GenericServiceClass.cs" />
+    <Compile Include="Generic\GenericServiceDerivedClass.cs" />
+    <Compile Include="Generic\GenericServiceDerivedClassBar1.cs" />
+    <Compile Include="Generic\GenericServiceDerivedClassBar2.cs" />
+    <Compile Include="Generic\IBarForGeneric.cs" />
+    <Compile Include="Generic\IFooForGeneric.cs" />
+    <Compile Include="Generic\IGenericService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Photosphere.DependencyInjection\Photosphere.DependencyInjection.csproj">
+      <Project>{452e8e26-5885-4e8d-9e56-8f08bf1198dd}</Project>
+      <Name>Photosphere.DependencyInjection</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
