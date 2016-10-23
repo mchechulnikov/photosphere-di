@@ -9,11 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test-assemblies", "test-ass
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E952F7F1-0525-4923-A6DB-896C9A1B3212}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{78A4E2CD-0518-4091-AB46-EF53B00F4EC8}"
-	ProjectSection(SolutionItems) = preProject
-		..\.appveyor.yml = ..\.appveyor.yml
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAssembly.CommonInterface", "tests\test-assemblies\TestAssembly.CommonInterface\TestAssembly.CommonInterface.csproj", "{D368BD42-62D4-4BD6-956B-5DE230F42F05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAssembly.Cycles", "tests\test-assemblies\TestAssembly.Cycles\TestAssembly.Cycles.csproj", "{AADA01AF-AE4E-444C-8606-0ECC59B22078}"
