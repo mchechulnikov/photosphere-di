@@ -1,23 +1,23 @@
 ﻿using System;
 using Photosphere.DependencyInjection.Initialization.Registrations.ValueObjects;
-using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.Services.GeneratingStrategies;
+using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.SomeServices.GeneratingStrategies;
 
-namespace Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.Services
+namespace Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.SomeServices
 {
     internal class GeneratingStrategyProvider : IGeneratingStrategyProvider
     {
-        private readonly IIntantiationProvidingGeneratingStrategy _intantiationProvidingGeneratingStrategy;
+        private readonly IInstantiationProvidingGeneratingStrategy _instantiationProvidingGeneratingStrategy;
         private readonly IPerRequestProvidingGeneratingStrategy _perRequestProvidingGeneratingStrategy;
         private readonly IPerContainerProvidingGeneratingStrategy _perContainerProvidingGeneratingStrategy;
         private readonly IEnumerableProvidingGeneratingStrategy _enumerableProvidingGeneratingStrategy;
 
         public GeneratingStrategyProvider(
-            IIntantiationProvidingGeneratingStrategy intantiationProvidingGeneratingStrategy,
+            IInstantiationProvidingGeneratingStrategy instantiationProvidingGeneratingStrategy,
             IPerRequestProvidingGeneratingStrategy perRequestProvidingGeneratingStrategy,
             IPerContainerProvidingGeneratingStrategy perContainerProvidingGeneratingStrategy,
             IEnumerableProvidingGeneratingStrategy enumerableProvidingGeneratingStrategy)
         {
-            _intantiationProvidingGeneratingStrategy = intantiationProvidingGeneratingStrategy;
+            _instantiationProvidingGeneratingStrategy = instantiationProvidingGeneratingStrategy;
             _perRequestProvidingGeneratingStrategy = perRequestProvidingGeneratingStrategy;
             _perContainerProvidingGeneratingStrategy = perContainerProvidingGeneratingStrategy;
             _enumerableProvidingGeneratingStrategy = enumerableProvidingGeneratingStrategy;
@@ -32,7 +32,7 @@ namespace Photosphere.DependencyInjection.Initialization.Saturation.Generation.M
             switch (registration.Lifetime)
             {
                 case Lifetime.AlwaysNew:
-                    return _intantiationProvidingGeneratingStrategy;
+                    return _instantiationProvidingGeneratingStrategy;
                 case Lifetime.PerRequest:
                     return _perRequestProvidingGeneratingStrategy;
                 case Lifetime.PerContainer:

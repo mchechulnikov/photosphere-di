@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Photosphere.DependencyInjection.Extensions;
 using Photosphere.DependencyInjection.Initialization.Registrations.ValueObjects;
-using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.Services;
+using Photosphere.DependencyInjection.Initialization.Saturation.Generation.MethodBodyGenerating.SomeServices;
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation.ObjectGraphs.DataTransferObjects;
 using Photosphere.DependencyInjection.Initialization.Saturation.Generation.ObjectGraphs.Exceptions;
 

@@ -48,10 +48,6 @@
       <Project>{452e8e26-5885-4e8d-9e56-8f08bf1198dd}</Project>
       <Name>Photosphere.DependencyInjection</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestAssembly.Stress\TestAssembly.Stress.csproj">
-      <Project>{9a64a9c1-f2fc-47c6-be33-bc9d88a003b0}</Project>
-      <Name>TestAssembly.Stress</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
