@@ -1,7 +1,7 @@
 skip_commits:
   message: /((Create.*\.md)|(Update.*\.md))/
 
-version: 0.8.2.{build}-alpha
+version: 0.8.2.{build}
 
 configuration: Release
 
