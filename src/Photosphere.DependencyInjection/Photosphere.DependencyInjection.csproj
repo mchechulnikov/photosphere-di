@@ -37,10 +37,6 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Photosphere.ServiceLocatorGeneration, Version=0.0.4.11, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Photosphere.ServiceLocatorGeneration.0.0.4.11\lib\net461\Photosphere.ServiceLocatorGeneration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -120,11 +116,7 @@
     <Compile Include="Initialization\RegistryInitializer.cs" />
     <Compile Include="Initialization\Registrations\Registrator.cs" />
     <Compile Include="Initialization\Saturation\RegistrySaturator.cs" />
-    <Compile Include="ServiceLocator.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ServiceLocator.tt</DependentUpon>
-    </Compile>
+    <Compile Include="ServiceLocator.cs" />
     <Compile Include="SystemExtends\Reflection\AssemblyWrapper.cs" />
     <Compile Include="SystemExtends\Reflection\IAssemblyWrapper.cs" />
     <Compile Include="Initialization\Registrations\ValueObjects\IRegistration.cs" />
@@ -139,15 +131,7 @@
     <Compile Include="Types\TypesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Photosphere.DependencyInjection.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ServiceLocator.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ServiceLocator.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Templates\ServiceLocator.cs.txt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
